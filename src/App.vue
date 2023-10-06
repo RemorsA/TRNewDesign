@@ -1,6 +1,7 @@
 <script setup>
 	import Menu from './Menu.vue'
 	import { ref } from 'vue'
+	import router from './router'
 
 	let isAccountDialog = ref(false)
 	let isFastRequestDialog = ref(false)
@@ -19,18 +20,19 @@
 
 		<el-scrollbar max-height="100vh" native>
 			<div class="page">
+				<h1 class="page-title">
+					{{ router.currentRoute.value.meta.title }}
+				</h1>
+
 				<router-view></router-view>
 			</div>
 		</el-scrollbar>
 	</div>
 
-	<el-dialog
-		draggable
-        align-center
-        append-to-body
+	<el-drawer
 		v-model="isFastRequestDialog"
 		title="Быстрый запрос по артикулу"
-		width="80%"
+		size="70%"
     >
 		<div class="el-dialog-fast_request">
 			<el-input
@@ -49,7 +51,7 @@
 			</el-button>
 		</div>
 
-		<el-card class="el-dialog-request_response">
+		<div class="el-dialog-request_response">
 			<div class="request_response-content">
 				<el-image class="request_response-content--picture"
 					fit="cover"
@@ -59,16 +61,16 @@
 					preview-teleported
 				></el-image>
 
-				<el-descriptions border style="width: 100%" :column="1">
-					<el-descriptions-item label="Ваш кат. номер">
-						00000038823
-					</el-descriptions-item>
-
+				<el-descriptions border style="width: 100%" :column="2">
 					<el-descriptions-item label="Наименование">
 						Аммортизатор вальца катка
 					</el-descriptions-item>
 
-					<el-descriptions-item label="Посмотреть замеры">
+					<el-descriptions-item label="Ваш кат. номер">
+						00000038823
+					</el-descriptions-item>
+
+					<el-descriptions-item label="Замеры">
 						<el-button
 							link
 							icon="Search"
@@ -81,26 +83,77 @@
 				</el-descriptions>
 			</div>
 
-			<el-table border style="margin-top: 20px; white-space: nowrap !important;">
-				<el-table-column label="Комментарий к позиции" prop=""></el-table-column>
+			<el-table style="margin-top: 20px;" table-layout="auto">
+				<el-table-column label="Комментарий" prop=""></el-table-column>
 				<el-table-column label="Кол-во. (запрошено)" prop=""></el-table-column>
 				<el-table-column label="Ед. изм." prop=""></el-table-column>
 				<el-table-column label="Склад" prop=""></el-table-column>
 				<el-table-column label="Страна" prop=""></el-table-column>
 				<el-table-column label="Вес, кг." prop=""></el-table-column>
-				<el-table-column label="Количество, шт." prop=""></el-table-column>
+				<el-table-column label="Кол. шт." prop=""></el-table-column>
 				<el-table-column label="Цена за ед." prop=""></el-table-column>
 				<el-table-column label="Сумма, руб." prop=""></el-table-column>
 				<el-table-column label="РРЦ" prop=""></el-table-column>
 				<el-table-column label="" prop=""></el-table-column>
 			</el-table>
-		</el-card>
-	</el-dialog>
+		</div>
+	</el-drawer>
 
-	<el-drawer
+	<el-drawer class="drawer-account"
 		v-model="isAccountDialog"
-		size="50%"
-	></el-drawer>
+		size="70%"
+	>
+		<template #header>
+			<div class="drawer-title">
+				<div class="drawer-title__content">
+					<el-icon><User></User></el-icon>
+					<span>Усманов Олег Игоревич</span>
+				</div>
+
+				<el-button
+					link
+					icon="Back"
+				>
+					Выйти из аккаунта
+				</el-button>
+			</div>
+		</template>
+
+		<el-tabs>
+			<el-tab-pane label="Контактные лица">
+				<el-table table-layout="auto">
+					<el-table-column label="Контактное лицо" prop=""></el-table-column>
+					<el-table-column label="Тел." prop=""></el-table-column>
+					<el-table-column label="Моб. телефон" prop=""></el-table-column>
+					<el-table-column label="Skype" prop=""></el-table-column>
+					<el-table-column label="E-mail" prop=""></el-table-column>
+					<el-table-column label="Должность" prop=""></el-table-column>
+				</el-table>
+			</el-tab-pane>
+
+			<el-tab-pane label="График платежей">
+				<el-table table-layout="auto">
+					<el-table-column label="Загрузить" prop=""></el-table-column>
+					<el-table-column label="Основание" prop=""></el-table-column>
+					<el-table-column label="Счет" prop=""></el-table-column>
+					<el-table-column label="Сумма счета" prop=""></el-table-column>
+					<el-table-column label="Сумма задолжности" prop=""></el-table-column>
+					<el-table-column label="Конечная дата оплаты" prop=""></el-table-column>
+				</el-table>
+			</el-tab-pane>
+
+			<el-tab-pane label="Адрес доставки">
+				<el-table table-layout="auto">
+					<el-table-column label="Индекс" prop=""></el-table-column>
+					<el-table-column label="Страна" prop=""></el-table-column>
+					<el-table-column label="Регион" prop=""></el-table-column>
+					<el-table-column label="Населенный пункт" prop=""></el-table-column>
+					<el-table-column label="Район" prop=""></el-table-column>
+					<el-table-column label="Улица, дом" prop=""></el-table-column>
+				</el-table>
+			</el-tab-pane>
+		</el-tabs>
+	</el-drawer>
 </template>
 
 <style lang="scss">
@@ -131,6 +184,11 @@
 
 			.page {
 				padding: 20px;
+
+				.page-title {
+					margin-bottom: 20px;
+					font-size: 16px;
+				}
 			}
 		}
 	}
@@ -155,6 +213,20 @@
 				min-width: 200px;
 				border: 1px solid var(--el-border-color);
 				padding: 2px;
+			}
+		}
+	}
+
+	.drawer-account {
+		.drawer-title {
+			display: flex;
+			align-items: center;
+			gap: 50px;
+
+			.drawer-title__content {
+				display: inherit;
+				gap: 10px;
+				align-items: inherit;
 			}
 		}
 	}

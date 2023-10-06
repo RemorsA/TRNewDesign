@@ -21,10 +21,10 @@
         { label: 'Аккумуляторы', index: 'batteries' },
     ])
 
-    let menuCollapse = ref(false)
-
     function handleSelect(value) {
-        console.log(value)
+        if (value !== 'none') {
+            router.push({ name: value })
+        }
     }
 </script>
 
@@ -35,22 +35,23 @@
         active-text-color="var(--el-color-info-light-3)"
         background-color="rgb(63,107,183)"
         :ellipsis="false"
-        :collapse="menuCollapse"
         @select="handleSelect"
     >
         <el-menu-item index="news">
             <el-image class="menu__item-logo-picture"
                 src="/logo.png"
                 fit="scale-down"
-                v-if="!menuCollapse"
             ></el-image>
-
-            <el-icon v-else><Memo></Memo></el-icon>
         </el-menu-item>
 
-        <el-menu-item index="none-2" @click="emits('isAccount')">
+        <el-menu-item index="none" @click="emits('isAccount')">
             <el-icon><User></User></el-icon>
             <span>Усманов Олег Игоревич</span>
+        </el-menu-item>
+
+        <el-menu-item index="" @click="emits('isFastRequest')">
+            <el-icon><Search></Search></el-icon>
+            <span>Быстрый запрос</span>
         </el-menu-item>
 
         <el-sub-menu index="1">
@@ -80,24 +81,14 @@
             <span>Отгрузки</span>
         </el-menu-item>
 
-        <el-menu-item index="none-1" @click="emits('isFastRequest')">
-            <el-icon><Search></Search></el-icon>
-            <span>Быстрый запрос</span>
-        </el-menu-item>
-
         <el-menu-item index="cart">
             <el-icon><ShoppingCart></ShoppingCart></el-icon>
             <span>Корзина</span>
         </el-menu-item>
 
-        <el-menu-item index="cart">
+        <el-menu-item index="message">
             <el-icon><Message></Message></el-icon>
             <span>Сообщения</span>
-        </el-menu-item>
-
-        <el-menu-item index="none-3">
-            <el-switch v-model="menuCollapse"></el-switch>
-            <span style="margin-left: 20px;">Скрыть</span>
         </el-menu-item>
     </el-menu>
 </template>
