@@ -22,9 +22,10 @@
     ])
 
     function handleSelect(value) {
-        if (value !== 'none') {
-            router.push({ name: value })
-        }
+        console.log(value)
+        if (value === 'none1' || value === 'none2') return
+
+        router.push({ name: value })
     }
 </script>
 
@@ -32,7 +33,8 @@
     <el-menu class="el-menu-custom"
         :default-active="router.currentRoute.value.name"
         text-color="white"
-        active-text-color="var(--el-color-info-light-3)"
+        :default-openeds="[ '1' ]"
+        active-text-color="var(--el-color-primary)"
         background-color="rgb(63,107,183)"
         :ellipsis="false"
         @select="handleSelect"
@@ -44,32 +46,15 @@
             ></el-image>
         </el-menu-item>
 
-        <el-menu-item index="none" @click="emits('isAccount')">
+        <el-menu-item index="none1" @click="emits('isAccount')">
             <el-icon><User></User></el-icon>
             <span>Усманов Олег Игоревич</span>
         </el-menu-item>
 
-        <el-menu-item index="" @click="emits('isFastRequest')">
+        <el-menu-item index="none2" @click="emits('isFastRequest')">
             <el-icon><Search></Search></el-icon>
             <span>Быстрый запрос</span>
         </el-menu-item>
-
-        <el-sub-menu index="1">
-            <template #title>
-                <el-icon><Grid></Grid></el-icon>
-                <span>Разделы</span>
-            </template>
-
-            <el-menu-item-group>
-                <el-menu-item
-                    v-for="(subItem, index) in subMenuArr"
-                    :key="index"
-                    :index="subItem.index"
-                >
-                    {{ subItem.label }}
-                </el-menu-item>
-            </el-menu-item-group>
-        </el-sub-menu>
 
         <el-menu-item index="orders">
             <el-icon><List></List></el-icon>
@@ -90,6 +75,23 @@
             <el-icon><Message></Message></el-icon>
             <span>Сообщения</span>
         </el-menu-item>
+
+        <el-sub-menu index="1">
+            <template #title>
+                <el-icon><Grid></Grid></el-icon>
+                <span>Разделы</span>
+            </template>
+
+            <el-menu-item-group>
+                <el-menu-item
+                    v-for="(subItem, index) in subMenuArr"
+                    :key="index"
+                    :index="subItem.index"
+                >
+                    {{ subItem.label }}
+                </el-menu-item>
+            </el-menu-item-group>
+        </el-sub-menu>
     </el-menu>
 </template>
 
