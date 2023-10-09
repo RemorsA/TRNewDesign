@@ -15,6 +15,14 @@ const router = createRouter({
 						title: 'Новости'
 					},
 					component: () => import('./News.vue'),
+				},
+				{
+					path: '/account',
+					name: 'account',
+					meta: {
+						title: 'Учетная запись'
+					},
+					component: () => import('./Account.vue'),
 				}
 			]
 		},

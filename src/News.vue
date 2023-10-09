@@ -3,16 +3,11 @@
 </script>
 
 <template>
-    <div style="display: flex; flex-wrap: wrap;">
-        <el-card style="width: 200px; height: 200px"
-            v-for="r in 80"
-        ></el-card>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <el-card shadow="never" v-for="r in 20" style="width: 100%; height: 200px"></el-card>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    div {
-        width: 100%;
 
-    }
 </style>

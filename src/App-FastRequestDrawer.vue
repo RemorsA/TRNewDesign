@@ -5,75 +5,163 @@
 
     defineEmits([ 'update:modelValue' ])
 
-	let fastRequestArticle = ref('')
+	const tableData = ref([
+		{
+			comment: 'Ваш комментарий будет тут.',
+			count: '2',
+			unit: '3',
+			store: 'Москва',
+			side: 'Россия',
+			weight: '13 кг',
+			amount: '2',
+			price: '120 000',
+			sum: '240 000',
+			rrc: ''
+		},
+		{
+			comment: 'Ваш комментарий будет тут',
+			count: '2',
+			unit: '3',
+			store: 'Москва',
+			side: 'Россия',
+			weight: '13 кг',
+			amount: '2',
+			price: '120 000',
+			sum: '240 000',
+			rrc: ''
+		},
+	])
+
+	let requestForm = ref({
+		article: '93274611'
+	})
+	const requestRules = ref({
+		article: [{ required: true, message: 'Вы не указали артикул' }]
+	})
+	let formRef = ref()
+
+	let loadingSearchForm = ref(false)
+	let isAnswer = ref(false)
+
+	
 </script>
 
 <template>
     <el-drawer
 		:model-value="modelValue"
 		title="Быстрый запрос по артикулу"
-		size="70%"
+		size="60%"
         @close="$emit('update:modelValue', false)"
     >
-		<div class="dialog-fast_request">
-			<el-input class="dialog-fast_request-input"
-				placeholder="Введите артикул"
-				v-model="fastRequestArticle"
-				:disabled="false"
-			></el-input>
-
-			<el-button
-				icon="Search"
-				:loading="false"
+		<el-form
+			inline
+			ref="formRef"
+			:model="requestForm"
+			:rules="requestRules"
+		>
+			<el-form-item
+				ref="article"
+				prop="article"
+				label="Артикул"
 			>
-				Сделать запрос
-			</el-button>
+				<el-input
+					placeholder="Введите артикул"
+					v-model="requestForm.article"
+					:disabled="loadingSearchForm"
+					@keyup.enter="sendRequest"
+					clearable
+					style="width: 300px"
+				></el-input>
+			</el-form-item>
+
+			<el-form-item>
+				<el-button
+					icon="Search"
+					:loading="loadingSearchForm"
+					@click="sendRequest(formRef)"
+				>
+					Сделать запрос
+				</el-button>
+			</el-form-item>
+		</el-form>
+
+		<el-divider
+			content-position="left"
+			v-show="isAnswer"
+		>
+			Ответ
+		</el-divider>
+
+		<div class="request_response-content"
+			v-show="isAnswer"
+		>
+			<el-image class="request_response-content--picture"
+				fit="cover"
+				src="https://upload.wikimedia.org/wikipedia/commons/3/35/N6.3000.156.000_-_%D0%9E%D1%81%D1%8C.jpg"
+				:preview-src-list="[ 'https://upload.wikimedia.org/wikipedia/commons/3/35/N6.3000.156.000_-_%D0%9E%D1%81%D1%8C.jpg' ]"
+				:hide-on-click-modal="true"
+				preview-teleported
+			></el-image>
+
+			<el-descriptions class="request_response-content--params"
+				:column="1"
+			>
+				<el-descriptions-item label="Наименование:">
+					Аммортизатор вальца катка
+				</el-descriptions-item>
+
+				<el-descriptions-item label="Ваш кат. номер:">
+					00000038823
+				</el-descriptions-item>
+
+				<el-descriptions-item>
+					<el-button
+						icon="Tickets"
+						:loading="false"
+					>
+						Посмотреть замеры
+					</el-button>
+				</el-descriptions-item>
+			</el-descriptions>
 		</div>
 
-		<div class="dialog-request_response">
-			<div class="request_response-content">
-				<el-image class="request_response-content--picture"
-					fit="cover"
-					src="https://upload.wikimedia.org/wikipedia/commons/3/35/N6.3000.156.000_-_%D0%9E%D1%81%D1%8C.jpg"
-					:preview-src-list="[ 'https://upload.wikimedia.org/wikipedia/commons/3/35/N6.3000.156.000_-_%D0%9E%D1%81%D1%8C.jpg' ]"
-					:hide-on-click-modal="true"
-					preview-teleported
-				></el-image>
+		<el-table class="request_response-table"
+			table-layout="auto"
+			:data="tableData"
+			v-show="isAnswer"
+		>
+			<el-table-column label="Комментарий" prop="comment" width="150"></el-table-column>
 
-				<el-descriptions :column="1">
-					<el-descriptions-item label="Наименование:">
-						Аммортизатор вальца катка
-					</el-descriptions-item>
+			<el-table-column label="Кол-во. (запрошено)" prop="count" width="100"></el-table-column>
 
-					<el-descriptions-item label="Ваш кат. номер:">
-						00000038823
-					</el-descriptions-item>
+			<el-table-column label="Ед. изм." prop="unit" width="80"></el-table-column>
 
-					<el-descriptions-item>
-						<el-button
-							icon="Search"
-							:loading="false"
-						>
-							Посмотреть замеры
-						</el-button>
-					</el-descriptions-item>
-				</el-descriptions>
-			</div>
+			<el-table-column label="Склад" prop="store" width="100"></el-table-column>
 
-			<el-table style="margin-top: 20px;" table-layout="auto">
-				<el-table-column label="Комментарий" prop=""></el-table-column>
-				<el-table-column label="Кол-во. (запрошено)" prop=""></el-table-column>
-				<el-table-column label="Ед. изм." prop=""></el-table-column>
-				<el-table-column label="Склад" prop=""></el-table-column>
-				<el-table-column label="Страна" prop=""></el-table-column>
-				<el-table-column label="Вес, кг." prop=""></el-table-column>
-				<el-table-column label="Кол. шт." prop=""></el-table-column>
-				<el-table-column label="Цена за ед." prop=""></el-table-column>
-				<el-table-column label="Сумма, руб." prop=""></el-table-column>
-				<el-table-column label="РРЦ" prop=""></el-table-column>
-				<el-table-column label="" prop=""></el-table-column>
-			</el-table>
-		</div>
+			<el-table-column label="Страна" prop="side" width="80"></el-table-column>
+
+			<el-table-column label="Вес, кг." prop="weight" width="80"></el-table-column>
+
+			<el-table-column label="Кол. шт." prop="amount" width="80"></el-table-column>
+
+			<el-table-column label="Цена за ед." prop="price" width="110"></el-table-column>
+
+			<el-table-column label="Сумма, руб." prop="sum" width="110"></el-table-column>
+
+			<el-table-column label="РРЦ" prop="rrc"></el-table-column>
+
+			<el-table-column label="" prop="" width="110">
+				<template #default>
+					<el-button
+						link
+						icon="ShoppingCart"
+						type="primary"
+					>
+						В корзину
+					</el-button>
+				</template>
+			</el-table-column>
+		</el-table>
 	</el-drawer>
 </template>
 
@@ -89,20 +177,28 @@
 		}
 	}
 
-	.dialog-request_response {
-		margin-top: 20px;
-		.request_response-content {
-			display: flex;
-			align-items: flex-start;
-			gap: 20px;
+	.request_response-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
 
-			.request_response-content--picture {
-				width: 500px;
-				height: 200px;
-				min-width: 300px;
-				border: 1px solid var(--el-border-color);
-				padding: 2px;
-			}
+		.request_response-content--picture {
+			height: 200px;
+			border: 1px solid var(--el-border-color);
+			border-radius: var(--el-border-radius-base);
 		}
+
+		.request_response-content--params {
+			border: 1px solid var(--el-border-color);
+			border-radius: var(--el-border-radius-base);
+			padding: 10px;
+			height: 100%;
+		}
+	}
+
+	.request_response-table {
+		margin-top: 20px;
+		border: 1px solid var(--el-border-color);
+		border-radius: var(--el-border-radius-base);
 	}
 </style>

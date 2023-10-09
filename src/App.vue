@@ -3,35 +3,36 @@
 	import { ref } from 'vue'
 	import router from './router'
 	import AppFastRequestDrawer from './App-FastRequestDrawer.vue'
-	import AppAccountDrawer from './App-AccountDrawer.vue'
+	import AppMobileMenu from './App-MobileMenu.vue'
 
-	let isAccountDrawer = ref(false)
-	let isFastRequestDrawer = ref(false)
+	let isMobileMenu = ref(false)
 </script>
 
 <template>
 	<div class="main_page-container">
 		<el-scrollbar class="el-scrollbar-custom" max-height="100vh">
-			<Menu class="menu"
-				@is-account="isAccountDrawer = true"
-				@is-fast-request="isFastRequestDrawer = true"
-			></Menu>
+			<Menu class="menu"></Menu>
 		</el-scrollbar>
 
 		<el-scrollbar max-height="100vh" native>
 			<div class="page">
+				<el-page-header class="mobile-page__header"
+					title="Меню"
+					icon="Menu"
+					:content="router.currentRoute.value.meta.title"
+					@back="isMobileMenu = !isMobileMenu"
+				></el-page-header>
+
 				<h1 class="page-title">
 					{{ router.currentRoute.value.meta.title }}
 				</h1>
 
-				<router-view></router-view>
+				<router-view class="page-router"></router-view>
 			</div>
 		</el-scrollbar>
 	</div>
 
-	<AppFastRequestDrawer v-model="isFastRequestDrawer"></AppFastRequestDrawer>
-
-	<AppAccountDrawer v-model="isAccountDrawer"></AppAccountDrawer>
+	<AppMobileMenu v-model="isMobileMenu"></AppMobileMenu>
 </template>
 
 <style lang="scss">
@@ -47,7 +48,15 @@
 			display: grid;
 			grid-template-columns: 250px 1fr;
 
+			@media screen and (max-width: 768px) {
+				grid-template-columns: 1fr;
+			}
+
 			.el-scrollbar-custom {
+				@media screen and (max-width: 768px) {
+					display: none;
+				}
+
 				&.el-scrollbar {
 					--el-scrollbar-bg-color: white;
 					--el-scrollbar-hover-bg-color: var(--el-color-info-light-3);
@@ -61,11 +70,36 @@
 			}
 
 			.page {
-				padding: 20px;
+				.mobile-page__header {
+					display: none;
+
+					@media screen and (max-width: 768px) {
+						display: block;
+						position: sticky;
+						top: 0;
+						left: 0;
+						padding: 10px;
+						box-shadow: var(--el-box-shadow-light);
+						background: rgb(63,107,183);
+						color: white;
+					}
+				}
 
 				.page-title {
-					margin-bottom: 20px;
+					padding: 20px 20px 0 20px;
 					font-size: 16px;
+
+					@media screen and (max-width: 768px) {
+						display: none;
+					}
+				}
+
+				.page-router {
+					padding: 20px;
+
+					@media screen and (max-width: 768px) {
+						padding: 10px;
+					}
 				}
 			}
 		}
