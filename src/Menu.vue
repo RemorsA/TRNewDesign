@@ -1,11 +1,7 @@
 <script setup>
     import router from './router'
     import { ref } from 'vue'
-
-    const emits = defineEmits([
-        'isFastRequest',
-        'isAccount'
-    ])
+    import { ElNotification } from 'element-plus'
 
     const subMenuArr = ref([
         { label: 'Запчасти', index: 'spareParts' },
@@ -21,12 +17,31 @@
         { label: 'Аккумуляторы', index: 'batteries' },
     ])
 
-    function handleSelect(value) {
-        console.log(value)
-        if (value === 'none1' || value === 'none2') return
+    let requestInput = ref('')
+    let isCollapse = ref(false)
 
-        router.push({ name: value })
+    function handleSelect(value) {
+        if (value === 'fastRequest') return
+
+        let tagA = document.createElement('a')
+        tagA.setAttribute('href', '/' + value)
+        tagA.click()
     }
+
+    function sendRequest() {
+		if (requestInput.value) {
+            alert('in development')
+        }
+        else {
+            ElNotification({
+                type: 'warning',
+                title: 'Внимание',
+                message: 'Вы не ввели артикул',
+                duration: 5000,
+                showClose: true
+            })
+        }
+	}
 </script>
 
 <template>
@@ -37,23 +52,37 @@
         active-text-color="var(--el-color-primary)"
         background-color="rgb(63,107,183)"
         :ellipsis="false"
+        :collapse="true"
         @select="handleSelect"
     >
         <el-menu-item index="news">
             <el-image class="menu__item-logo-picture"
+                v-if="isCollapse"
                 src="/logo.png"
                 fit="scale-down"
             ></el-image>
+
+            <el-icon v-else><House></House></el-icon>
         </el-menu-item>
 
-        <el-menu-item index="none1" @click="emits('isAccount')">
+        <el-menu-item index="account">
             <el-icon><User></User></el-icon>
             <span>Усманов Олег Игоревич</span>
         </el-menu-item>
 
-        <el-menu-item index="none2" @click="emits('isFastRequest')">
-            <el-icon><Search></Search></el-icon>
-            <span>Быстрый запрос</span>
+        <el-menu-item index="fastRequest">
+            <el-input class="el-input-menu__custom"
+                placeholder="Введите артикул"
+                v-model="requestInput"
+                @keyup.enter="sendRequest"
+            ></el-input>
+
+            <el-button
+                icon="Search"
+                link
+                style="color: white;"
+                @click="sendRequest"
+            ></el-button>
         </el-menu-item>
 
         <el-menu-item index="orders">
@@ -99,6 +128,17 @@
     .el-menu-custom {
         &.el-menu {
             --el-menu-border-color: none;
+        }
+
+        .el-input-menu__custom {
+            --el-input-bg-color: transparent;
+            --el-input-border-color: transparent;
+            --el-input-placeholder-color: white;
+            --el-input-text-color: white;
+            --el-input-border: none;
+            --el-input-hover-border-color: transparent;
+            --el-input-focus-border-color: transparent;
+            border-bottom: 1px solid white !important;
         }
 
         .menu__item-logo-picture {
