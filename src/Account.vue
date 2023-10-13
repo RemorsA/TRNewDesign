@@ -1,29 +1,9 @@
 <script setup>
-	import { ref, onMounted, watch } from 'vue'
-    import { contacts, paymentSchedule, shippingAddress } from './data/accountData'
+	import store from './store';
+	import { ref } from 'vue'
 
-    let switchTheme = ref(false)
-    let isSectionsDefaultOpened = ref(true)
-	let isMenuCollapse = ref(true)
-
-    onMounted(async () => {
-        let theme = JSON.parse(localStorage.getItem('THEME'))
-
-        if (theme !== null) {
-            switchTheme.value = theme
-        }
-    })
-
-    watch(() => switchTheme.value, (value) => {
-        localStorage.setItem('THEME', JSON.stringify(value))
-
-        if (value) {
-            document.querySelector('html').className = 'dark'
-        }
-        else {
-            document.querySelector('html').className = ''
-        }
-    })
+	let isRefreshLink = ref(false)
+	let visibleDesc = ref(window.matchMedia("(max-width: 768px)"))
 </script>
 
 <template>
@@ -41,25 +21,43 @@
 
 			<el-descriptions-item label="Сменить оформление страницы на темную или светлую тему:">
 				<el-switch
-					v-model="switchTheme"
+					v-model="store.state.isTheme"
 					active-text="Темная"
                     inactive-text="Светлая"
+					@change="store.dispatch('setSettings')"
 				></el-switch>
 			</el-descriptions-item>
 
-			<el-descriptions-item label='Всегда держать раскрытым список "Разделы" в меню слева:'>
+			<el-descriptions-item
+				label='Всегда держать раскрытым список "Разделы" в меню слева:'
+				v-if="!visibleDesc.matches"
+			>
 				<el-switch
-                    v-model="isSectionsDefaultOpened"
+                    v-model="store.state.defaultMenuOpened"
                     active-text="Раскрыт"
                     inactive-text="Скрыт"
+					@change="store.dispatch('setSettings'), isRefreshLink = true"
 				></el-switch>
+
+				<el-link
+					v-show="isRefreshLink"
+					style="gap: 5px; margin-left: 10px;"
+					icon="Refresh"
+					href="/account"
+				>
+					Перезагрузить
+				</el-link>
 			</el-descriptions-item>
 
-			<el-descriptions-item label='Скрыть или раскрыть меню'>
+			<el-descriptions-item
+				label='Скрыть или раскрыть меню:'
+				v-if="!visibleDesc.matches"
+			>
 				<el-switch
-                    v-model="isMenuCollapse"
+                    v-model="store.state.isMenuCollapse"
                     active-text="Раскрыт"
                     inactive-text="Скрыт"
+					@change="store.dispatch('setSettings')"
 				></el-switch>
 			</el-descriptions-item>
 		</el-descriptions>
@@ -68,7 +66,7 @@
 			<el-tab-pane label="Контактные лица">
 				<el-table
 					table-layout="auto"
-					:data="contacts.ContactsTable"
+					:data="[]"
 				>
 					<el-table-column label="Контактное лицо" prop="ФИО"></el-table-column>
 					<el-table-column label="Тел." prop="НомерТелефона"></el-table-column>
@@ -82,7 +80,7 @@
 			<el-tab-pane label="График платежей">
 				<el-table
 					table-layout="auto"
-					:data="paymentSchedule.PaymentShedule"
+					:data="[]"
 				>
 					<el-table-column label="Загрузить" prop="">
 						<template #default="{ row }">
@@ -105,7 +103,7 @@
 			<el-tab-pane label="Адрес доставки">
 				<el-table
 					table-layout="auto"
-					:data="shippingAddress.ShippingAddresses"
+					:data="[]"
 				>
 					<el-table-column label="Индекс" prop="Индекс"></el-table-column>
 					<el-table-column label="Страна" prop="Страна"></el-table-column>
