@@ -10,7 +10,6 @@
 	let requestInput = ref('')
 	let dialogFastRequest = ref(false)
 	const subMenuArr = ref([
-        { label: 'Запчасти', index: 'spare_parts' },
         { label: 'Запрос по артикулу', index: 'request_by_article' },
         { label: 'Запрос на подбор', index: 'selection_request' },
         { label: 'Каталог номенклатуры', index: 'product_catalog' },
@@ -24,12 +23,12 @@
     ])
 
 	const menuLinks = ref([
+		{ label: 'Новости', href: '/news', icon: 'House' },
 		{ label: 'Аккаунт', href: '/account', icon: 'User' },
 		{ label: 'Заказы', href: '/orders', icon: 'List' },
 		{ label: 'Отгрузки', href: '/shipments', icon: 'Van' },
 		{ label: 'Корзина', href: '/cart', icon: 'ShoppingCart' },
 		{ label: 'Сообщения', href: '/messages', icon: 'Message' },
-		{ label: 'Запчасти', href: '/spare_parts' },
 		{ label: 'Запрос по артикулу', href: '/request_by_article' },
 		{ label: 'Запрос на подбор', href: '/selection_request' },
 		{ label: 'Каталог номенклатуры', href: '/product_catalog' },
@@ -70,6 +69,7 @@
 	<div class="main_page-container">
 		<el-scrollbar class="el-scrollbar-custom" max-height="100vh">
 			<el-menu class="el-menu-custom menu"
+				v-show="true"
 				:default-active="router.currentRoute.value.name"
 				text-color="white"
 				:default-openeds="[
@@ -111,7 +111,7 @@
 
 				<el-menu-item index="account">
 					<el-icon><User></User></el-icon>
-					<span>Усманов Олег Игоревич</span>
+					<span>Аккаунт</span>
 				</el-menu-item>
 
 				<el-menu-item index="orders">
@@ -165,11 +165,31 @@
 							src="../../public/logo.png"
 						></el-image>
 					</template>
-
-					<template #extra>
-						<span class="page__header-extra">Усманов Олег Игоревич</span>
-					</template>
 				</el-page-header>
+
+				<el-card
+					body-style="background: rgb(63,107,183);"
+					style="margin: 20px 20px 0 20px;"
+					v-show="false"
+				>
+					<div style="
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+					">
+						<el-image
+							src="/logo.png"
+							fit="scale-down"
+						></el-image>
+
+						<el-button
+							link
+							icon="Right"
+						>
+							Войти
+						</el-button>
+					</div>
+				</el-card>
 
 				<h1 class="page-title">
 					{{ router.currentRoute.value.meta.title }}
@@ -200,7 +220,7 @@
 			</div>
 
 			<a class="drawer-content__link"
-				v-for="(record, index) in menuLinks.slice(0, 5)"
+				v-for="(record, index) in menuLinks.slice(0, 6)"
 				:key="index"
 				:href="record.href"
 			>
@@ -214,7 +234,7 @@
 			<el-divider content-position="left">Разделы</el-divider>
 
 			<a class="drawer-content__link"
-				v-for="(record, index) in menuLinks.slice(5)"
+				v-for="(record, index) in menuLinks.slice(6)"
 				:key="index"
 				:href="record.href"
 			>
@@ -297,19 +317,6 @@
 						box-shadow: var(--el-box-shadow-light);
 						background: rgb(63,107,183);
 						color: white;
-					}
-
-					.page__header-extra {
-						color: white;
-						font-size: 14px;
-
-						@media screen and (max-width: 425px) {
-							font-size: 12px;
-						}
-
-						@media screen and (max-width: 400px) {
-							display: none;
-						}
 					}
 
 					.page__header-logo-picture {
