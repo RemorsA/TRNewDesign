@@ -8,7 +8,7 @@
     >
         <template #icon>
             <el-image
-                src="../../public/notfound.png"
+                src="/notfound.png"
             ></el-image>
         </template>
 

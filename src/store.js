@@ -31,6 +31,7 @@ export default createStore({
     },
     mutations: {},
     state: {
+        isAuth: false,
         isTheme: false,
         isMenuCollapse: false,
         defaultMenuOpened: false
