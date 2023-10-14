@@ -9,6 +9,7 @@
 	let isMobileMenu = ref(false)
 	let requestInput = ref('')
 	let dialogFastRequest = ref(false)
+	let isAuthOrRegestration = ref(false)
 	const subMenuArr = ref([
         { label: 'Запрос по артикулу', index: 'request_by_article' },
         { label: 'Запрос на подбор', index: 'selection_request' },
@@ -69,7 +70,7 @@
 	<div class="main_page-container">
 		<el-scrollbar class="el-scrollbar-custom" max-height="100vh">
 			<el-menu class="el-menu-custom menu"
-				v-show="true"
+				v-show="store.state.isAuth"
 				:default-active="router.currentRoute.value.name"
 				text-color="white"
 				:default-openeds="[
@@ -159,24 +160,20 @@
 					title="Меню"
 					icon="Expand"
 					@back="isMobileMenu = !isMobileMenu"
+					v-show="store.state.isAuth"
 				>
 					<template #content>
 						<el-image class="page__header-logo-picture"
-							src="../../public/logo.png"
+							src="/logo.png"
 						></el-image>
 					</template>
 				</el-page-header>
 
-				<el-card
+				<el-card class="auth-page__header"
 					body-style="background: rgb(63,107,183);"
-					style="margin: 20px 20px 0 20px;"
-					v-show="false"
+					v-show="!store.state.isAuth"
 				>
-					<div style="
-						display: flex;
-						align-items: center;
-						justify-content: space-between;
-					">
+					<div class="auth-page__header-content">
 						<el-image
 							src="/logo.png"
 							fit="scale-down"
@@ -184,7 +181,8 @@
 
 						<el-button
 							link
-							icon="Right"
+							icon="User"
+							@click="isAuthOrRegestration = true"
 						>
 							Войти
 						</el-button>
@@ -268,6 +266,66 @@
 			Запросить
 		</el-button>
 	</el-dialog>
+
+	<el-dialog
+		v-model="isAuthOrRegestration"
+		align-center
+		append-to-body
+		width="500"
+		title="Аккаунт"
+	>
+		<el-tabs>
+			<el-tab-pane label="Войти в аккаунт">
+				<el-form label-width="100px">
+					<el-form-item
+						label="Логин"
+						ref=""
+						prop=""
+					>
+						<el-input></el-input>
+					</el-form-item>
+
+					<el-form-item
+						label="Пароль"
+						ref=""
+						prop=""
+					>
+						<el-input></el-input>
+					</el-form-item>
+				</el-form>
+			</el-tab-pane>
+
+			<el-tab-pane label="Зарегестрироваться">
+				<el-form
+					label-width="100px"
+				>
+					<el-form-item
+						label="Имя"
+						ref=""
+						prop=""
+					>
+						<el-input></el-input>
+					</el-form-item>
+
+					<el-form-item
+						label="Телефон"
+						ref=""
+						prop=""
+					>
+						<el-input></el-input>
+					</el-form-item>
+				</el-form>
+			</el-tab-pane>
+		</el-tabs>
+
+		<template #footer>
+			<el-button
+				icon="Right"
+			>
+				Войти
+			</el-button>
+		</template>
+	</el-dialog>
 </template>
 
 <style lang="scss">
@@ -325,6 +383,21 @@
 						justify-content: center;
 						height: 20px;
 						min-width: 100px;
+					}
+				}
+
+				.auth-page__header {
+					margin: 20px 20px 0 20px;
+
+					@media screen and (max-width: 768px) {
+						margin: 10px 10px 0 10px;
+					}
+
+					.auth-page__header-content {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						gap: 10px;
 					}
 				}
 
