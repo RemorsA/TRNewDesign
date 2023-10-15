@@ -4,6 +4,11 @@
 
 	let isRefreshLink = ref(false)
 	let visibleDesc = ref(window.matchMedia("(max-width: 768px)"))
+
+	function signOut() {
+		localStorage.removeItem('k')
+		store.commit('routerGo', 'news')
+	}
 </script>
 
 <template>
@@ -14,7 +19,10 @@
 			</el-descriptions-item>
 
             <el-descriptions-item label="Выход из учетной записи:">
-				<el-button type="primary">
+				<el-button
+					type="primary"
+					@click="signOut"
+				>
 					Выйти
 				</el-button>
 			</el-descriptions-item>

@@ -29,7 +29,13 @@ export default createStore({
             }
         },
     },
-    mutations: {},
+    mutations: {
+        routerGo(state, path) {
+            let tagA = document.createElement('a')
+            tagA.setAttribute('href', '/' + path)
+            tagA.click()
+        }
+    },
     state: {
         isAuth: false,
         isTheme: false,

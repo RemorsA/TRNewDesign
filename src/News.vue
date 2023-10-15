@@ -23,7 +23,7 @@
                     '--el-carousel-arrow-background': 'var(--el-color-info)',
                     '--el-carousel-arrow-hover-background': 'var(--el-color-primary)',
                 }"
-                :interval="5000"
+                :interval="10000"
                 height="300px"
             >
                 <el-carousel-item
@@ -41,7 +41,7 @@
                 </el-carousel-item>
             </el-carousel>
 
-            <div style="
+            <!-- <div style="
                 display: flex;
                 align-items: flex-start;
                 justify-content: space-between;
@@ -64,7 +64,7 @@
                 >
                     Подробнее
                 </el-button>
-            </div>
+            </div> -->
 
             <!-- <span style="
                 color: white;
