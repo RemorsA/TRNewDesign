@@ -14,7 +14,8 @@
     "sass-loader": "^13.2.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "inputmask": "^5.0.8"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
