@@ -311,7 +311,7 @@
 
             .page-title {
                 padding: 20px 20px 0 20px;
-                font-size: 16px;
+                font-size: 20px;
 
                 @media screen and (max-width: 768px) {
                     display: none;
