@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from './store'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,11 +8,6 @@ const router = createRouter({
 			name: 'index',
 			redirect: '/home',
 			component: () => import('./App.vue'),
-			beforeEnter: () => {
-				// if (!store.state.isAuth) {
-				// 	return
-				// }
-			},
 			children: [
 				{
 					path: '/home',
@@ -44,21 +38,11 @@ const router = createRouter({
 		{
 			path: '/auth',
 			name: 'auth',
-			beforeEnter: () => {
-				if (store.state.isAuth) {
-					return { path: '/' }
-				}
-			},
 			component: () => import('./Auth.vue')
 		},
 		{
 			path: '/:pathMatch(.*)*',
 			name: '404',
-			beforeEnter: () => {
-				if (!store.state.isAuth) {
-					return { path: '/' }
-				}
-			},
 			component: () => import('./404.vue')
 		},
 	]

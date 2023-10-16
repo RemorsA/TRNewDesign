@@ -28,13 +28,26 @@ export default createStore({
                 document.querySelector('html').className = ''
             }
         },
+        setAuth({ dispatch }, { login, pass }) {
+            const key = btoa(login + ':' + pass)
+            localStorage.setItem('k', JSON.stringify(key))
+
+            dispatch('getAuth')
+        },
+        getAuth({ state }) {
+            const isAuth = JSON.parse(localStorage.getItem('k'))
+
+            if (isAuth !== null) {
+                state.isAuth = true
+            }
+        }
     },
     mutations: {
         routerGo(state, path) {
             let tagA = document.createElement('a')
-            tagA.setAttribute('href', '/' + path)
+            tagA.setAttribute('href', path)
             tagA.click()
-        }
+        },
     },
     state: {
         isAuth: false,
