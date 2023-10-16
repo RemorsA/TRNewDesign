@@ -1,15 +1,32 @@
 <script setup>
 	import { onMounted } from 'vue'
 	import store from './store';
+	import router from './router'
 
 	onMounted(() => {
 		store.dispatch('getSettings')
+		store.dispatch('getAuth')
 
-		const isAuth = JSON.parse(localStorage.getItem('k'))
+		router.beforeEach((to, from, next) => {
+			console.log(to)
+			console.log(store.state.isAuth)
 
-		if (isAuth !== null) {
-			store.state.isAuth = true
-		}
+			if (!store.state.isAuth && to.name !== 'news') {
+				next({ path: '/not_found' })
+			}
+			else {
+				next()
+			}
+			// if (store.state.isAuth && to.name === 'auth') {
+			// 	next({ path: '/' })
+			// }
+			// else if (!store.state.isAuth) {
+			// 	next({ name: '404' })
+			// }
+			// else {
+			// 	next()
+			// }
+		})
 	})
 </script>
 

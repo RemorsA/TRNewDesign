@@ -41,7 +41,7 @@
     function handleSelect(value) {
         if (value === 'fastRequest') return
 
-        store.commit('routerGo', value)
+        store.commit('routerGo', '/home/' + value)
     }
 
     function sendRequest() {

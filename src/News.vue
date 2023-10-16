@@ -18,7 +18,7 @@
                 user-select: none;
             "
         >
-            <el-carousel
+            <!-- <el-carousel
                 :style="{
                     '--el-carousel-arrow-background': 'var(--el-color-info)',
                     '--el-carousel-arrow-hover-background': 'var(--el-color-primary)',
@@ -39,7 +39,7 @@
                         hide-on-click-modal
                     ></el-image>
                 </el-carousel-item>
-            </el-carousel>
+            </el-carousel> -->
 
             <!-- <div style="
                 display: flex;

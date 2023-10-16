@@ -36,8 +36,10 @@
     function loginToAccount(ref) {
 		ref.validate(valid => {
 			if (valid) {
-				const key = btoa(authForm.value.login + ':' + authForm.value.pass)
-				localStorage.setItem('k', JSON.stringify(key))
+                store.dispatch('setAuth', {
+                    login: authForm.value.login,
+                    pass: authForm.value.pass
+                })
 
 				ElNotification({
 					type: 'success',
@@ -46,9 +48,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-				store.state.isAuth = true
-
-                store.commit('routerGo', 'news')
+                // store.commit('routerGo', 'news')
 
 				ref.resetFields()
 			}
@@ -66,7 +66,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-                store.commit('routerGo', 'news')
+                // store.commit('routerGo', 'news')
 
 				ref.resetFields()
 			}

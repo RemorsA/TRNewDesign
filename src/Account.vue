@@ -7,7 +7,7 @@
 
 	function signOut() {
 		localStorage.removeItem('k')
-		store.commit('routerGo', 'news')
+		store.commit('routerGo', '/')
 	}
 </script>
 
