@@ -51,7 +51,7 @@
 					v-show="isRefreshLink"
 					style="gap: 5px; margin-left: 10px;"
 					icon="Refresh"
-					href="/account"
+					href="/home/account"
 				>
 					Перезагрузить
 				</el-link>

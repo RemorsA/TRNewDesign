@@ -1,212 +1,186 @@
 <script setup>
     import { ref } from 'vue'
+    import store from './store';
 
     const pictures = ref([
-        { src: 'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=' },
-        { src: 'https://media.istockphoto.com/id/1256284390/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9-%D0%B2%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B8-%D1%80%D0%B0%D0%B7%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8F%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%B4%D0%B4%D0%BE%D0%BD%D0%BE%D0%B2-%D0%BE%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BE.jpg?s=1024x1024&w=is&k=20&c=piefUnA6zAi3X9O21-m7NTRemZJ4eOuozRBxXGLQhlU=' },
-        { src: 'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=' },
-        { src: 'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/%D0%90%D0%BA%D1%86%D0%B8%D1%8F.jpg' },
+        'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/%D0%90%D0%BA%D1%86%D0%B8%D1%8F.jpg',
+        'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
+        'https://media.istockphoto.com/id/1256284390/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9-%D0%B2%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B8-%D1%80%D0%B0%D0%B7%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8F%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%B4%D0%B4%D0%BE%D0%BD%D0%BE%D0%B2-%D0%BE%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BE.jpg?s=1024x1024&w=is&k=20&c=piefUnA6zAi3X9O21-m7NTRemZJ4eOuozRBxXGLQhlU=',
+        'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=',
+        
     ])
+
+    let isDetailNews = ref(false)
 </script>
 
 <template>
     <div class="news-container">
-        <el-card class="card-top_news"
-            body-style="
-                padding: 0px;
-                position: relative;
-                user-select: none;
-            "
-        >
-            <!-- <el-carousel
-                :style="{
-                    '--el-carousel-arrow-background': 'var(--el-color-info)',
-                    '--el-carousel-arrow-hover-background': 'var(--el-color-primary)',
-                }"
-                :interval="10000"
-                height="300px"
-            >
-                <el-carousel-item
-                    v-for="(record, index) in pictures"
-                    :key="index"
+        <el-card class="card-top_news">
+            <div class="news-carousel-desc">
+                <el-carousel class="carousel"
+                    :interval="10000"
+                    indicator-position="none"
+                    arrow="never"
                 >
-                    <el-image
-                        style="width: 100%; height: 100%;"
-                        :src="record.src"
-                        fit="cover"
-                        preview-teleported
-                        :preview-src-list="[ record.src ]"
-                        hide-on-click-modal
-                    ></el-image>
-                </el-carousel-item>
-            </el-carousel> -->
+                    <el-carousel-item class="carousel-item"
+                        v-for="(record, index) in pictures"
+                        :key="index"
+                    >
+                        <el-image class="carousel-item__pictures"
+                            :src="record"
+                            fit="cover"
+                        ></el-image>
+                    </el-carousel-item>
+                </el-carousel>
 
-            <!-- <div style="
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                gap: 10px;
-                padding: 20px;
-            ">
-                <span>
-                    <h4>Новая вилочная техника</h4>
-                    <p>На всю технику</p>
+                <span class="desc-title">
+                    <h3>Грандиозное снижение цен</h3>
+                    <p>На все шины и вилочные погрузчики</p>
                 </span>
 
-                <span>
-                    <el-icon><Calendar></Calendar></el-icon>
-                    13.10.2023
-                </span>
+                <div class="desc-nav">
+                    <el-button class="desc-nav__button"
+                        link
+                        icon="Right"
+                        color="currentColor"
+                        @click="isDetailNews = true"
+                    >
+                        Подробнее
+                    </el-button>
 
-                <el-button
-                    link
-                    type="primary"
-                >
-                    Подробнее
-                </el-button>
-            </div> -->
-
-            <!-- <span style="
-                color: white;
-                position: absolute;
-                bottom: 20px;
-                left: 20px;
-                text-shadow: 1px 1px 1px black;
-                font-size: 20px;
-                display: flex;
-                align-items: center;
-                gap: 5px
-            ">
-                13.10.2023
-            </span>
-
-            <span style="
-                color: white;
-                position: absolute;
-                top: 20px;
-                left: 20px;
-                text-shadow: 1px 1px 1px black;
-                font-size: 20px;
-            ">
-                <h4>Новая вилочная техника</h4>
-                <p>На всю технику</p>
-            </span>
-
-            <el-button
-                style="
-                    position: absolute;
-                    bottom: 20px;
-                    right: 20px;
-                "
-                type="primary"
-            >
-                Подробнее
-            </el-button> -->
+                    <span class="desc-nav__date">
+                        <el-icon><Calendar></Calendar></el-icon>
+                        16.10.2023
+                    </span>
+                </div>
+            </div>
         </el-card>
 
-        <!-- <div class="cards_news">
+        <div class="cards_news">
             <el-card class="card"
-                shadow="hover"
-                v-for="(record, index) in 11"
+                v-for="(record, index) in 8"
                 :key="index"
             >
                 <template #header>
                     <el-carousel class="card-carousel"
                         :autoplay="false"
-                        height="200px"
                     >
                         <el-carousel-item
                             v-for="(record, index) in pictures"
                             :key="index"
                         >
                             <el-image class="card-carousel--picture"
-                                :src="record.src"
+                                :src="record"
                                 fit="cover"
                             ></el-image>
                         </el-carousel-item>
                     </el-carousel>
                 </template>
-
-                <div class="card-content">
-
-                </div>
             </el-card>
-        </div> -->
+        </div>
+
+        <el-drawer
+            v-model="isDetailNews"
+            size="50%"
+            direction="ltr"
+        ></el-drawer>
     </div>
 </template>
 
 <style lang="scss" scoped>
     .news-container {
 
-        // .card-top_news {
-        //     --el-card-padding: 0px;
+        .card-top_news {
+            --el-card-padding: 0px;
+            user-select: none;
+            pointer-events:visibleFill;
 
-        //     .card-top_news--header-carousel {
-        //         --el-carousel-arrow-background: var(--el-color-info);
-        //         --el-carousel-arrow-hover-background: var(--el-color-primary);
+            &:hover {
+                .desc-nav .desc-nav__button {
+                    transform: translateY(0px) !important;
+                }
+                .desc-nav__date {
+                    transform: translateX(0) !important;
+                }
+            }
 
-        //         .card-top_news--header-carousel__picture {
-        //             width: 100%;
-        //             height: 100%;
-        //         }
-        //     }
+            .news-carousel-desc {
+                position: relative;
+                z-index: 0;
 
-        //     .card-top_news-content {
-        //         padding: 20px;
-        //     }
-        // }
+                .carousel {
+                    --el-carousel-arrow-background: var(--el-color-info);
+                    --el-carousel-arrow-hover-background: var(--el-color-primary);
+                    height: 300px;
 
-        // .card {
-        //     --el-card-padding: 0px;
+                    .carousel-item {
+                        .carousel-item__pictures {
+                            width: 100%;
+                            height: 100%;
+                            filter: blur(2px) brightness(0.3);
+                        }
+                    }
+                }
 
-        //     .card-header-carousel {
-        //         --el-carousel-arrow-background: var(--el-color-info);
-        //         --el-carousel-arrow-hover-background: var(--el-color-primary); 
+                .desc-title {
+                    position: absolute;
+                    top: 20px;
+                    left: 20px;
+                    line-height: 30px;
+                    color: var(--el-color-white);
+                }
 
-        //         .card-header-carousel__picture {
-        //             width: 100%;
-        //             height: 100%;
-        //         }
-        //     }
+                .desc-nav {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    left: 0;
+                    justify-content: center;
+                    display: flex;
+                    align-items: center;
+                    gap: 50px;
+                    color: var(--el-color-white);
+                    bottom: 20px;
 
-        //     &.top_news {
+                    .desc-nav__button {
+                        transition: all .5s;
+                        transform: translateY(100px);
+                    }
 
-        //     }
-        // }
-        // .top_news {
-        //     --el-card-padding: 0px;
+                    .desc-nav__date {
+                        transition: all .5s;
+                        display: inherit;
+                        gap: 5px;
+                        align-items: inherit;
+                        font-size: 14px;
 
-        //     .top_news-content {
-        //         display: grid;
-        //         grid-template-columns: 450px 1fr;
-        //         gap: 20px;
-        //         padding: 20px;
-        //     }
-        // }
+                        transform: translateX(-75px);
+                    }
+                }
+            }
+        }
 
-        // .cards_news {
-        //     display: grid;
-        //     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        //     gap: 20px;
-        //     margin-top: 20px;
+        .cards_news {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
 
-        //     // .card {
-        //     //     width: 100%;
-        //     //     height: 400px;
-        //     //     --el-card-padding: 0px;
+            .card {
+                width: 100%;
+                // height: 400px;
+                --el-card-padding: 0px;
 
-        //     //     .card-carousel {
-        //     //         --el-carousel-arrow-background: var(--el-color-info);
-        //     //         --el-carousel-arrow-hover-background: var(--el-color-primary); 
+                .card-carousel {
+                    --el-carousel-arrow-background: var(--el-color-info);
+                    --el-carousel-arrow-hover-background: var(--el-color-primary); 
 
-        //     //         .card-carousel--picture {
-        //     //             width: 100%;
-        //     //             height: 100%;
-        //     //         }
-        //     //     }
-        //     // }
-        // }
-
-        
+                    .card-carousel--picture {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
     }
 </style>
