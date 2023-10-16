@@ -1,47 +1,27 @@
 <script setup>
-	import { ref } from 'vue'
+	import { ref, computed } from 'vue'
 	import router from './router'
     import { ElNotification } from 'element-plus'
 	import store from './store'
 
+	const menuLinks = computed(() => {
+		const links = router.options.routes[0].children[0].children.slice(0, 6)
+		const linksParts = router.options.routes[0].children[0].children.slice(6)
+
+		return { links, linksParts }
+	})
+
+	const routerGo = (path) => computed(() => {
+		store.commit('routerGo', path)
+	}).value
+
 	let isMobileMenu = ref(false)
 	let requestInput = ref('')
 	let dialogFastRequest = ref(false)
-	const subMenuArr = ref([
-        { label: 'Запрос по артикулу', index: 'request_by_article' },
-        { label: 'Запрос на подбор', index: 'selection_request' },
-        { label: 'Каталог номенклатуры', index: 'product_catalog' },
-        { label: 'История запросов', index: 'history_request' },
-        { label: 'Каталоги', index: 'catalogs' },
-        { label: 'Шины', index: 'tires' },
-        { label: 'Вилы', index: 'forks' },
-        { label: 'Двигатели', index: 'engines' },
-        { label: 'Навесное оборудование', index: 'attachments' },
-        { label: 'Аккумуляторы', index: 'batteries' },
-    ])
-	const menuLinks = ref([
-		{ label: 'Новости', href: '/news', icon: 'House' },
-		{ label: 'Аккаунт', href: '/account', icon: 'User' },
-		{ label: 'Заказы', href: '/orders', icon: 'List' },
-		{ label: 'Отгрузки', href: '/shipments', icon: 'Van' },
-		{ label: 'Корзина', href: '/cart', icon: 'ShoppingCart' },
-		{ label: 'Сообщения', href: '/messages', icon: 'Message' },
-		{ label: 'Запрос по артикулу', href: '/request_by_article' },
-		{ label: 'Запрос на подбор', href: '/selection_request' },
-		{ label: 'Каталог номенклатуры', href: '/product_catalog' },
-		{ label: 'История запросов', href: '/history_request' },
-		{ label: 'Каталоги', href: '/catalogs' },
-		{ label: 'Шины', href: '/tires' },
-		{ label: 'Вилы', href: '/forks' },
-		{ label: 'Двигатели', href: '/engines' },
-		{ label: 'Навесное оборудование', href: '/attachments' },
-		{ label: 'Аккумуляторы', href: '/batteries' },
-	])
 
     function handleSelect(value) {
         if (value === 'fastRequest') return
-
-        store.commit('routerGo', '/home/' + value)
+		routerGo(value)
     }
 
     function sendRequest() {
@@ -65,7 +45,7 @@
 		<el-scrollbar class="el-scrollbar-custom" max-height="100vh">
 			<el-menu class="el-menu-custom"
 				v-show="store.state.isAuth"
-				:default-active="router.currentRoute.value.name"
+				:default-active="router.currentRoute.value.path"
 				:default-openeds="[
 					store.state.defaultMenuOpened ? '1' : ''
 				]"
@@ -101,29 +81,17 @@
 					<el-icon><Search></Search></el-icon>
 				</el-menu-item>
 
-				<el-menu-item index="account">
-					<el-icon><User></User></el-icon>
-					<span>Аккаунт</span>
-				</el-menu-item>
+				<el-menu-item
+					v-for="(record, index) in menuLinks.links"
+					:key="index"
+					:index="record.path"
+					v-show="record.name !== 'news'"
+				>
+					<el-icon v-show="record.meta.icon">
+						<component :is="record.meta.icon"></component>
+					</el-icon>
 
-				<el-menu-item index="orders">
-					<el-icon><List></List></el-icon>
-					<span>Заказы</span>
-				</el-menu-item>
-
-				<el-menu-item index="shipments">
-					<el-icon><Van></Van></el-icon>
-					<span>Отгрузки</span>
-				</el-menu-item>
-
-				<el-menu-item index="cart">
-					<el-icon><ShoppingCart></ShoppingCart></el-icon>
-					<span>Корзина</span>
-				</el-menu-item>
-
-				<el-menu-item index="messages">
-					<el-icon><Message></Message></el-icon>
-					<span>Сообщения</span>
+					<span>{{ record.meta.title }}</span>
 				</el-menu-item>
 
 				<el-sub-menu index="1">
@@ -134,11 +102,11 @@
 
 					<el-menu-item-group>
 						<el-menu-item
-							v-for="(subItem, index) in subMenuArr"
+							v-for="(subItem, index) in menuLinks.linksParts"
 							:key="index"
-							:index="subItem.index"
+							:index="subItem.path"
 						>
-							{{ subItem.label }}
+							{{ subItem.meta.title }}
 						</el-menu-item>
 					</el-menu-item-group>
 				</el-sub-menu>
@@ -170,10 +138,10 @@
 							fit="scale-down"
 						></el-image>
 
-						<el-button
+						<el-button class="auth-page__header-content--button"
 							link
 							icon="User"
-							@click="handleSelect('auth')"
+							@click="store.commit('routerGo', '/auth')"
 						>
 							Войти
 						</el-button>
@@ -189,12 +157,18 @@
 		</el-scrollbar>
 	</div>
 
-	<el-drawer
+	<el-drawer class="el-drawer-custom"
         v-model="isMobileMenu"
 		direction="ltr"
 		title="Меню"
-        style="min-width: 300px"
+		style="min-width: 300px;"
     >
+		<template #header>
+			<a href="/home/news">
+				<el-image src="/logo-stroke.png"></el-image>
+			</a>
+		</template>
+
 		<div class="drawer-content">
 			<div class="drawer-content__field">
 				<el-input
@@ -210,29 +184,33 @@
 			</div>
 
 			<a class="drawer-content__link"
-				v-for="(record, index) in menuLinks.slice(0, 6)"
+				v-for="(record, index) in menuLinks.links"
 				:key="index"
-				:href="record.href"
+				:href="record.path"
+				v-show="record.name !== 'news'"
+				:style="{
+					color: record.path === router.currentRoute.value.path ? 'var(--el-color-primary)' : 'currentcolor'
+				}"
 			>
-				<el-icon v-show="record.icon">
-					<component :is="record.icon"></component>
+				<el-icon v-show="record.meta.icon">
+					<component :is="record.meta.icon"></component>
 				</el-icon>
 
-				{{ record.label }}
+				{{ record.meta.title }}
 			</a>
 
 			<el-divider content-position="left">Разделы</el-divider>
 
 			<a class="drawer-content__link"
-				v-for="(record, index) in menuLinks.slice(6)"
+				v-for="(record, index) in menuLinks.linksParts"
 				:key="index"
-				:href="record.href"
+				:href="record.path"
 			>
-				<el-icon v-show="record.icon">
-					<component :is="record.icon"></component>
+				<el-icon v-show="record.meta.icon">
+					<component :is="record.meta.icon"></component>
 				</el-icon>
 
-				{{ record.label }}
+				{{ record.meta.title }}
 			</a>
 		</div>
     </el-drawer>
@@ -261,6 +239,8 @@
 </template>
 
 <style lang="scss" scoped>
+	$custom-blue-color: rgb(63,107,183);
+
     .main_page-container {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -293,7 +273,7 @@
                     left: 0;
                     padding: 10px;
                     box-shadow: var(--el-box-shadow-light);
-                    background: rgb(63,107,183);
+                    background: $custom-blue-color;
                     color: white;
                 }
 
@@ -318,6 +298,14 @@
                     align-items: center;
                     justify-content: space-between;
                     gap: 10px;
+
+					.auth-page__header-content--button {
+						color: white;
+
+						&:hover {
+							color: var(--el-color-primary)
+						}
+					}
                 }
             }
 
@@ -342,13 +330,13 @@
 
     .el-menu-custom {
         --el-menu-text-color: white;
-        --el-menu-bg-color: rgb(63,107,183);
+        --el-menu-bg-color: $custom-blue-color;
         --el-menu-hover-bg-color: rgb(50, 86, 146);
         --el-menu-active-color: var(--el-color-primary);
         --el-menu-border-color: none;
         min-height: 100vh;
         max-width: 250px;
-        background: rgb(63,107,183);
+        background: $custom-blue-color;
 
         .el-input-menu__custom {
             --el-input-bg-color: transparent;
@@ -375,34 +363,36 @@
         }
     }
 
-    .drawer-content {
-        display: flex;
-        align-items: flex-start;
-        flex-direction: column;
+	.el-drawer-custom {
+		.drawer-content {
+			display: flex;
+			align-items: flex-start;
+			flex-direction: column;
 
-        .drawer-content__link {
-            width: 100%;
-            text-decoration: none;
-            color: currentColor;
-            padding: 10px;
-            display: inherit;
-            gap: 5px;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
+			.drawer-content__link {
+				width: 100%;
+				text-decoration: none;
+				color: currentColor;
+				padding: 10px;
+				display: inherit;
+				gap: 5px;
+				align-items: center;
+				cursor: pointer;
+				user-select: none;
 
-            &:hover {
-                background: var(--el-border-color);
-                border-radius: var(--el-border-radius-base);
-            }
-        }
+				&:hover {
+					background: var(--el-border-color);
+					border-radius: var(--el-border-radius-base);
+				}
+			}
 
-        .drawer-content__field {
-            display: inherit;
-            gap: 5px;
-            align-items: center;
-            padding: 10px;
-            width: 100%
-        }
-    }
+			.drawer-content__field {
+				display: inherit;
+				gap: 5px;
+				align-items: center;
+				padding: 10px;
+				width: 100%
+			}
+		}
+	}
 </style>

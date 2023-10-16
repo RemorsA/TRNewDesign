@@ -48,7 +48,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-                // store.commit('routerGo', 'news')
+                store.commit('routerGo', '/home/news')
 
 				ref.resetFields()
 			}
@@ -66,7 +66,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-                // store.commit('routerGo', 'news')
+                store.commit('routerGo', '/home/news')
 
 				ref.resetFields()
 			}

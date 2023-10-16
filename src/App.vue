@@ -7,25 +7,21 @@
 		store.dispatch('getSettings')
 		store.dispatch('getAuth')
 
-		router.beforeEach((to, from, next) => {
-			console.log(to)
-			console.log(store.state.isAuth)
+		const isAuth = store.state.isAuth
 
-			if (!store.state.isAuth && to.name !== 'news') {
-				next({ path: '/not_found' })
+		router.beforeEach((to, from, next) => {
+			if (!isAuth && to.name === 'auth') {
+				next()
+
+				return
+			}
+
+			if ((!isAuth && to.name !== 'news') || (isAuth && to.name === 'auth')) {
+				next({ path: '/home/news' })
 			}
 			else {
 				next()
 			}
-			// if (store.state.isAuth && to.name === 'auth') {
-			// 	next({ path: '/' })
-			// }
-			// else if (!store.state.isAuth) {
-			// 	next({ name: '404' })
-			// }
-			// else {
-			// 	next()
-			// }
 		})
 	})
 </script>
