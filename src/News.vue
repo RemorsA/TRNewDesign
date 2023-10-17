@@ -1,6 +1,8 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, computed } from 'vue'
     import store from './store';
+
+    const state = computed(() => store.state).value
 
     const pictures = ref([
         'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/%D0%90%D0%BA%D1%86%D0%B8%D1%8F.jpg',
@@ -10,14 +12,57 @@
         
     ])
 
+    const detailNewsDrawerContent = ref(`
+        <table border style='border-collapse: collapse; width: 100%;'>
+        <thead>
+        <td>10х10</td>
+        <td>10х60</td>
+        <td>10х30</td>
+        <td>10х20</td>
+        </thead>
+        <tbody>
+        <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>d</td>
+        </tr>
+        <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>d</td>
+        </tr>
+        <tr>
+        <td>a</td>
+        <td>b</td>
+        <td>c</td>
+        <td>d</td>
+        </tr>
+        </tbody>
+        </table>
+        <br>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non molestie libero. 
+        Phasellus id augue dapibus, convallis arcu id, vehicula nibh. Class aptent taciti 
+        sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed auctor 
+        finibus diam, sed ultrices ipsum vulputate dignissim. Praesent pharetra felis sed 
+        euismod fringilla. Morbi ultrices neque eu efficitur pretium. Nam et sodales orci. 
+        Phasellus a sem tortor. Fusce sit amet auctor mauris. Curabitur quam nulla, ultricies a 
+        consectetur at, egestas a magna. Praesent at rhoncus nulla.
+    `)
+
     let isDetailNews = ref(false)
+
+    // СДЕЛАТЬ РЕДАКТИРОВАНИЕ НОВОСТИ
 </script>
 
 <template>
     <div class="news-container">
-        <el-card class="card-top_news" :class="{
-            'slide-is_auth': store.state.isAuth
-        }">
+        <el-card class="card-top_news"
+            :class="{
+                'slide-is_auth': state.isAuth
+            }"
+        >
             <div class="news-carousel-desc">
                 <el-carousel class="carousel"
                     indicator-position="none"
@@ -45,7 +90,7 @@
                         icon="Right"
                         color="currentColor"
                         @click="isDetailNews = true"
-                        v-show="store.state.isAuth"
+                        v-show="state.isAuth"
                     >
                         Подробнее
                     </el-button>
@@ -64,16 +109,20 @@
                 :key="index"
             >
                 <template #header>
-                    <el-carousel class="el-carousel-custom card-carousel"
+                    <el-carousel class="el-carousel-custom custom-carousel"
                         :autoplay="false"
                     >
                         <el-carousel-item
                             v-for="(record, index) in pictures"
                             :key="index"
                         >
-                            <el-image class="card-carousel--picture"
+                            <el-image
                                 :src="record"
-                                fit="fill"
+                                fit="scale-down"
+                                style="
+                                    width: 100%;
+                                    height: 100%;
+                                "
                             ></el-image>
                         </el-carousel-item>
                     </el-carousel>
@@ -84,19 +133,19 @@
 
                     <p>Все в магазин</p>
 
-                    <div class="card-content-nav">
-                        <el-button
-                            link
-                            icon="Right"
-                        >
-                            Подробнее
-                        </el-button>
+                    <span>
+                        <el-icon><Calendar></Calendar></el-icon>
+                        10.08.1999
+                    </span>
 
-                        <span>
-                            <el-icon><Calendar></Calendar></el-icon>
-                            10.08.1999
-                        </span>
-                    </div>
+                    <el-button
+                        v-show="state.isAuth"
+                        icon="Right"
+                        style="width: 100%;"
+                        @click="isDetailNews = true"
+                    >
+                        Подробнее
+                    </el-button>
                 </div>
             </el-card>
         </div>
@@ -106,37 +155,51 @@
             size="100%"
             direction="btt"
         >
-            <template #header>
-                <span class="detail-news-drawer__header">
-                    <h4>Грандиозное снижение цен</h4>
-                    <p>На все шины и вилочные погрузчики</p>
-                    <p>16.10.2023</p>
-                </span>
-            </template>
-
-            <div class="detail-news-drawer__content">
-                <div v-html="`<table border style='border-collapse: collapse; width: 100%;'><thead><td>10х10</td><td>10х60</td><td>10х30</td><td>10х20</td></thead><tbody><tr><td>a</td><td>b</td><td>c</td><td>d</td></tr><tr><td>a</td><td>b</td><td>c</td><td>d</td></tr><tr><td>a</td><td>b</td><td>c</td><td>d</td></tr></tbody></table><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non molestie libero. Phasellus id augue dapibus, convallis arcu id, vehicula nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed auctor finibus diam, sed ultrices ipsum vulputate dignissim. Praesent pharetra felis sed euismod fringilla. Morbi ultrices neque eu efficitur pretium. Nam et sodales orci. Phasellus a sem tortor. Fusce sit amet auctor mauris. Curabitur quam nulla, ultricies a consectetur at, egestas a magna. Praesent at rhoncus nulla.`"></div>
-
-                <el-carousel class="el-carousel-custom content-carousel">
-                    <el-carousel-item
-                        v-for="(record, index) in pictures"
-                        :key="index"
+            <el-row align="middle" :gutter="20">
+                <el-col :xs="24" :sm="24" :md="10" :lg="7">
+                    <el-carousel class="el-carousel-custom custom-carousel"
+                        :autoplay="false"
+                        arrow="always"
                     >
-                        <el-image class="content-carousel__pictures"
-                            :src="record"
-                            fit="scale-down"
-                        ></el-image>
-                    </el-carousel-item>
-                </el-carousel> 
-            </div>
+                        <el-carousel-item
+                            v-for="(record, index) in pictures"
+                            :key="index"
+                        >
+                            <el-image
+                                :src="record"
+                                fit="scale-down"
+                                :preview-src-list="pictures"
+                                hide-on-click-modal
+                                preview-teleported
+                                style="
+                                    width: 100%;
+                                    height: 100%;
+                                "
+                            ></el-image>
+                        </el-carousel-item>
+                    </el-carousel> 
+                </el-col>
+
+                <el-col :xs="24" :sm="24" :md="14" :lg="17" class="detail-news-drawer__content">
+                    <span class="detail-news-drawer__content-header">
+                        <h4>Грандиозное снижение цен</h4>
+                        <p>На все шины и вилочные погрузчики</p>
+                        <p>16.10.2023</p>
+                    </span>
+
+                    <el-divider></el-divider>
+
+                    <div v-html="detailNewsDrawerContent"></div>
+                </el-col>
+            </el-row>
         </el-drawer>
     </div>
 </template>
 
 <style lang="scss">
-    .content-carousel .el-carousel__indicators .el-carousel__indicator .el-carousel__button{
-        @media screen and (max-width: 425px) {
-            background-color: var(--el-color-info) !important;
+    .custom-carousel .el-carousel__indicators .el-carousel__indicator .el-carousel__button{
+        @media screen and (max-width: 1200px) {
+            background-color: var(--el-color-info-dark-2) !important;
         }
     }
 </style>
@@ -218,70 +281,34 @@
             gap: 20px;
             margin-top: 20px;
 
+            @media screen and (max-width: 425px) {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
             .card {
                 width: 100%;
                 height: 100%;
                 --el-card-padding: 0px;
 
-                .card-carousel {
-                    .card-carousel--picture {
-                        width: 100%;
-                        height: 100%;
-                    }
-                }
-
                 .card-content {
                     padding: 20px;
-
-                    p {
-                        margin-top: 10px;
-                    }
-
-                    .card-content-nav {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        gap: 10px;
-                        margin-top: 10px;
-
-                        span {
-                            display: inherit;
-                            align-items: inherit;
-                            gap: 5px;
-                        }
-                    }
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
                 }
             }
         }
 
         .detail-news-drawer {
-            .detail-news-drawer__header {
-                line-height: 25px;
-            }
-
             .detail-news-drawer__content {
-                display: flex;
-                align-items: flex-start;
-                gap: 20px;
-
-                @media screen and (max-width: 1024px) {
-                    flex-wrap: wrap-reverse;
-                    justify-content: center;
-                    gap: 10px;
+                @media screen and (max-width: 1200px) {
+                    margin-top: 20px;
                 }
 
-                .content-carousel {
-                    min-width: 500px;
-                    border-radius: 4px;
-
-                    @media screen and (max-width: 1024px) {
-                        min-width: 100%;
-                    }
-
-                    .content-carousel__pictures {
-                        width: 100%;
-                        height: 100%
-                    }
+                .detail-news-drawer__content-header {
+                    display: block;
+                    line-height: 25px;
+                    color: currentColor;
                 }
             }
         }
