@@ -88,7 +88,7 @@
 
                 <el-carousel class="desc-carousel"
                     direction="vertical"
-                    :interval="5000"
+                    :interval="2000"
                     indicator-position="none"
                 >
                     <el-carousel-item
