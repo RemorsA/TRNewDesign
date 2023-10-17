@@ -49,4 +49,9 @@
             text-align: left !important;
         }
     }
+
+	.el-carousel-custom.el-carousel {
+		--el-carousel-arrow-background: var(--el-color-info);
+		--el-carousel-arrow-hover-background: var(--el-color-primary);
+	}
 </style>
