@@ -23,6 +23,16 @@ const router = createRouter({
 								icon: 'House'
 							},
 							component: () => import('./News.vue'),
+							children: [
+								{
+									path: '/home/news/edit',
+									name: 'newsEdit',
+									meta: {
+										title: 'Редактирование новости',
+									},
+									component: () => import('./NewsEdit.vue')
+								}
+							]
 						},
 						{
 							path: '/home/account',

@@ -53,7 +53,8 @@ export default createStore({
         isAuth: false,
         isTheme: false,
         isMenuCollapse: false,
-        defaultMenuOpened: false
+        defaultMenuOpened: false,
+        editNews: true
     },
     getters: {}
 })
