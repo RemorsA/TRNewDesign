@@ -3,62 +3,66 @@
     import store from './store';
 
     const state = computed(() => store.state).value
+    const parseImage = (image) => computed(() => {
+        if (image !== undefined) {
+            return URL.createObjectURL(image)
+        }
+    }).value
 
-    const pictures = ref([
-        'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/%D0%90%D0%BA%D1%86%D0%B8%D1%8F.jpg',
-        'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
-        'https://media.istockphoto.com/id/1256284390/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9-%D0%B2%D0%BE%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BB%D1%8F-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B8-%D1%80%D0%B0%D0%B7%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8F%D0%BD%D0%BD%D1%8B%D1%85-%D0%BF%D0%BE%D0%B4%D0%B4%D0%BE%D0%BD%D0%BE%D0%B2-%D0%BE%D1%82-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0-%D0%B4%D0%BE.jpg?s=1024x1024&w=is&k=20&c=piefUnA6zAi3X9O21-m7NTRemZJ4eOuozRBxXGLQhlU=',
-        'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=',
-        
-    ])
-
-    const detailNewsDrawerContent = ref(`
-        <table border style='border-collapse: collapse; width: 100%;'>
-        <thead>
-        <td>10х10</td>
-        <td>10х60</td>
-        <td>10х30</td>
-        <td>10х20</td>
-        </thead>
-        <tbody>
-        <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        </tr>
-        <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        </tr>
-        <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        </tr>
-        </tbody>
-        </table>
-        <br>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non molestie libero. 
-        Phasellus id augue dapibus, convallis arcu id, vehicula nibh. Class aptent taciti 
-        sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed auctor 
-        finibus diam, sed ultrices ipsum vulputate dignissim. Praesent pharetra felis sed 
-        euismod fringilla. Morbi ultrices neque eu efficitur pretium. Nam et sodales orci. 
-        Phasellus a sem tortor. Fusce sit amet auctor mauris. Curabitur quam nulla, ultricies a 
-        consectetur at, egestas a magna. Praesent at rhoncus nulla.
-    `)
 
     let isDetailNews = ref(false)
+    let newsArr = ref([
+        {
+            pictures: [],
+            title: 'Акция на шины',
+            description: 'Все в магазин',
+            date: '',
+            detail: '',
+            edit: false,
+            main: false
+        }
+    ])
 
-    // СДЕЛАТЬ РЕДАКТИРОВАНИЕ НОВОСТИ
+    function addPicture(file, record) {
+        record.pictures.push(file)
+    }
+    function deletePicture(file, record) {
+        record.pictures.forEach((el, index) => {
+            if (el.uid === file.uid) {
+                record.pictures.splice(index, 1)
+            }
+        })
+    }
+
+    function addCardNews() {
+        newsArr.value.push({
+            pictures: [],
+            title: '',
+            description: '',
+            date: '',
+            detail: '',
+            edit: false,
+        })
+    }
+    function deleteCardNews(index) {
+        newsArr.value.splice(index, 1)
+    }
+
+    function inTopCardNews(record) {
+        console.log(record)
+    }
+    function inOtherNews(record) {
+        console.log(record)
+    }
+
+    function detailNews(record) {
+        console.log(record)
+    }
 </script>
 
 <template>
     <div class="news-container">
-        <el-card class="card-top_news"
+        <!-- <el-card class="card-top_news"
             :class="{
                 'slide-is_auth': state.isAuth
             }"
@@ -100,57 +104,145 @@
                         16.10.2023
                     </span>
                 </div>
-            </div>
-        </el-card>
 
-        <div class="cards_news">
+                <div class="desc-nav-delete__edit">
+                    <el-button
+                        link
+                        v-show="state.isEditNews && state.isAuth"
+                        @click="router.push('/home/news_edit')"
+                        icon="Edit"
+                    >
+                        Редактировать
+                    </el-button>
+
+                    <el-button
+                        link
+                        v-show="state.isEditNews && state.isAuth"
+                        icon="Delete"
+                    >
+                        Удалить
+                    </el-button>
+                </div>
+            </div>
+        </el-card> -->
+
+        <el-space class="cards_news"
+            wrap
+            :size="0"
+            aligment="center"
+        >
             <el-card class="card"
-                v-for="(record, index) in 14"
+                v-for="(record, index) in newsArr"
                 :key="index"
             >
                 <template #header>
+                    <el-upload
+                        :file-list="record.pictures"
+                        action="#"
+                        :auto-upload="false"
+                        :on-change="(file) => {
+                            addPicture(file, record)
+                        }"
+                        :on-remove="(file) => {
+                            deletePicture(file, record)
+                        }"
+                        drag
+                        v-if="record.edit"
+                    >
+                        <el-carousel class="el-carousel-custom"
+                            :autoplay="false"
+                        >
+                            <el-carousel-item
+                                v-for="(record, index) in record.pictures"
+                                :key="index"
+                            >
+                                <el-image
+                                    style=" width: 100%; height: 100%;"
+                                    :src="parseImage(record.raw)"
+                                    fit="scale-down"
+                                ></el-image>
+                            </el-carousel-item>
+                        </el-carousel>
+                    </el-upload>
+
                     <el-carousel class="el-carousel-custom custom-carousel"
                         :autoplay="false"
+                        v-else
                     >
                         <el-carousel-item
-                            v-for="(record, index) in pictures"
+                            v-for="(record, index) in record.pictures"
                             :key="index"
                         >
                             <el-image
-                                :src="record"
+                                :src="parseImage(record.raw)"
                                 fit="scale-down"
-                                style="
-                                    width: 100%;
-                                    height: 100%;
-                                "
+                                style="width: 100%; height: 100%;"
                             ></el-image>
                         </el-carousel-item>
                     </el-carousel>
                 </template>
 
                 <div class="card-content">
-                    <h4>Акция на шины</h4>
+                    <textarea class="card-content__title"
+                        type="text"
+                        :disabled="!record.edit"
+                        v-model="record.title"
+                    ></textarea>
 
-                    <p>Все в магазин</p>
+                    <textarea class="card-content__description"
+                        type="text"
+                        :disabled="!record.edit"
+                        v-model="record.description"
+                    ></textarea>
 
-                    <span>
+                    <!-- <span>
                         <el-icon><Calendar></Calendar></el-icon>
                         10.08.1999
-                    </span>
+                    </span> -->
 
-                    <el-button
-                        v-show="state.isAuth"
-                        icon="Right"
-                        style="width: 100%;"
-                        @click="isDetailNews = true"
-                    >
-                        Подробнее
-                    </el-button>
+                    <el-button-group>
+                        <el-button
+                            v-show="state.isAuth"
+                            icon="Right"
+                            @click="detailNews(record)"
+                        >
+                            Подробнее
+                        </el-button>
+
+                        <el-button
+                            v-show="state.isEditNews && state.isAuth"
+                            :icon="record.edit ? 'Select' : 'Edit'"
+                            @click="record.edit = !record.edit"
+                            :title="record.edit ? 'Сохранить' : 'Редактировать новость'"
+                        ></el-button>
+
+                        <el-button
+                            v-show="state.isEditNews && state.isAuth"
+                            icon="Delete"
+                            @click="deleteCardNews(index)"
+                            title="Удалить новость"
+                        ></el-button>
+
+                        <el-button
+                            v-show="state.isEditNews && state.isAuth"
+                            icon="Top"
+                            @click="inTopCardNews(record)"
+                            title="Новость в топ"
+                        ></el-button>
+                    </el-button-group>
                 </div>
             </el-card>
-        </div>
 
-        <el-drawer class="detail-news-drawer"
+            <el-button
+                v-show="state.isAuth && state.isEditNews"
+                icon="Plus"
+                @click="addCardNews"
+            >
+                Добавить
+            </el-button>
+        </el-space>
+
+        <!-- <el-drawer class="detail-news-drawer"
             v-model="isDetailNews"
             size="100%"
             direction="btt"
@@ -189,10 +281,47 @@
 
                     <el-divider></el-divider>
 
-                    <div v-html="detailNewsDrawerContent"></div>
+                    <div v-html="`
+<table border style='border-collapse: collapse; width: 100%;'>
+<thead>
+<td>10х10</td>
+<td>10х60</td>
+<td>10х30</td>
+<td>10х20</td>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<br>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non molestie libero. 
+Phasellus id augue dapibus, convallis arcu id, vehicula nibh. Class aptent taciti 
+sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed auctor 
+finibus diam, sed ultrices ipsum vulputate dignissim. Praesent pharetra felis sed 
+euismod fringilla. Morbi ultrices neque eu efficitur pretium. Nam et sodales orci. 
+Phasellus a sem tortor. Fusce sit amet auctor mauris. Curabitur quam nulla, ultricies a 
+consectetur at, egestas a magna. Praesent at rhoncus nulla.
+    `"></div>
                 </el-col>
             </el-row>
-        </el-drawer>
+        </el-drawer> -->
     </div>
 </template>
 
@@ -218,6 +347,10 @@
                 }
                 .desc-nav__date {
                     transform: translateX(0) !important;
+                }
+
+                .desc-nav-delete__edit {
+                    transform: translateY(0);
                 }
             }
 
@@ -254,7 +387,6 @@
                     display: flex;
                     align-items: center;
                     gap: 50px;
-                    color: var(--el-color-white);
                     bottom: 20px;
 
                     .desc-nav__button {
@@ -272,29 +404,62 @@
                         transform: translateX(-75px);
                     }
                 }
+
+                .desc-nav-delete__edit {
+                    position: absolute;
+                    bottom: 0;
+                    right: 20px;
+                    text-align: center;
+                    bottom: 20px;
+                    transition: all .5s;
+                    transform: translateY(100px);
+                }
             }
         }
 
         .cards_news {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
             margin-top: 20px;
-
-            @media screen and (max-width: 425px) {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
+            justify-content: center;
+            gap: 20px;
 
             .card {
-                width: 100%;
-                height: 100%;
                 --el-card-padding: 0px;
+                height: 100%;
+                width: 400px;
+
+                @media screen and (max-width: 425px) {
+                    width: 300px;
+                }
 
                 .card-content {
                     padding: 20px;
                     display: flex;
                     flex-direction: column;
                     gap: 10px;
+
+                    input {
+                        color: var(--el-text-color-primary);
+                        border: 0;
+                        background: none;
+                        outline: none;
+                    }
+
+                    // .card-content__input-is-edit {
+                    //     border-bottom: 1px solid var(--el-color-red);
+                    // }
+
+                    .card-content__title {
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+
+                    .card-content__description {
+                        font-size: 14px;
+                    }
+
+                    .card-content__date {
+
+                    }
                 }
             }
         }

@@ -85,7 +85,7 @@
 					v-for="(record, index) in menuLinks.links"
 					:key="index"
 					:index="record.path"
-					v-show="record.name !== 'news'"
+					v-show="record.meta.isShowMenu"
 				>
 					<el-icon v-show="record.meta.icon">
 						<component :is="record.meta.icon"></component>
@@ -187,7 +187,7 @@
 				v-for="(record, index) in menuLinks.links"
 				:key="index"
 				:href="record.path"
-				v-show="record.name !== 'news'"
+				v-show="record.meta.isShowMenu"
 				:style="{
 					color: record.path === router.currentRoute.value.path ? 'var(--el-color-primary)' : 'currentcolor'
 				}"
@@ -264,7 +264,7 @@
         .page {
             .mobile-page__header {
                 display: none;
-                z-index: 2;
+                z-index: 5;
 
                 @media screen and (max-width: 768px) {
                     display: block;
