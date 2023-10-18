@@ -54,7 +54,7 @@ export default createStore({
         isTheme: false,
         isMenuCollapse: false,
         defaultMenuOpened: false,
-        editNews: true
+        isEditNews: true
     },
     getters: {}
 })

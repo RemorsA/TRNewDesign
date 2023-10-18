@@ -20,26 +20,18 @@ const router = createRouter({
 							name: 'news',
 							meta: {
 								title: 'Новости',
-								icon: 'House'
+								icon: 'House',
+								isShowMenu: false
 							},
 							component: () => import('./News.vue'),
-							children: [
-								{
-									path: '/home/news/edit',
-									name: 'newsEdit',
-									meta: {
-										title: 'Редактирование новости',
-									},
-									component: () => import('./NewsEdit.vue')
-								}
-							]
 						},
 						{
 							path: '/home/account',
 							name: 'account',
 							meta: {
 								title: 'Учетная запись',
-								icon: 'User'
+								icon: 'User',
+								isShowMenu: true,
 							},
 							component: () => import('./Account.vue'),
 						},
@@ -48,7 +40,8 @@ const router = createRouter({
 							name: 'orders',
 							meta: {
 								title: 'Заказы',
-								icon: 'List'
+								icon: 'List',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -56,7 +49,8 @@ const router = createRouter({
 							name: 'shipments',
 							meta: {
 								title: 'Отгрузки',
-								icon: 'Van'
+								icon: 'Van',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -64,7 +58,8 @@ const router = createRouter({
 							name: 'cart',
 							meta: {
 								title: 'Корзина',
-								icon: 'ShoppingCart'
+								icon: 'ShoppingCart',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -72,7 +67,8 @@ const router = createRouter({
 							name: 'messages',
 							meta: {
 								title: 'Сообщения',
-								icon: 'Message'
+								icon: 'Message',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -80,6 +76,7 @@ const router = createRouter({
 							name: 'requestByArticle',
 							meta: {
 								title: 'Запрос по артикулу',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -87,6 +84,7 @@ const router = createRouter({
 							name: 'selectionRequest',
 							meta: {
 								title: 'Запрос на подбор',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -94,6 +92,7 @@ const router = createRouter({
 							name: 'productCatalog',
 							meta: {
 								title: 'Каталог номенклатуры',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -101,6 +100,7 @@ const router = createRouter({
 							name: 'historyRequest',
 							meta: {
 								title: 'История запросов',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -108,6 +108,7 @@ const router = createRouter({
 							name: 'catalogs',
 							meta: {
 								title: 'Каталоги',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -115,6 +116,7 @@ const router = createRouter({
 							name: 'tires',
 							meta: {
 								title: 'Шины',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -122,6 +124,7 @@ const router = createRouter({
 							name: 'forks',
 							meta: {
 								title: 'Вилы',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -129,6 +132,7 @@ const router = createRouter({
 							name: 'engines',
 							meta: {
 								title: 'Двигатели',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -136,6 +140,7 @@ const router = createRouter({
 							name: 'attachments',
 							meta: {
 								title: 'Навесное оборудование',
+								isShowMenu: true,
 							},
 						},
 						{
@@ -143,6 +148,7 @@ const router = createRouter({
 							name: 'batteries',
 							meta: {
 								title: 'Аккумуляторы',
+								isShowMenu: true,
 							},
 						},
 					]
