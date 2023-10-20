@@ -47,13 +47,6 @@
                     pass: authForm.value.pass
                 })
 
-				ElNotification({
-					type: 'success',
-					message: 'Вы вошли в аккаунт',
-					showClose: true,
-					customClass: 'el-notification-custom'
-				})
-
                 routerGo('/home/news')
 
 				ref.resetFields()
