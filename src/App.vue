@@ -54,8 +54,8 @@
 		--el-carousel-arrow-background: var(--el-color-info);
 		--el-carousel-arrow-hover-background: var(--el-color-primary);
 
-		.el-carousel__indicators .el-carousel__indicator .el-carousel__button{
-			background-color: var(--el-color-info) !important;
-		}
+		// .el-carousel__indicators .el-carousel__indicator .el-carousel__button {
+		// 	background-color: var(--el-color-primary) !important;
+		// }
 	}
 </style>

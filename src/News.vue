@@ -2,548 +2,565 @@
     import { ref, computed } from 'vue'
     import store from './store';
 
-    const state = computed(() => store.state).value
-
-    let isDetailNews = ref(false)
-    let isDetailNewsData = ref({})
-    let newsArr = ref([
-        {
-            pictures: [
-                'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/msg5011511819-88316.jpg',
-                'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/msg5011511819-88314.jpg',
-                'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/msg5011511819-88315.jpg',
-                'https://shop.liftnet.ru/tr-lift/dealer.work/newsImagesAndFiles/msg5011511819-88316.jpg'
-            ],
-            title: 'Акция на шины',
-            description: 'Все в магазин',
-            date: '10.07.1984',
-            detail: `
-<table border style='border-collapse: collapse; width: 100%;'>
+    let isEditDialog = ref(false)
+    let form = ref({
+        id: Math.floor(Math.random() * 100) + 1,
+        pictures: [
+            'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
+            'https://media.istockphoto.com/id/1304746031/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%83%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B9.jpg?s=1024x1024&w=is&k=20&c=gIPY6YdXH3hm7d3qQQ4V9LRcErEsM6WX79Jm2IbmsKg=',
+            'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=',
+            'https://media.istockphoto.com/id/824351914/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4-%D1%81-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0%D0%BC%D0%B8-%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B9-%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8.jpg?s=1024x1024&w=is&k=20&c=wJ9LyM2G7Hw05hhvhqLEntt8JKT2m0YLdNw0S2QjA48=',
+            'https://media.istockphoto.com/id/513380472/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D0%BD%D0%BE%D0%B3%D0%B8%D0%B5-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B8-%D0%B2-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4.jpg?s=1024x1024&w=is&k=20&c=oRegsLBFb0r4qfiQDlviDvpTqaOcl25iwHKX2e4TJrM=',
+            'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
+            'https://media.istockphoto.com/id/1304746031/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%83%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B9.jpg?s=1024x1024&w=is&k=20&c=gIPY6YdXH3hm7d3qQQ4V9LRcErEsM6WX79Jm2IbmsKg=',
+            'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=',
+            'https://media.istockphoto.com/id/824351914/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4-%D1%81-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0%D0%BC%D0%B8-%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B9-%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8.jpg?s=1024x1024&w=is&k=20&c=wJ9LyM2G7Hw05hhvhqLEntt8JKT2m0YLdNw0S2QjA48=',
+            'https://media.istockphoto.com/id/513380472/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D0%BD%D0%BE%D0%B3%D0%B8%D0%B5-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B8-%D0%B2-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4.jpg?s=1024x1024&w=is&k=20&c=oRegsLBFb0r4qfiQDlviDvpTqaOcl25iwHKX2e4TJrM=',
+        ],
+        title: 'Только граница обучения кадров стала доступной ширнармассам',
+        description: 'Как бы то ни было, крепость духовных «скреп» расставила все точки над i',
+        date: '10.11.1970',
+        detail: `<table class="detail-table">
 <thead>
-<td>10х10</td>
-<td>10х60</td>
-<td>10х30</td>
-<td>10х20</td>
+<td>шапка</td>
+<td>шапка</td>
+<td>шапка</td>
+<td>шапка</td>
 </thead>
+
 <tbody>
-<tr>
-<td>a</td>
-<td>b</td>
-<td>c</td>
-<td>d</td>
-</tr>
-<tr>
-<td>a</td>
-<td>b</td>
-<td>c</td>
-<td>d</td>
-</tr>
-<tr>
-<td>a</td>
-<td>b</td>
-<td>c</td>
-<td>d</td>
-</tr>
+<td>тело</td>
+<td>тело</td>
+<td>тело</td>
+<td>тело</td>
+</tbody>
+
+<tbody>
+<td>тело</td>
+<td>тело</td>
+<td>тело</td>
+<td>тело</td>
 </tbody>
 </table>
 <br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non molestie libero. 
-Phasellus id augue dapibus, convallis arcu id, vehicula nibh. Class aptent taciti 
-sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed auctor 
-finibus diam, sed ultrices ipsum vulputate dignissim. Praesent pharetra felis sed 
-euismod fringilla. Morbi ultrices neque eu efficitur pretium. Nam et sodales orci. 
-Phasellus a sem tortor. Fusce sit amet auctor mauris. Curabitur quam nulla, ultricies a 
-consectetur at, egestas a magna. Praesent at rhoncus nulla.
-            `,
-            edit: false,
-            main: false
-        }
+<a class="detail-link" download href="/logo.png">Противоположная</a> точка зрения подразумевает, что базовые сценарии поведения 
+пользователей могут быть объективно рассмотрены соответствующими инстанциями. 
+Кстати, многие известные личности представляют собой не что иное, как квинтэссенцию 
+победы маркетинга над разумом и должны быть функционально разнесены на независимые 
+элементы. А ещё сторонники тоталитаризма в науке, которые представляют собой 
+яркий пример континентально-европейского типа политической культуры, 
+будут ассоциативно распределены по отраслям!`,
+        main: false,
+    })
+    let isDetailDialog = ref(false)
+
+    let newsItems = ref(6)
+
+    const pictures1 = ref([
+        'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
+        'https://media.istockphoto.com/id/1304746031/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%83%D0%BB%D1%83%D1%87%D1%88%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F-%D1%81-%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%D1%8E-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B9.jpg?s=1024x1024&w=is&k=20&c=gIPY6YdXH3hm7d3qQQ4V9LRcErEsM6WX79Jm2IbmsKg=',
+        'https://media.istockphoto.com/id/897280394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BD%D0%B8%D0%BA-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B0-%D1%81-%D0%BF%D0%BE%D0%B3%D1%80%D1%83%D0%B7%D1%87%D0%B8%D0%BA%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=_k01bCFuJA_4esH0z-d-Hd02JGczzkIdHGyZqb6ERYg=',
+        'https://media.istockphoto.com/id/824351914/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D0%B0%D1%81%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4-%D1%81-%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D0%B2%D0%B8%D0%BA%D0%B0%D0%BC%D0%B8-%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D0%B9-%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8.jpg?s=1024x1024&w=is&k=20&c=wJ9LyM2G7Hw05hhvhqLEntt8JKT2m0YLdNw0S2QjA48=',
+        'https://media.istockphoto.com/id/513380472/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BC%D0%BD%D0%BE%D0%B3%D0%B8%D0%B5-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4%D0%B5-%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5-%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B8-%D0%B2-%D1%81%D0%BA%D0%BB%D0%B0%D0%B4.jpg?s=1024x1024&w=is&k=20&c=oRegsLBFb0r4qfiQDlviDvpTqaOcl25iwHKX2e4TJrM=',
+    ])
+    const pictures2 = ref([
+        'https://media.istockphoto.com/id/1332478606/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F-%D1%88%D0%B8%D0%BD%D0%B0-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B0%D0%B5%D1%82%D1%81%D1%8F-%D0%BD%D0%B0-%D1%81%D1%82%D0%B5%D0%BB%D0%BB%D0%B0%D0%B6%D0%B5-%D0%B4%D0%BB%D1%8F-%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F-%D1%88%D0%B8%D0%BD-%D0%B2-%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%BE%D0%B9-%D0%B1%D1%83%D0%B4%D1%8C%D1%82%D0%B5-%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D1%8B-%D0%BA.jpg?s=1024x1024&w=is&k=20&c=kx9_JEgjkoSgtSuDQksSNJTPkWEAIcXoRyCr-Cfn_OU=',
+        'https://media.istockphoto.com/id/1334499812/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%88%D0%B8%D0%BD%D1%8B-%D0%B8-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81-%D0%BC%D0%B5%D1%85%D0%B0%D0%BD%D0%B8%D0%BA-%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%89%D0%B8%D0%B9-%D0%BD%D0%BE%D0%B2%D1%83%D1%8E-%D1%88%D0%B8%D0%BD%D1%83-%D0%BD%D0%B0-%D1%84%D0%BE%D0%BD%D0%B5-%D0%B3%D0%B0%D1%80%D0%B0%D0%B6%D0%B0-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%BE-%D0%B4%D0%BB%D1%8F-%D0%BA%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jpg?s=1024x1024&w=is&k=20&c=c5rfRjiqMRhAt3EtechuSADd2CU0hejq10XJtF3Wi94=',
+        'https://media.istockphoto.com/id/1317641180/ru/%D1%84%D0%BE%D1%82%D0%BE/4-wd-suv-allroad-%D1%88%D0%B8%D0%BD%D1%8B-%D0%B2%D1%81%D0%B5-%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D1%88%D0%B8%D0%BD%D1%8B-%D1%81%D1%82%D0%B5%D0%BA-%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B8-%D0%B3%D1%80%D1%8F%D0%B7%D0%B8-%D0%BA%D1%80%D0%BE%D1%81%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%8B-%D0%BA%D0%BE%D0%BB%D0%B5%D1%81%D0%BE.jpg?s=1024x1024&w=is&k=20&c=2cCCOXsQCcj7imXlnHUAZQcDtRxHydtd3p0PEJgKld0=',
+        'https://media.istockphoto.com/id/1341247101/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%88%D0%B8%D0%BD%D1%8B-%D0%B2-%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D1%85-%D1%81-%D0%BA%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%BC-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%BE%D0%BC.jpg?s=1024x1024&w=is&k=20&c=Je15alZWgwadol4hcAaFunPXlnjKyg0ZhOVZ9pHwpu4=',
     ])
 
-    function uploadPicture(record) {
-        if (state.isAuth && state.isEditNews) {
-            record.pictures.forEach((el, index) => {
-                if (el === '') {
-                    record.pictures.splice(index, 1)
-                }
-            })
-
-            let input = document.createElement('input')
-            input.setAttribute('type', 'file')
-            input.setAttribute("accept", 'png, jpg, JPG, jpeg')
-            input.type = 'file'
-
-            input.onchange = async (event) => {
-                const file = URL.createObjectURL(event.target.files[0])
-
-                record?.pictures.push(file)
-            }
-
-            input.click()
-        }
-    }
-    function deletePicture(record, index) {
-        record.pictures.splice(index, 1)
-
-        if (record.pictures?.length === 0) {
-            record.pictures.push('')
-        }
-    }
-
-    function addCardNews() {
-        newsArr.value.push({
-            pictures: [''],
-            title: '',
-            description: '',
-            date: '',
-            detail: '',
-            edit: true,
-        })
-    }
-    function deleteCardNews(index) {
-        newsArr.value.splice(index, 1)
-    }
-
-    function inTopCardNews(record) {
-        console.log(record)
-    }
-    function inOtherNews(record) {
-        console.log(record)
-    }
-
-    function detailNews(record) {
-        isDetailNewsData.value = record
-        isDetailNews.value = true
-    }
+    const state = computed(() => store.state).value
 </script>
 
 <template>
-    <div class="news-container">
-        <!-- <el-card class="card-top_news"
-            :class="{
-                'slide-is_auth': state.isAuth
+<!-- ГЛАВНАЯ -->
+    <div class="top-news-card">
+        <el-carousel class="top-news-card__header-carousel el-carousel-custom"
+            indicator-position="none"
+            arrow="never"
+        >
+            <el-carousel-item
+                v-for="(pic, idx) in pictures1"
+                :key="idx"
+            >
+                <img :src="pic" :alt="idx">
+            </el-carousel-item>
+        </el-carousel>
+
+        <span class="top-news-card__text">
+            <h4>Никто не вправе осуждать треск разлетающихся скреп</h4>
+
+            <p>В провинции никого не пугает печальный плач оппозиции</p>
+        </span>
+
+        <div class="top-news-card__date">
+            <span>
+                <el-icon><Calendar></Calendar></el-icon>
+                10.10.1984
+            </span>
+        </div>
+
+        <div class="top-news-card__navigation">
+            <el-button
+                icon="Right"
+                v-show="state.isAuth"
+                link
+                color="currentColor"
+                @click="isDetailDialog = true"
+            >
+                Подробнее
+            </el-button>
+
+            <el-button
+                v-show="state.isEditNews && state.isAuth"
+                icon="Edit"
+                title="Редактировать новость"
+                link
+                color="currentColor"
+                @click="isEditDialog = true"
+            >
+                Редактор
+            </el-button>
+        </div>
+    </div>
+<!-- ОСТАЛЬНЫЕ -->
+    <div class="other-news-cards"
+        :class="[ newsItems > 5 ? 'more' : 'less' ]"
+    >
+        <el-card class="news-card"
+            v-for="(card, index) in newsItems"
+            :key="card"
+            :style="{
+                width: newsItems > 5 ? '100%' : '300px'
             }"
         >
-            <div class="news-carousel-desc">
-                <el-carousel class="carousel"
-                    indicator-position="none"
+            <template #header>
+                <el-carousel class="el-carousel-custom"
+                    height="400"
+                    trigger="click"
+                    :autoplay="false"
                     arrow="never"
                 >
-                    <el-carousel-item class="el-carousel-custom carousel-item"
-                        v-for="(record, index) in pictures"
-                        :key="index"
+                    <el-carousel-item
+                        v-for="(pic, idx) in pictures2"
+                        :key="idx"
                     >
-                        <el-image class="carousel-item__pictures"
-                            :src="record"
+                        <el-image
+                            style="width: 100%; height: 100%"
+                            :src="pic"
                             fit="cover"
                         ></el-image>
                     </el-carousel-item>
                 </el-carousel>
+            </template>
 
-                <span class="desc-title">
-                    <h3>Грандиозное снижение цен</h3>
-                    <p>На все шины и вилочные погрузчики</p>
+            <div class="news-card__content">
+                <h4>Завоз новых шин на склад</h4>
+
+                <p>Новый и БУ</p>
+
+                <span>
+                    <el-icon><Calendar></Calendar></el-icon>
+                    14.12.1994
                 </span>
 
-                <div class="desc-nav">
-                    <el-button class="desc-nav__button"
-                        link
+                <el-button-group>
+                    <el-button
                         icon="Right"
-                        color="currentColor"
-                        @click="isDetailNews = true"
                         v-show="state.isAuth"
+                        @click="isDetailDialog = true"
                     >
                         Подробнее
                     </el-button>
 
-                    <span class="desc-nav__date">
-                        <el-icon><Calendar></Calendar></el-icon>
-                        16.10.2023
-                    </span>
-                </div>
-
-                <div class="desc-nav-delete__edit">
                     <el-button
-                        link
                         v-show="state.isEditNews && state.isAuth"
-                        @click="router.push('/home/news_edit')"
                         icon="Edit"
+                        title="Редактировать новость"
+                        @click="isEditDialog = true"
                     >
-                        Редактировать
+                        Редактор
                     </el-button>
-
-                    <el-button
-                        link
-                        v-show="state.isEditNews && state.isAuth"
-                        icon="Delete"
-                    >
-                        Удалить
-                    </el-button>
-                </div>
+                </el-button-group>
             </div>
-        </el-card> -->
-
-        <el-space class="cards_news"
-            wrap
-            :size="0"
-            alignment="center"
-        >
-            <el-card class="card"
-                v-for="(record, index) in newsArr"
-                :key="index"
-            >
-                <template #header>
-                    <el-carousel class="el-carousel-custom el-carousel-custom-this_page"
-                        :autoplay="false"
-                        :class="{
-                            'is-hover': state.isAuth && state.isEditNews && record.edit
-                        }"
-                    >
-                        <el-carousel-item
-                            v-for="(pic, picIndex) in record.pictures"
-                            :key="picIndex"
-                        >
-                            <el-image
-                                :src="pic"
-                                fit="scale-down"
-                                style="width: 100%; height: 100%;"
-                            ></el-image>
-
-                            <div class="carousel-image-edit__nav">
-                                <el-button
-                                    link
-                                    icon="Delete"
-                                    title="Удалить это изображение"
-                                    @click="deletePicture(record, picIndex)"
-                                ></el-button>
-
-                                <el-button
-                                    title="Добавить изображение в общий список"
-                                    link
-                                    icon="Plus"
-                                    @click="uploadPicture(record)"
-                                ></el-button>
-                            </div>
-                        </el-carousel-item>
-                    </el-carousel>
-                </template>
-
-                <div class="card-content">
-                    <input class="card-content__title"
-                        type="text"
-                        v-model="record.title"
-                        placeholder="Заголовок"
-                        v-if="record.edit"
-                    >
-
-                    <h4 v-else>{{ record.title || 'Пусто' }}</h4>
-
-                    <input class="card-content__description"
-                        type="text"
-                        v-model="record.description"
-                        placeholder="Описание"
-                        v-if="record.edit"
-                    >
-
-                    <p v-else>{{ record.description || 'Пусто' }}</p>
-
-                    <el-date-picker class="date-picker-this_page_custom"
-                        v-model="record.date"
-                        placeholder="Дата"
-                        format="DD.MM.YYYY"
-                        v-if="record.edit"
-                        :clearable="false"
-                    ></el-date-picker>
-
-                    <span v-else>
-                        <el-icon><Calendar></Calendar></el-icon>
-                        {{ new Date(record.date).toLocaleDateString() === 'Invalid Date' ? 'Пусто' : new Date(record.date).toLocaleDateString() }}
-                    </span>
-
-                    <el-button-group>
-                        <el-button
-                            v-show="state.isAuth"
-                            icon="Right"
-                            @click="detailNews(record)"
-                        >
-                            Подробнее
-                        </el-button>
-
-                        <el-button
-                            v-show="state.isEditNews && state.isAuth"
-                            :icon="record.edit ? 'Select' : 'Edit'"
-                            @click="record.edit = !record.edit"
-                            :title="record.edit ? 'Сохранить' : 'Редактировать новость'"
-                        ></el-button>
-
-                        <el-button
-                            v-show="state.isEditNews && state.isAuth"
-                            icon="Delete"
-                            @click="deleteCardNews(index)"
-                            title="Удалить новость"
-                        ></el-button>
-
-                        <el-button
-                            v-show="state.isEditNews && state.isAuth"
-                            icon="Top"
-                            @click="inTopCardNews(record)"
-                            title="Новость в топ"
-                        ></el-button>
-                    </el-button-group>
-                </div>
-            </el-card>
-
-            <el-card class="card add"
-                v-show="state.isAuth && state.isEditNews"
-                @click="addCardNews"
-            >
-                <el-icon><Plus></Plus></el-icon>
-                Добавить новость
-            </el-card>
-        </el-space>
-
-        <el-drawer class="detail-news-drawer"
-            v-model="isDetailNews"
-            size="100%"
-            direction="btt"
-        >
-            <el-row align="middle" :gutter="20">
-                <el-col :xs="24" :sm="24" :md="10" :lg="7">
-                    <el-carousel class="el-carousel-custom custom-carousel"
-                        :autoplay="false"
-                        arrow="always"
-                    >
-                        <el-carousel-item
-                            v-for="(record, index) in isDetailNewsData.pictures"
-                            :key="index"
-                        >
-                            <el-image
-                                :src="record"
-                                fit="scale-down"
-                                :preview-src-list="isDetailNewsData.pictures"
-                                hide-on-click-modal
-                                preview-teleported
-                                style="width: 100%; height: 100%;"
-                            ></el-image>
-                        </el-carousel-item>
-                    </el-carousel> 
-                </el-col>
-
-                <el-col :xs="24" :sm="24" :md="14" :lg="17" class="detail-news-drawer__content">
-                    <span class="detail-news-drawer__content-header">
-                        <h4>{{ isDetailNewsData.title }}</h4>
-                        <p>{{ isDetailNewsData.description }}</p>
-                        <p>{{ isDetailNewsData.date }}</p>
-                    </span>
-
-                    <el-divider></el-divider>
-
-                    <div v-html="isDetailNewsData.detail"></div>
-                </el-col>
-            </el-row>
-        </el-drawer>
+        </el-card>
     </div>
+<!-- РЕДАКТОР -->
+    <el-dialog
+        v-model="isEditDialog"
+        align-center
+        append-to-body
+        title="Редактор"
+        draggable
+        width="800px"
+    >
+        <el-row>
+            <el-col>
+                <div class="edit-form__pictures">
+                    <div class="pictures"
+                        v-for="(pic, index) in form.pictures"
+                        :key="index"
+                    >
+                        <el-image class="pictures__item"
+                            :src="pic"
+                            fit="cover"
+                            :preview-src-list="form.pictures"
+                            :initial-index="index"
+                            hide-on-click-modal
+                            preview-teleported
+                        ></el-image>
+
+                        <el-button class="pictures__delete-button"
+                            plain
+                            icon="Delete"
+                            type="danger"
+                            circle
+                        ></el-button>
+                    </div>
+                </div>
+
+                <el-form label-position="top">
+                    <el-form-item label="Тема:">
+                        <el-input
+                            v-model="form.title"
+                            clearable
+                        ></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Кратко:">
+                        <el-input
+                            v-model="form.description"
+                            clearable
+                        ></el-input>
+                    </el-form-item>
+
+                    <el-form-item label="Дата:">
+                        <el-date-picker
+                            v-model="form.date"
+                            placeholder="Дата"
+                            format="DD.MM.YYYY"
+                        ></el-date-picker>
+                    </el-form-item>
+
+                    <el-form-item label="Редактор контента:">
+                        <el-input
+                            type="textarea"
+                            v-model="form.detail"
+                            autosize
+                            resize="none"
+                            style="word-break: break-all;"
+                        ></el-input>
+                    </el-form-item>
+                </el-form>
+
+                <div v-html="form.detail"></div>
+            </el-col>
+        </el-row>
+
+        <template #footer>
+            <el-button-group>
+                <el-button
+                    icon="Delete"
+                    v-show="!form.main"
+                    @click="newsItems--, isEditDialog = false"
+                >
+                    Удалить
+                </el-button>
+
+                <el-button
+                    icon="Top"
+                    v-show="!form.main"
+                >
+                    Сделать главной
+                </el-button>
+
+                <el-button
+                    icon="Close"
+                    @click="isEditDialog = false"
+                >
+                    Закрыть редактор
+                </el-button>
+
+                <el-button
+                    icon="Right"
+                    @click="isEditDialog = false"
+                >
+                    Сохранить
+                </el-button>
+            </el-button-group>
+        </template>
+    </el-dialog>
+<!-- ДЕТАЛЬНО -->
+    <el-drawer
+        direction="btt"
+        v-model="isDetailDialog"
+        size="95%"
+        :title="form.title"
+    >
+        <el-row :gutter="20">
+            <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                <el-carousel class="el-carousel-custom drawer-form__pictures"
+                    indicator-position="none"
+                    arrow="never"
+                    height="40vh"
+                >
+                    <el-carousel-item
+                        v-for="(pic, idx) in form.pictures"
+                        :key="idx"
+                    >
+                        <el-image
+                            style="width: 100%; height: 100%"
+                            :src="pic"
+                            fit="cover"
+                            preview-teleported
+                            :preview-src-list="form.pictures"
+                            hide-on-click-modal
+                        ></el-image>
+                    </el-carousel-item>
+                </el-carousel>
+            </el-col>
+
+            <el-col class="drawer-form__detail"
+                :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
+            >
+                <p>{{ form.description }}</p>
+
+                <el-divider content-position="left">
+                    <el-icon><Calendar></Calendar></el-icon>
+                    {{ form.date }}
+                </el-divider>
+
+                <div v-html="form.detail"></div>
+            </el-col>
+        </el-row>
+    </el-drawer>
+<!-- ДОБАВИТЬ -->
+    <el-button class="add-button"
+        icon="Plus"
+        @click="newsItems++"
+        type="primary"
+        round
+        v-show="state.isAuth && state.isEditNews"
+    >
+        Добавить новость
+    </el-button>
 </template>
 
 <style lang="scss">
-    .date-picker-this_page_custom {
-        &.el-input {
-            width: 100%;
+    .detail-link {
+        color: var(--el-color-primary);
+        text-decoration: none;
+        border-bottom: 1px solid var(--el-color-primary);
+        transition: all .5s;
 
-            .el-input__wrapper {
-                padding: 0;
-                box-shadow: none;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    .detail-table {
+        border-collapse: collapse;
+        width: 100%;
+        border-color: var(--el-table-border-color);
+
+        thead {
+            border-bottom: 1px solid var(--el-border-color);
+            background: var(--el-table-header-bg-color);
+            user-select: none;
+            font-weight: 600;
+            color: var(--el-text-color-secondary);
+        }
+
+        tbody {
+            color: var(--el-text-color-regular);
+            transition: all .5s;
+            border-bottom: 1px solid var(--el-border-color);
+
+            &:hover {
+                background: var(--el-fill-color-light);
             }
+        }
+
+        td {
+            padding: 8px 12px;
+            
         }
     }
 </style>
 
 <style lang="scss" scoped>
-    .news-container {
+    .top-news-card {
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        background: black;
 
-        .card-top_news {
-            --el-card-padding: 0px;
-            user-select: none;
-            pointer-events:visibleFill;
-
-            &.slide-is_auth:hover {
-                .desc-nav .desc-nav__button {
-                    transform: translateY(0px) !important;
-                }
-                .desc-nav__date {
-                    transform: translateX(0) !important;
-                }
-
-                .desc-nav-delete__edit {
-                    transform: translateY(0);
-                }
+        &:hover {
+            .top-news-card__text {
+                transform: translateX(0);
             }
 
-            .news-carousel-desc {
-                position: relative;
-                z-index: 0;
+            .top-news-card__navigation {
+                transform: translateX(0);
+            }
 
-                .carousel {
-                    height: 300px;
-
-                    .carousel-item {
-                        .carousel-item__pictures {
-                            width: 100%;
-                            height: 100%;
-                            filter: blur(2px) brightness(0.3);
-                        }
-                    }
-                }
-
-                .desc-title {
-                    position: absolute;
-                    top: 20px;
-                    left: 20px;
-                    line-height: 30px;
-                    color: var(--el-color-white);
-                }
-
-                .desc-nav {
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    left: 0;
-                    justify-content: center;
-                    display: flex;
-                    align-items: center;
-                    gap: 50px;
-                    bottom: 20px;
-
-                    .desc-nav__button {
-                        transition: all .5s;
-                        transform: translateY(100px);
-                    }
-
-                    .desc-nav__date {
-                        transition: all .5s;
-                        display: inherit;
-                        gap: 5px;
-                        align-items: inherit;
-                        font-size: 14px;
-
-                        transform: translateX(-75px);
-                    }
-                }
-
-                .desc-nav-delete__edit {
-                    position: absolute;
-                    bottom: 0;
-                    right: 20px;
-                    text-align: center;
-                    bottom: 20px;
-                    transition: all .5s;
-                    transform: translateY(100px);
-                }
+            .top-news-card__date::before {
+                width: 0%;
             }
         }
 
-        .cards_news {
-            margin-top: 20px;
+        .top-news-card__header-carousel img {
+            width: 100%;
+            height: 100%;
+            filter: blur(2px) brightness(0.5);
+            object-fit: cover;
+        }
+
+        .top-news-card__text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            color: white;
+            line-height: 30px;
+            transition: all .5s;
+            transform: translateX(-500px);
+            max-width: 500px;
+            word-break: keep-all;
+
+            @media screen and (max-width: 425px) {
+                max-width: 300px;
+            }
+
+            h4 {
+                font-size: 25px;
+            }
+        }
+
+        .top-news-card__date {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            color: white;
+            padding: 20px;
+            width: 100%;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+
+            span {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                justify-content: center;
+                border: 1px solid white;
+                padding: 2px 5px;
+                border-radius: 10px;
+            }
+
+            &::after {
+                content: '';
+                height: 1px;
+                width: 100%;
+                background: white;
+            }
+
+            &::before {
+                content: '';
+                height: 1px;
+                width: 100%;
+                background: white;
+                transition: all .5s;
+            }
+        }
+
+        .top-news-card__navigation {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 0 20px 60px 0;
+            color: white;
+            gap: 10px;
+            transition: all 1.5s;
+            transform: translateX(500px);
+        }
+    }
+
+    .other-news-cards {
+        margin-top: 20px;
+        gap: 20px;
+
+        &.more {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        &.less {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-
-            .card {
-                --el-card-padding: 0px;
-                height: 100%;
-                width: 400px;
-
-                &.add {
-                    height: 465px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: 1px dashed transparent;
-                    cursor: pointer;
-
-                    &:hover {
-                        border-color: var(--el-color-primary);
-                        color: var(--el-color-primary)
-                    }
-                }
-
-                @media screen and (max-width: 425px) {
-                    width: 300px;
-                }
-
-                .el-carousel-custom-this_page {
-                    position: relative;
-
-                    .carousel-image-edit__nav {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        top: 0;
-                        left: 0;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        opacity: 0;
-                        transition: all .5s;
-                        visibility: hidden;
-
-                        button {
-                            font-size: 20px;
-                            color: white;
-
-                            &:hover {
-                                color: var(--el-color-primary)
-                            }
-                        }
-                    }
-
-                    &.is-hover:hover {
-                        .carousel-image-edit__nav {
-                            visibility: visible;
-                            opacity: 1;
-                        }
-                    }
-                }
-
-                .card-content {
-                    padding: 20px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                    word-break: keep-all;
-
-                    input {
-                        color: var(--el-text-color-primary);
-                        border: 0;
-                        background: none;
-                        outline: none;
-                        border-bottom: 1px solid var(--el-color-info);
-                    }
-
-                    .card-content__title {
-                        font-size: 16px;
-                        font-weight: bold;
-                    }
-
-                    .card-content__description {
-                        font-size: 14px;
-                    }
-                }
-            }
         }
 
-        .detail-news-drawer {
-            .detail-news-drawer__content {
-                @media screen and (max-width: 1200px) {
-                    margin-top: 20px;
-                }
+        .news-card {
+            --el-card-padding: 0px;
 
-                .detail-news-drawer__content-header {
-                    display: block;
-                    line-height: 25px;
-                    color: currentColor;
-                }
+            .news-card__content {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
             }
+        }
+    }
+
+    .add-button {
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        z-index: 1000;
+    }
+
+    .edit-form__pictures {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        padding-bottom: 20px;
+
+        .pictures {
+            position: relative;
+
+            .pictures__item {
+                width: 100%;
+                height: 100%;
+                min-width: 100px;
+                min-height: 100px;
+            }
+
+            .pictures__delete-button {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+            }
+        }
+    }
+
+    .drawer-form__pictures {
+        transition: all .5s;
+        padding: 2px 0;
+
+        &:hover {
+            background: var(--el-color-primary);
+        }
+    }
+    .drawer-form__detail {
+        h4, p {
+            line-height: 25px;
+        }
+
+        @media screen and (width < 992px) {
+            margin-top: 20px;
         }
     }
 </style>
