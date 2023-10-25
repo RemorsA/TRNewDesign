@@ -152,7 +152,9 @@
 					{{ router.currentRoute.value.meta.title }}
 				</h1>
 
-				<router-view class="page-router"></router-view>
+				<div class="page-router">
+					<router-view></router-view>
+				</div>
 			</div>
 		</el-scrollbar>
 	</div>
