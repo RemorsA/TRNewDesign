@@ -1,6 +1,6 @@
 <script setup>
     import store from './store';
-    import { computed, ref } from 'vue'
+    import { computed } from 'vue'
 
     const state = computed(() => store.state).value
 </script>
@@ -26,27 +26,10 @@
         v-for="(desc, index) in state.tData.slice(48)"
         :kye="index"
     >
+        <el-divider content-position="left">{{ desc.name }}</el-divider>
+
         <el-card class="cards">
-            <template #header>
-                {{ desc.name }}
-            </template>
-
             <div class="descriptions">
-                <div class="descriptions-item">
-                    <span class="descriptions-item__label"></span>
-
-                    <span class="descriptions-item__value">
-                        <el-button
-                            icon="Printer"
-                        ></el-button>
-
-                        <el-button
-                            icon="Search"
-                            @click="desc.isActive = !desc.isActive"
-                        ></el-button>
-                    </span>
-                </div>
-
                 <div class="descriptions-item">
                     <span class="descriptions-item__label">Трек номер: </span>
 
@@ -59,7 +42,7 @@
                     <span class="descriptions-item__label">Cтатус: </span>
 
                     <span class="descriptions-item__value">
-                        <el-tag>
+                        <el-tag type="warning">
                             {{ desc.eyeColor }}
                         </el-tag>
                     </span>
@@ -88,57 +71,53 @@
                         {{ desc.registered }}
                     </span>
                 </div>
+
+                <div class="descriptions-item">
+                    <span class="descriptions-item__label"></span>
+
+                    <span class="descriptions-item__value">
+                        <el-button-group>
+                            <el-button
+                                icon="Printer"
+                                plain
+                                :type="index === 0 ? 'success' : 'danger'"
+                            >
+                                {{ index === 0 ? 'Загрузить' : 'Недоступно' }}
+                            </el-button>
+
+                            <el-button
+                                :icon="!desc.isActive ? 'Search' : 'Top'"
+                                @click="desc.isActive = !desc.isActive"
+                                plain
+                                type="primary"
+                            >
+                                Посмотреть
+                            </el-button>
+                        </el-button-group>
+                    </span>
+                </div>
             </div>
-
-            <!-- <el-descriptions style="border: 1px solid var(--el-border-color); padding: 10px; border-radius: 4px;">
-                <el-descriptions-item>
-                    <el-button-group>
-                        <el-button
-                            icon="Printer"
-                        ></el-button>
-
-                        <el-button
-                            icon="Search"
-                            @click="desc.isActive = !desc.isActive"
-                        ></el-button>
-                    </el-button-group>
-                </el-descriptions-item>
-
-                <el-descriptions-item label="Трек номер:">
-                    {{ desc.guid }}
-                </el-descriptions-item>
-
-                <el-descriptions-item label="Cтатус:">
-                    <el-tag>
-                        {{ desc.eyeColor }}
-                    </el-tag>
-                </el-descriptions-item>
-
-                <el-descriptions-item label="Cумма:">
-                    {{ desc.balance }}
-                </el-descriptions-item>
-
-                <el-descriptions-item label="Доставка:">
-                    {{ desc.address }}
-                </el-descriptions-item>
-
-                <el-descriptions-item label="Дата отгрузки:">
-                    {{ desc.registered }}
-                </el-descriptions-item>
-            </el-descriptions> -->
 
             <transition name="fade-table">
                 <el-table
                     v-show="desc.isActive"
                     :data="state.tData.slice(47)"
                     style="margin-top: 20px;"
+                    stripe
+                    table-layout="fixed"
                 >
                     <el-table-column label="Наименование" prop="name"></el-table-column>
+
                     <el-table-column label="Кат. номер" prop="guid"></el-table-column>
+
                     <el-table-column label="Вес" prop="age"></el-table-column>
+
                     <el-table-column label="Количество" prop="age"></el-table-column>
+
                     <el-table-column label="Ед. изм." prop="favoriteFruit"></el-table-column>
+
                     <el-table-column label="Цена, руб." prop="balance"></el-table-column>
+
                     <el-table-column label="Сумма, руб." prop="balance"></el-table-column>
                 </el-table>
             </transition>
@@ -157,20 +136,21 @@
         margin-top: 20px;
 
         .descriptions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            border: 1px solid var(--el-border-color);
-            padding: 10px;
-            border-radius: 4px;
+            gap: 10px;
+            display: flex;
+            flex-wrap: wrap;
 
             .descriptions-item {
-                .descriptions-item__label {
+                flex: 1 1 300px;
+                line-height: 30px;
 
+                .descriptions-item__label {
+                    font-weight: bold;
                 }
 
                 .descriptions-item__value {
-
+                    margin-left: 10px;
+                    font-size: 14px;
                 }
             }
         }

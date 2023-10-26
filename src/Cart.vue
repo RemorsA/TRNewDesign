@@ -11,52 +11,27 @@
         show-summary
         sum-text="Итого: 1000, руб."
         stripe
+        table-layout="fixed"
     >
-        <el-table-column
-            label="В заказ"
-            prop="a"
-            min-width="120"
-        >
-            <template #default>
-                <el-checkbox></el-checkbox>
+        <el-table-column label="В заказ" prop="">
+            <template #default="{ row, index }">
+                <el-checkbox
+                    :model-value="row.isActive"
+                ></el-checkbox>
             </template>
         </el-table-column>
 
-        <el-table-column
-            label="Наименование"
-            prop="name"
-            min-width="150"
-        ></el-table-column>
+        <el-table-column label="Наименование" prop="name"></el-table-column>
 
-        <el-table-column
-            label="Артикул"
-            prop="guid"
-            min-width="100"
-        ></el-table-column>
+        <el-table-column label="Артикул" prop="guid"></el-table-column>
 
-        <el-table-column
-            label="Страна"
-            prop="address"
-            min-width="100"
-        ></el-table-column>
+        <el-table-column label="Страна" prop="address"></el-table-column>
 
-        <el-table-column
-            label="Склад"
-            prop="company"
-            min-width="100"
-        ></el-table-column>
+        <el-table-column label="Склад" prop="company"></el-table-column>
 
-        <el-table-column
-            label="Цена, руб."
-            prop="balance"
-            min-width="100"
-        ></el-table-column>
+        <el-table-column label="Цена, руб." prop="balance"></el-table-column>
 
-        <el-table-column
-            label="Количество"
-            prop=""
-            min-width="180"
-        >
+        <el-table-column label="Количество" prop="">
             <template #default>
                 <el-input-number
                     :model-value="1"
@@ -64,19 +39,13 @@
             </template>
         </el-table-column>
 
-        <el-table-column
-            label="Сумма, руб."
-            prop="balance"
-            min-width="180"
-        ></el-table-column>
+        <el-table-column label="Сумма, руб." prop="balance"></el-table-column>
 
-        <el-table-column
-            label="Убрать"
-            prop=""
-            min-width="100"
-        >
+        <el-table-column label="Убрать" prop="">
             <template #default>
                 <el-button
+                    plain
+                    type="danger"
                     icon="Delete"
                 ></el-button>
             </template>
@@ -95,6 +64,8 @@
         <el-col :span="3" :xs="24" :sm="24" :md="3" :lg="3" :xl="3">
             <el-button
                 icon="Right"
+                type="primary"
+                plain
             >
                 Оформить заказ
             </el-button>

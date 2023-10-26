@@ -54,7 +54,7 @@
     })
     let isDetailDialog = ref(false)
 
-    let newsItems = ref(6)
+    let newsItems = ref(3)
 
     const pictures1 = ref([
         'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
@@ -170,6 +170,8 @@
                         icon="Right"
                         v-show="state.isAuth"
                         @click="isDetailDialog = true"
+                        plain
+                        type="primary"
                     >
                         Подробнее
                     </el-button>
@@ -179,11 +181,39 @@
                         icon="Edit"
                         title="Редактировать новость"
                         @click="isEditDialog = true"
+                        plain
+                        type="primary"
                     >
                         Редактор
                     </el-button>
                 </el-button-group>
             </div>
+        </el-card>
+
+        <el-card
+            @click="newsItems++"
+            v-show="state.isAuth && state.isEditNews"
+            body-style="
+                display: flex;
+                align-item: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                min-width: 290px;
+                min-height: 490px;
+                cursor: pointer;
+                border: 1px dashed var(--el-color-primary);
+                overflow: unset
+            "
+            shadow="hover"
+        >
+            <el-button
+                icon="Plus"
+                link
+                type="primary"
+            >
+                Добавить новость
+            </el-button>
         </el-card>
     </div>
 <!-- РЕДАКТОР -->
@@ -215,7 +245,7 @@
                             plain
                             icon="Delete"
                             type="danger"
-                            circle
+                            style="width: 100%"
                         ></el-button>
                     </div>
                 </div>
@@ -263,6 +293,8 @@
                 <el-button
                     icon="Delete"
                     v-show="!form.main"
+                    plain
+                    type="danger"
                     @click="newsItems--, isEditDialog = false"
                 >
                     Удалить
@@ -271,6 +303,8 @@
                 <el-button
                     icon="Top"
                     v-show="!form.main"
+                    plain
+                    type="primary"
                 >
                     Сделать главной
                 </el-button>
@@ -278,6 +312,8 @@
                 <el-button
                     icon="Close"
                     @click="isEditDialog = false"
+                    plain
+                    type="primary"
                 >
                     Закрыть редактор
                 </el-button>
@@ -285,6 +321,8 @@
                 <el-button
                     icon="Right"
                     @click="isEditDialog = false"
+                    plain
+                    type="primary"
                 >
                     Сохранить
                 </el-button>
@@ -335,16 +373,6 @@
             </el-col>
         </el-row>
     </el-drawer>
-<!-- ДОБАВИТЬ -->
-    <el-button class="add-button"
-        icon="Plus"
-        @click="newsItems++"
-        type="primary"
-        round
-        v-show="state.isAuth && state.isEditNews"
-    >
-        Добавить новость
-    </el-button>
 </template>
 
 <style lang="scss">
@@ -515,13 +543,6 @@
         }
     }
 
-    .add-button {
-        position: absolute;
-        bottom: 20px;
-        right: 40px;
-        z-index: 1000;
-    }
-
     .edit-form__pictures {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -554,6 +575,7 @@
             background: var(--el-color-primary);
         }
     }
+
     .drawer-form__detail {
         h4, p {
             line-height: 25px;

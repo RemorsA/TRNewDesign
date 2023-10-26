@@ -1,6 +1,8 @@
 <script setup>
 	import store from './store';
-	import { ref } from 'vue'
+	import { ref, computed } from 'vue'
+
+	const state = computed(() => store.state).value
 
 	let isRefreshLink = ref(false)
 	let visibleDesc = ref(window.matchMedia("(max-width: 768px)"))
@@ -21,6 +23,7 @@
 			<el-button
 				type="primary"
 				@click="signOut"
+				plain
 			>
 				Выйти
 			</el-button>
@@ -69,68 +72,79 @@
 		</el-descriptions-item>
 	</el-descriptions>
 
-	<el-tabs class="table-tabs">
+	<el-tabs>
 		<el-tab-pane label="Контактные лица">
 			<el-table
-				table-layout="auto"
-				:data="[]"
+				:data="state.tData.slice(41)"
+				stripe
+				table-layout="fixed"
 			>
-				<el-table-column label="Контактное лицо" prop="ФИО"></el-table-column>
-				<el-table-column label="Тел." prop="НомерТелефона"></el-table-column>
-				<el-table-column label="Моб. телефон" prop="МобильныйНомер"></el-table-column>
-				<el-table-column label="Skype" prop="Skype"></el-table-column>
-				<el-table-column label="E-mail" prop="Email"></el-table-column>
-				<el-table-column label="Должность" prop="Должность"></el-table-column>
+				<el-table-column label="Контактное лицо" prop="name"></el-table-column>
+
+				<el-table-column label="Тел." prop="phone"></el-table-column>
+
+				<el-table-column label="Моб. телефон" prop="phone"></el-table-column>
+
+				<el-table-column label="Skype" prop="email"></el-table-column>
+
+				<el-table-column label="E-mail" prop="email"></el-table-column>
+
+				<el-table-column label="Должность" prop="gender"></el-table-column>
 			</el-table>
 		</el-tab-pane>
 
 		<el-tab-pane label="График платежей">
 			<el-table
-				table-layout="auto"
-				:data="[]"
+				:data="state.tData.slice(44)"
+				stripe
+				table-layout="fixed"
 			>
 				<el-table-column label="Загрузить" prop="">
 					<template #default="{ row }">
 						<el-button
-							link
-							type="primary"
-							style="font-size: 20px;"
+							plain
+							type="success"
 							icon="Download"
 						></el-button>
 					</template>
 				</el-table-column>
-				<el-table-column label="Основание" prop="Основание.Наименование"></el-table-column>
-				<el-table-column label="Счет" prop="Счет"></el-table-column>
-				<el-table-column label="Сумма счета" prop="СуммаСчета"></el-table-column>
-				<el-table-column label="Сумма задолжности" prop="СуммаЗадолженности"></el-table-column>
-				<el-table-column label="Конечная дата оплаты" prop="КонечнаяДатаОплаты"></el-table-column>
+
+				<el-table-column label="Основание" prop="greeting"></el-table-column>
+
+				<el-table-column label="Счет" prop="guid"></el-table-column>
+
+				<el-table-column label="Сумма счета" prop="balance"></el-table-column>
+
+				<el-table-column label="Сумма задолжности" prop="balance"></el-table-column>
+
+				<el-table-column label="Конечная дата оплаты" prop="registered"></el-table-column>
 			</el-table>
 		</el-tab-pane>
 
 		<el-tab-pane label="Адрес доставки">
 			<el-table
-				table-layout="auto"
-				:data="[]"
+				:data="state.tData.slice(39)"
+				stripe
+				table-layout="fixed"
 			>
-				<el-table-column label="Индекс" prop="Индекс"></el-table-column>
-				<el-table-column label="Страна" prop="Страна"></el-table-column>
-				<el-table-column label="Регион" prop="Регион"></el-table-column>
-				<el-table-column label="Населенный пункт" prop="НаселенныйПункт"></el-table-column>
-				<el-table-column label="Район" prop="Район"></el-table-column>
-				<el-table-column label="Улица, дом" prop="">
-					<template #default="{ row }">
+				<el-table-column label="Индекс" prop="longitude"></el-table-column>
+
+				<el-table-column label="Страна" prop="favoriteFruit"></el-table-column>
+
+				<el-table-column label="Регион" prop="address"></el-table-column>
+
+				<el-table-column label="Населенный пункт" prop="address"></el-table-column>
+
+				<el-table-column label="Район" prop="address"></el-table-column>
+
+				<el-table-column label="Улица, дом" prop="address">
+					<!-- <template #default="{ row }">
 						{{ row['Улица'] + ', ' + row['Дом'] }}
-					</template>
+					</template> -->
 				</el-table-column>
 			</el-table>
 		</el-tab-pane>
 	</el-tabs>
 </template>
 
-<style lang="scss" scoped>
-    .account-container {
-        .table-tabs {
-            margin-top: 20px;
-        }
-    }
-</style>
+<style lang="scss" scoped></style>
