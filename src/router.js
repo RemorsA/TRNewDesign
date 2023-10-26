@@ -52,6 +52,7 @@ const router = createRouter({
 								icon: 'Van',
 								isShowMenu: true,
 							},
+							component: () => import('./Shipments.vue')
 						},
 						{
 							path: '/home/cart',
@@ -61,6 +62,7 @@ const router = createRouter({
 								icon: 'ShoppingCart',
 								isShowMenu: true,
 							},
+							component: () => import('./Cart.vue')
 						},
 						{
 							path: '/home/messages',
