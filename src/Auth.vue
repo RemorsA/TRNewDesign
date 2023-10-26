@@ -139,6 +139,8 @@
                                 icon="Right"
                                 @click="loginToAccount(authFormRef)"
                                 style="width: 100%"
+                                plain
+                                type="primary"
                             >
                                 Войти
                             </el-button>
@@ -185,6 +187,8 @@
                                 icon="Right"
                                 @click="register(regFormRef)"
                                 style="width: 100%"
+                                plain
+                                type="primary"
                             >
                                 Зарегестрироваться
                             </el-button>

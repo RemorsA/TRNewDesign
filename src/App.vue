@@ -38,10 +38,6 @@
 		padding: 0;
 		margin: 0;
 		font-family: 'Inter', sans-serif;
-
-		body {
-			scrollbar-gutter: stable;
-		}
 	}
 // CUSTOM CLASS ELEMENT UI
 	.el-notification-custom {
