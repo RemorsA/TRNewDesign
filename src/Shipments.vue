@@ -79,7 +79,6 @@
                         <el-button-group>
                             <el-button
                                 icon="Printer"
-                                plain
                                 :type="index === 0 ? 'success' : 'danger'"
                             >
                                 {{ index === 0 ? 'Загрузить' : 'Недоступно' }}
@@ -88,8 +87,6 @@
                             <el-button
                                 :icon="!desc.isActive ? 'Search' : 'Top'"
                                 @click="desc.isActive = !desc.isActive"
-                                plain
-                                type="primary"
                             >
                                 Посмотреть
                             </el-button>

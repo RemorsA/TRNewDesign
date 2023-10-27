@@ -23,7 +23,6 @@
 			<el-button
 				type="primary"
 				@click="signOut"
-				plain
 			>
 				Выйти
 			</el-button>
@@ -102,8 +101,9 @@
 				<el-table-column label="Загрузить" prop="">
 					<template #default="{ row }">
 						<el-button
-							plain
-							type="success"
+							link
+							style="font-size: 20px"
+							type="primary"
 							icon="Download"
 						></el-button>
 					</template>
