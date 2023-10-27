@@ -4,18 +4,20 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
     "element-plus": "^2.3.14",
+    "gh-pages": "^6.0.0",
+    "inputmask": "^5.0.8",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
-    "vuex": "^4.0.2",
-    "inputmask": "^5.0.8"
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",
