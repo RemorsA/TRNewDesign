@@ -44,9 +44,10 @@
         <el-table-column label="Убрать" prop="">
             <template #default>
                 <el-button
-                    plain
                     type="danger"
                     icon="Delete"
+                    link
+                    style="font-size: 20px;"
                 ></el-button>
             </template>
         </el-table-column>
@@ -65,7 +66,6 @@
             <el-button
                 icon="Right"
                 type="primary"
-                plain
             >
                 Оформить заказ
             </el-button>

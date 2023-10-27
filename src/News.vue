@@ -54,7 +54,7 @@
     })
     let isDetailDialog = ref(false)
 
-    let newsItems = ref(3)
+    let newsItems = ref(7)
 
     const pictures1 = ref([
         'https://media.istockphoto.com/id/1138429558/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4%D1%8B-%D0%BF%D0%BE%D0%BB%D0%BE%D0%BA.jpg?s=1024x1024&w=is&k=20&c=dBgDd4H3_TQy3r4P53oivjUYolmsRqa_24z5pME-b5w=',
@@ -170,8 +170,6 @@
                         icon="Right"
                         v-show="state.isAuth"
                         @click="isDetailDialog = true"
-                        plain
-                        type="primary"
                     >
                         Подробнее
                     </el-button>
@@ -181,8 +179,6 @@
                         icon="Edit"
                         title="Редактировать новость"
                         @click="isEditDialog = true"
-                        plain
-                        type="primary"
                     >
                         Редактор
                     </el-button>
@@ -222,7 +218,6 @@
         align-center
         append-to-body
         title="Редактор"
-        draggable
         width="800px"
     >
         <el-row>
@@ -242,10 +237,10 @@
                         ></el-image>
 
                         <el-button class="pictures__delete-button"
-                            plain
                             icon="Delete"
                             type="danger"
-                            style="width: 100%"
+                            link
+                            style="font-size: 20px;"
                         ></el-button>
                     </div>
                 </div>
@@ -293,7 +288,6 @@
                 <el-button
                     icon="Delete"
                     v-show="!form.main"
-                    plain
                     type="danger"
                     @click="newsItems--, isEditDialog = false"
                 >
@@ -303,8 +297,6 @@
                 <el-button
                     icon="Top"
                     v-show="!form.main"
-                    plain
-                    type="primary"
                 >
                     Сделать главной
                 </el-button>
@@ -312,8 +304,6 @@
                 <el-button
                     icon="Close"
                     @click="isEditDialog = false"
-                    plain
-                    type="primary"
                 >
                     Закрыть редактор
                 </el-button>
@@ -321,7 +311,6 @@
                 <el-button
                     icon="Right"
                     @click="isEditDialog = false"
-                    plain
                     type="primary"
                 >
                     Сохранить
@@ -551,6 +540,7 @@
 
         .pictures {
             position: relative;
+            overflow: hidden;
 
             .pictures__item {
                 width: 100%;
@@ -563,6 +553,11 @@
                 position: absolute;
                 bottom: 0px;
                 right: 0px;
+                background: rgba(0, 0, 0, 0.526);
+                width: 100%;
+                text-align: right;
+                justify-content: end;
+                box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.526);
             }
         }
     }
