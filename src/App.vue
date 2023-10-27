@@ -17,7 +17,7 @@
 			}
 
 			if ((!isAuth && to.name !== 'news') || (isAuth && to.name === 'auth')) {
-				next({ path: '/home/news' })
+				next({ name: 'news' })
 			}
 			else {
 				next()

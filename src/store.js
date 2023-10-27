@@ -45,7 +45,8 @@ export default createStore({
     mutations: {
         routerGo(state, path) {
             let tagA = document.createElement('a')
-            tagA.setAttribute('href', path)
+// ДЛЯ GITHUB PAGES -> /TRNewDesign - ПОЗЖЕ УДАЛИТЬ
+            tagA.setAttribute('href', '/TRNewDesign' + path)
             tagA.click()
         },
     },

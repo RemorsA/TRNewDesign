@@ -1,160 +1,158 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import Home from './Home.vue'
+import Shipments from './Shipments.vue'
+import News from './News.vue'
+import Account from './Account.vue'
+import Cart from './Cart.vue'
+
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
 			path: '/',
 			name: 'index',
-			redirect: '/home',
-			component: () => import('./App.vue'),
+			redirect: '/news',
+			component: Home,
 			children: [
 				{
-					path: '/home',
-					name: 'home',
-					redirect: '/home/news',
-					component: () => import('./Home.vue'),
-					children: [
-						{
-							path: '/home/news',
-							name: 'news',
-							meta: {
-								title: 'Новости',
-								icon: 'House',
-								isShowMenu: false
-							},
-							component: () => import('./News.vue'),
-						},
-						{
-							path: '/home/account',
-							name: 'account',
-							meta: {
-								title: 'Учетная запись',
-								icon: 'User',
-								isShowMenu: true,
-							},
-							component: () => import('./Account.vue'),
-						},
-						{
-							path: '/home/orders',
-							name: 'orders',
-							meta: {
-								title: 'Заказы',
-								icon: 'List',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/shipments',
-							name: 'shipments',
-							meta: {
-								title: 'Отгрузки',
-								icon: 'Van',
-								isShowMenu: true,
-							},
-							component: () => import('./Shipments.vue')
-						},
-						{
-							path: '/home/cart',
-							name: 'cart',
-							meta: {
-								title: 'Корзина',
-								icon: 'ShoppingCart',
-								isShowMenu: true,
-							},
-							component: () => import('./Cart.vue')
-						},
-						{
-							path: '/home/messages',
-							name: 'messages',
-							meta: {
-								title: 'Сообщения',
-								icon: 'Message',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/request_by_article',
-							name: 'requestByArticle',
-							meta: {
-								title: 'Запрос по артикулу',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/selection_request',
-							name: 'selectionRequest',
-							meta: {
-								title: 'Запрос на подбор',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/product_catalog',
-							name: 'productCatalog',
-							meta: {
-								title: 'Каталог номенклатуры',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/history_request',
-							name: 'historyRequest',
-							meta: {
-								title: 'История запросов',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/catalogs',
-							name: 'catalogs',
-							meta: {
-								title: 'Каталоги',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/tires',
-							name: 'tires',
-							meta: {
-								title: 'Шины',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/forks',
-							name: 'forks',
-							meta: {
-								title: 'Вилы',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/engines',
-							name: 'engines',
-							meta: {
-								title: 'Двигатели',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/attachments',
-							name: 'attachments',
-							meta: {
-								title: 'Навесное оборудование',
-								isShowMenu: true,
-							},
-						},
-						{
-							path: '/home/batteries',
-							name: 'batteries',
-							meta: {
-								title: 'Аккумуляторы',
-								isShowMenu: true,
-							},
-						},
-					]
-				}
+					path: '/news',
+					name: 'news',
+					meta: {
+						title: 'Новости',
+						icon: 'House',
+						isShowMenu: false
+					},
+					component: News,
+				},
+				{
+					path: '/account',
+					name: 'account',
+					meta: {
+						title: 'Учетная запись',
+						icon: 'User',
+						isShowMenu: true,
+					},
+					component: Account,
+				},
+				{
+					path: '/orders',
+					name: 'orders',
+					meta: {
+						title: 'Заказы',
+						icon: 'List',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/shipments',
+					name: 'shipments',
+					meta: {
+						title: 'Отгрузки',
+						icon: 'Van',
+						isShowMenu: true,
+					},
+					component: Shipments
+				},
+				{
+					path: '/cart',
+					name: 'cart',
+					meta: {
+						title: 'Корзина',
+						icon: 'ShoppingCart',
+						isShowMenu: true,
+					},
+					component: Cart
+				},
+				{
+					path: '/messages',
+					name: 'messages',
+					meta: {
+						title: 'Сообщения',
+						icon: 'Message',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/request_by_article',
+					name: 'requestByArticle',
+					meta: {
+						title: 'Запрос по артикулу',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/selection_request',
+					name: 'selectionRequest',
+					meta: {
+						title: 'Запрос на подбор',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/product_catalog',
+					name: 'productCatalog',
+					meta: {
+						title: 'Каталог номенклатуры',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/history_request',
+					name: 'historyRequest',
+					meta: {
+						title: 'История запросов',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/catalogs',
+					name: 'catalogs',
+					meta: {
+						title: 'Каталоги',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/tires',
+					name: 'tires',
+					meta: {
+						title: 'Шины',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/forks',
+					name: 'forks',
+					meta: {
+						title: 'Вилы',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/engines',
+					name: 'engines',
+					meta: {
+						title: 'Двигатели',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/attachments',
+					name: 'attachments',
+					meta: {
+						title: 'Навесное оборудование',
+						isShowMenu: true,
+					},
+				},
+				{
+					path: '/batteries',
+					name: 'batteries',
+					meta: {
+						title: 'Аккумуляторы',
+						isShowMenu: true,
+					},
+				},
 			]
 		},
 		{
