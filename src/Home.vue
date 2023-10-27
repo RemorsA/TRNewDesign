@@ -5,15 +5,11 @@
 	import store from './store'
 
 	const menuLinks = computed(() => {
-		const links = router.options.routes[0].children[0].children.slice(0, 6)
-		const linksParts = router.options.routes[0].children[0].children.slice(6)
+		const links = router.options.routes[0].children.slice(0, 6)
+		const linksParts = router.options.routes[0].children.slice(6)
 
 		return { links, linksParts }
 	})
-
-	const routerGo = (path) => computed(() => {
-		store.commit('routerGo', path)
-	}).value
 
 	let isMobileMenu = ref(false)
 	let requestInput = ref('')
@@ -21,7 +17,7 @@
 
     function handleSelect(value) {
         if (value === 'fastRequest') return
-		routerGo(value)
+		store.commit('routerGo', value === 'news' ? '/news' : value)
     }
 
     function sendRequest() {
@@ -166,7 +162,7 @@
 		style="min-width: 300px;"
     >
 		<template #header>
-			<a href="/home/news">
+			<a href="/TRNewDesign/news">
 				<el-image src="/logo-stroke.png"></el-image>
 			</a>
 		</template>
@@ -188,7 +184,7 @@
 			<a class="drawer-content__link"
 				v-for="(record, index) in menuLinks.links"
 				:key="index"
-				:href="record.path"
+				:href="'/TRNewDesign' + record.path"
 				v-show="record.meta.isShowMenu"
 				:style="{
 					color: record.path === router.currentRoute.value.path ? 'var(--el-color-primary)' : 'currentcolor'
@@ -206,7 +202,7 @@
 			<a class="drawer-content__link"
 				v-for="(record, index) in menuLinks.linksParts"
 				:key="index"
-				:href="record.path"
+				:href="'/TRNewDesign' + record.path"
 			>
 				<el-icon v-show="record.meta.icon">
 					<component :is="record.meta.icon"></component>

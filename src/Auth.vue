@@ -14,10 +14,6 @@
         }
     }
 
-    const routerGo = (path) => computed(() => {
-        return store.commit('routerGo', path) 
-    }).value
-
     const authFormRules = ref({
 		login: [{ required: true, message: 'Вы не указали логин' }],
 		pass: [{ required: true, message: 'Вы не указали пароль' }]
@@ -47,7 +43,7 @@
                     pass: authForm.value.pass
                 })
 
-                routerGo('/home/news')
+                store.commit('routerGo', '/') 
 
 				ref.resetFields()
 			}
@@ -65,7 +61,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-                routerGo('/home/news')
+                store.commit('routerGo', '/') 
 
 				ref.resetFields()
 			}
