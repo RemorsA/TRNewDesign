@@ -70,12 +70,12 @@
 </script>
 
 <template>
-    <div class="auth-container">
-        <div class="tabs-form__logo">
-            <div class="logo-desc">
-                <el-image class="logo" src="/logo-stroke.png"></el-image>
+    <div class="auth">
+        <div class="auth__body">
+            <div class="title">
+                <el-image class="logo" src="/TRNewDesign/logo-stroke.png"></el-image>
 
-                <el-carousel class="desc-carousel"
+                <el-carousel class="carousel"
                     direction="vertical"
                     :interval="2000"
                     indicator-position="none"
@@ -234,7 +234,7 @@
 </style>
 
 <style lang="scss" scoped>
-    .auth-container {
+    .auth {
         width: 100vw;
         height: 100vh;
 
@@ -253,7 +253,7 @@
             z-index: -1;
         }
 
-        .tabs-form__logo {
+        &__body {
             max-width: 600px;
             margin: auto;
             width: 100%;
@@ -268,7 +268,7 @@
                 padding: 10px;
             }
 
-            .logo-desc {
+            .title {
                 width: 100%;
                 display: flex;
                 align-items: flex-start;
@@ -280,7 +280,7 @@
                     width: 250px;
                 }
 
-                .desc-carousel {
+                .carousel {
                     height: 53px;
                     width: 290px;
                     color: white;
