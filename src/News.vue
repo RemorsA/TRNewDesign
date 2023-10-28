@@ -75,8 +75,8 @@
 
 <template>
 <!-- ГЛАВНАЯ -->
-    <div class="top-news-card">
-        <el-carousel class="top-news-card__header-carousel el-carousel-custom"
+    <div class="card-top">
+        <el-carousel class="carousel el-carousel-custom"
             indicator-position="none"
             arrow="never"
         >
@@ -88,20 +88,20 @@
             </el-carousel-item>
         </el-carousel>
 
-        <span class="top-news-card__text">
+        <span class="title">
             <h4>Никто не вправе осуждать треск разлетающихся скреп</h4>
 
             <p>В провинции никого не пугает печальный плач оппозиции</p>
         </span>
 
-        <div class="top-news-card__date">
+        <div class="date">
             <span>
                 <el-icon><Calendar></Calendar></el-icon>
                 10.10.1984
             </span>
         </div>
 
-        <div class="top-news-card__navigation">
+        <div class="navigation">
             <el-button
                 icon="Right"
                 v-show="state.isAuth"
@@ -125,10 +125,10 @@
         </div>
     </div>
 <!-- ОСТАЛЬНЫЕ -->
-    <div class="other-news-cards"
+    <div class="cards-other"
         :class="[ newsItems > 5 ? 'more' : 'less' ]"
     >
-        <el-card class="news-card"
+        <el-card class="card"
             v-for="(card, index) in newsItems"
             :key="card"
             :style="{
@@ -155,7 +155,7 @@
                 </el-carousel>
             </template>
 
-            <div class="news-card__content">
+            <div class="card__content">
                 <h4>Завоз новых шин на склад</h4>
 
                 <p>Новый и БУ</p>
@@ -222,12 +222,12 @@
     >
         <el-row>
             <el-col>
-                <div class="edit-form__pictures">
-                    <div class="pictures"
+                <div class="edit-pictures">
+                    <div class="edit-pictures__item"
                         v-for="(pic, index) in form.pictures"
                         :key="index"
                     >
-                        <el-image class="pictures__item"
+                        <el-image class="edit-pictures__pic"
                             :src="pic"
                             fit="cover"
                             :preview-src-list="form.pictures"
@@ -236,7 +236,7 @@
                             preview-teleported
                         ></el-image>
 
-                        <el-button class="pictures__delete-button"
+                        <el-button class="delete-picture"
                             icon="Delete"
                             type="danger"
                             link
@@ -327,7 +327,7 @@
     >
         <el-row :gutter="20">
             <el-col :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <el-carousel class="el-carousel-custom drawer-form__pictures"
+                <el-carousel class="el-carousel-custom drawer__carousel"
                     indicator-position="none"
                     arrow="never"
                     height="40vh"
@@ -348,7 +348,7 @@
                 </el-carousel>
             </el-col>
 
-            <el-col class="drawer-form__detail"
+            <el-col class="drawer__detail"
                 :span="12" :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
             >
                 <p>{{ form.description }}</p>
@@ -407,7 +407,7 @@
 </style>
 
 <style lang="scss" scoped>
-    .top-news-card {
+    .card-top {
         border-radius: 4px;
         overflow: hidden;
         position: relative;
@@ -415,27 +415,27 @@
         background: black;
 
         &:hover {
-            .top-news-card__text {
+            .title {
                 transform: translateX(0);
             }
 
-            .top-news-card__navigation {
+            .navigation {
                 transform: translateX(0);
             }
 
-            .top-news-card__date::before {
+            .date::before {
                 width: 0%;
             }
         }
 
-        .top-news-card__header-carousel img {
+        .carousel img {
             width: 100%;
             height: 100%;
             filter: blur(2px) brightness(0.5);
             object-fit: cover;
         }
 
-        .top-news-card__text {
+        .title {
             position: absolute;
             top: 0;
             left: 0;
@@ -456,7 +456,7 @@
             }
         }
 
-        .top-news-card__date {
+        .date {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -493,7 +493,7 @@
             }
         }
 
-        .top-news-card__navigation {
+        .navigation {
             position: absolute;
             bottom: 0;
             right: 0;
@@ -505,7 +505,7 @@
         }
     }
 
-    .other-news-cards {
+    .cards-other {
         margin-top: 20px;
         gap: 20px;
 
@@ -520,10 +520,10 @@
             justify-content: center;
         }
 
-        .news-card {
+        .card {
             --el-card-padding: 0px;
 
-            .news-card__content {
+            &__content {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
@@ -532,24 +532,24 @@
         }
     }
 
-    .edit-form__pictures {
+    .edit-pictures {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 10px;
         padding-bottom: 20px;
 
-        .pictures {
+        &__item {
             position: relative;
             overflow: hidden;
 
-            .pictures__item {
+            &__pic {
                 width: 100%;
                 height: 100%;
                 min-width: 100px;
                 min-height: 100px;
             }
 
-            .pictures__delete-button {
+            .delete-picture {
                 position: absolute;
                 bottom: 0px;
                 right: 0px;
@@ -562,7 +562,7 @@
         }
     }
 
-    .drawer-form__pictures {
+    .drawer__carousel {
         transition: all .5s;
         padding: 2px 0;
 
@@ -571,7 +571,7 @@
         }
     }
 
-    .drawer-form__detail {
+    .drawer__detail {
         h4, p {
             line-height: 25px;
         }

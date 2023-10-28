@@ -52,7 +52,7 @@
 				<el-menu-item index="news">
 					<el-image class="menu__item-logo-picture"
 						v-if="!store.state.isMenuCollapse"
-						src="/logo.png"
+						src="/TRNewDesign/logo.png"
 						fit="scale-down"
 					></el-image>
 
@@ -163,7 +163,7 @@
     >
 		<template #header>
 			<a href="/TRNewDesign/news">
-				<el-image src="/logo-stroke.png"></el-image>
+				<el-image src="/TRNewDesign/logo-stroke.png"></el-image>
 			</a>
 		</template>
 

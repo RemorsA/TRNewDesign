@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <div class="shipments-filters">
+    <div class="filters">
         <el-input
             v-for="(filter, index) in 2"
             :key="index"
@@ -24,7 +24,7 @@
 
     <div
         v-for="(desc, index) in state.tData.slice(48)"
-        :kye="index"
+        :key="index"
     >
         <el-divider content-position="left">{{ desc.name }}</el-divider>
 
@@ -123,7 +123,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .shipments-filters {
+    .filters {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 20px;

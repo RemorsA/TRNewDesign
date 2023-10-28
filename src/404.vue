@@ -3,12 +3,10 @@
 </script>
 
 <template>
-    <el-result class="page-not-found"
-        sub-title="Страница не найдена"
-    >
+    <el-result sub-title="Страница не найдена">
         <template #icon>
             <el-image
-                src="/notfound.png"
+                src="/TRNewDesign/notfound.png"
             ></el-image>
         </template>
 
@@ -24,9 +22,4 @@
     </el-result>
 </template>
 
-<style lang="scss" scoped>
-    .page-not-found {
-        width: 100%;
-        height: 90vh
-    }
-</style>
+<style lang="scss" scoped></style>
