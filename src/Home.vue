@@ -119,7 +119,7 @@
 				>
 					<template #content>
 						<el-image class="page__header-logo-picture"
-							src="/logo.png"
+							src="/TRNewDesign/logo.png"
 						></el-image>
 					</template>
 				</el-page-header>
@@ -130,7 +130,7 @@
 				>
 					<div class="auth-page__header-content">
 						<el-image
-							src="/logo.png"
+							src="/TRNewDesign/logo.png"
 							fit="scale-down"
 						></el-image>
 
