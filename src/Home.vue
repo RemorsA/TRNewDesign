@@ -118,9 +118,17 @@
 					v-show="store.state.isAuth"
 				>
 					<template #content>
-						<el-image class="page__header-logo-picture"
-							src="/TRNewDesign/logo.png"
-						></el-image>
+						<span class="route__title">
+							{{ router.currentRoute.value.meta.title }}
+						</span>
+					</template>
+
+					<template #extra>
+						<a href="/TRNewDesign/news">
+							<el-image class="page__header-logo-picture"
+								src="/TRNewDesign/logo.png"
+							></el-image>
+						</a>
 					</template>
 				</el-page-header>
 
@@ -243,12 +251,12 @@
         display: grid;
         grid-template-columns: auto 1fr;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1024px) {
             grid-template-columns: 1fr;
         }
 
         .el-scrollbar-custom {
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 1024px) {
                 display: none;
             }
 
@@ -264,7 +272,7 @@
                 display: none;
                 z-index: 5;
 
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 1024px) {
                     display: block;
                     position: sticky;
                     top: 0;
@@ -282,12 +290,25 @@
                     height: 20px;
                     min-width: 100px;
                 }
+
+				.route__title {
+					font-size: 14px;
+					color: var(--el-color-white);
+
+					@media screen and (width < 768px) {
+						font-size: 13px;
+					}
+
+					@media screen and (width < 425px) {
+						display: none;
+					}
+				}
             }
 
             .auth-page__header {
                 margin: 20px 20px 0 20px;
 
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 1024px) {
                     margin: 10px 10px 0 10px;
                 }
 
@@ -311,7 +332,7 @@
                 padding: 20px 20px 0 20px;
                 font-size: 20px;
 
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 1024px) {
                     display: none;
                 }
             }

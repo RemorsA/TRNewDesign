@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 
+// TODO: Переделать модули в нормально состояние
+
 export default createStore({
     modules: {},
     actions: {

@@ -6,14 +6,16 @@
 </script>
 
 <template>
-    <el-table class="el-table-custom__this_page"
+    <el-table class="el-table-custom"
         :data="state.tData.slice(45)"
-        show-summary
-        sum-text="Итого: 1000, руб."
         stripe
-        table-layout="fixed"
     >
-        <el-table-column label="В заказ" prop="">
+        <el-table-column
+            label="В заказ"
+            prop=""
+            width="80"
+            min-width="80"
+        >
             <template #default="{ row, index }">
                 <el-checkbox
                     :model-value="row.isActive"
@@ -21,17 +23,42 @@
             </template>
         </el-table-column>
 
-        <el-table-column label="Наименование" prop="name"></el-table-column>
+        <el-table-column
+            label="Наименование"
+            prop="guid"
+            min-width="130"
+        ></el-table-column>
 
-        <el-table-column label="Артикул" prop="guid"></el-table-column>
+        <el-table-column
+            label="Артикул"
+            prop="name"
+            min-width="100"
+        ></el-table-column>
 
-        <el-table-column label="Страна" prop="address"></el-table-column>
+        <el-table-column
+            label="Страна"
+            prop="address"
+            min-width="100"
+        ></el-table-column>
 
-        <el-table-column label="Склад" prop="company"></el-table-column>
+        <el-table-column
+            label="Склад"
+            prop="company"
+            min-width="100"
+        ></el-table-column>
 
-        <el-table-column label="Цена, руб." prop="balance"></el-table-column>
+        <el-table-column
+            label="Цена, руб."
+            prop="balance"
+            min-width="100"
+        ></el-table-column>
 
-        <el-table-column label="Количество" prop="">
+        <el-table-column
+            label="Количество"
+            prop=""
+            width="175"
+            min-width="175"
+        >
             <template #default>
                 <el-input-number
                     :model-value="1"
@@ -39,9 +66,18 @@
             </template>
         </el-table-column>
 
-        <el-table-column label="Сумма, руб." prop="balance"></el-table-column>
+        <el-table-column
+            label="Сумма, руб."
+            prop="balance"
+            min-width="120"
+        ></el-table-column>
 
-        <el-table-column label="Убрать" prop="">
+        <el-table-column
+            label="Убрать"
+            prop=""
+            width="80"
+            min-width="80"
+        >
             <template #default>
                 <el-button
                     type="danger"
@@ -53,24 +89,11 @@
         </el-table-column>
     </el-table>
 
-    <el-row align="middle" style="gap: 20px; margin-top: 20px;">
-        <el-col :span="3" :xs="24" :sm="8" :md="6" :lg="5" :xl="3">
-            Ваша ссылка для заказа:
-        </el-col>
-
-        <el-col :span="18" :xs="24" :sm="15" :md="13" :lg="14" :xl="17">
-            <el-input placeholder="Ссылка"></el-input>
-        </el-col>
-
-        <el-col :span="3" :xs="24" :sm="24" :md="3" :lg="3" :xl="3">
-            <el-button
-                icon="Right"
-                type="primary"
-            >
-                Оформить заказ
-            </el-button>
-        </el-col>
-    </el-row>
+    <el-card style="margin-top: 20px; text-align: right;">
+        <h5>
+            Итого: 1000, руб.
+        </h5>
+    </el-card>
 
     <el-row justify="center" style="margin-top: 20px;">
         <el-pagination
@@ -80,6 +103,35 @@
             :page-sizes="[10, 20, 40, 60, 80, 100]"
         ></el-pagination>
     </el-row>
+
+    <el-row class="checkout__items" align="middle">
+        <span class="title">Ваша ссылка для заказа:</span>
+
+        <el-input class="link__field"
+            placeholder="Ссылка"
+        ></el-input>
+
+        <el-button
+            icon="Right"
+            type="primary"
+        >
+            Оформить заказ
+        </el-button>
+    </el-row>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+    .checkout__items {
+        gap: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+
+        .title {
+            display: block;
+        }
+
+        .link__field {
+            max-width: 500px;
+        }
+    }
+</style>
