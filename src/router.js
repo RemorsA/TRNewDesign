@@ -5,6 +5,7 @@ import Shipments from './Shipments.vue'
 import News from './News.vue'
 import Account from './Account.vue'
 import Cart from './Cart.vue'
+import Orders from './Orders.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,7 @@ const router = createRouter({
 						icon: 'List',
 						isShowMenu: true,
 					},
+					component: Orders
 				},
 				{
 					path: '/shipments',

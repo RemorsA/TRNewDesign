@@ -5,7 +5,7 @@
 	const state = computed(() => store.state).value
 
 	let isRefreshLink = ref(false)
-	let visibleDesc = ref(window.matchMedia("(max-width: 768px)"))
+	let visibleDesc = ref(window.matchMedia("(max-width: 1024px)"))
 
 	function signOut() {
 		localStorage.removeItem('k')
@@ -73,22 +73,45 @@
 
 	<el-tabs>
 		<el-tab-pane label="Контактные лица">
-			<el-table
+			<el-table class="el-table-custom"
 				:data="state.tData.slice(41)"
 				stripe
-				table-layout="fixed"
 			>
-				<el-table-column label="Контактное лицо" prop="name"></el-table-column>
+				<el-table-column
+					label="Контактное лицо"
+					prop="name"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Тел." prop="phone"></el-table-column>
+				<el-table-column
+					label="Тел."
+					prop="phone"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Моб. телефон" prop="phone"></el-table-column>
+				<el-table-column
+					label="Моб. телефон"
+					prop="phone"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Skype" prop="email"></el-table-column>
+				<el-table-column
+					label="Skype"
+					prop="email"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="E-mail" prop="email"></el-table-column>
+				<el-table-column
+					label="E-mail"
+					prop="email"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Должность" prop="gender"></el-table-column>
+				<el-table-column
+					label="Должность"
+					prop="gender"
+					min-width="150"
+				></el-table-column>
 			</el-table>
 		</el-tab-pane>
 
@@ -96,9 +119,13 @@
 			<el-table
 				:data="state.tData.slice(44)"
 				stripe
-				table-layout="fixed"
 			>
-				<el-table-column label="Загрузить" prop="">
+				<el-table-column
+					label="Загрузить"
+					prop=""
+					min-width="100"
+					width="100"
+				>
 					<template #default="{ row }">
 						<el-button
 							link
@@ -109,15 +136,35 @@
 					</template>
 				</el-table-column>
 
-				<el-table-column label="Основание" prop="greeting"></el-table-column>
+				<el-table-column
+					label="Основание"
+					prop="greeting"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Счет" prop="guid"></el-table-column>
+				<el-table-column
+					label="Счет"
+					prop="guid"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Сумма счета" prop="balance"></el-table-column>
+				<el-table-column
+					label="Сумма счета"
+					prop="balance"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Сумма задолжности" prop="balance"></el-table-column>
+				<el-table-column
+					label="Сумма задолжности"
+					prop="balance"
+					min-width="170"
+				></el-table-column>
 
-				<el-table-column label="Конечная дата оплаты" prop="registered"></el-table-column>
+				<el-table-column
+					label="Конечная дата оплаты"
+					prop="registered"
+					min-width="180"
+				></el-table-column>
 			</el-table>
 		</el-tab-pane>
 
@@ -125,19 +172,42 @@
 			<el-table
 				:data="state.tData.slice(39)"
 				stripe
-				table-layout="fixed"
 			>
-				<el-table-column label="Индекс" prop="longitude"></el-table-column>
+				<el-table-column
+					label="Индекс"
+					prop="longitude"
+					min-width="100"
+				></el-table-column>
 
-				<el-table-column label="Страна" prop="favoriteFruit"></el-table-column>
+				<el-table-column
+					label="Страна"
+					prop="favoriteFruit"
+					min-width="100"
+				></el-table-column>
 
-				<el-table-column label="Регион" prop="address"></el-table-column>
+				<el-table-column
+					label="Регион"
+					prop="address"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Населенный пункт" prop="address"></el-table-column>
+				<el-table-column
+					label="Населенный пункт"
+					prop="address"
+					min-width="160"
+				></el-table-column>
 
-				<el-table-column label="Район" prop="address"></el-table-column>
+				<el-table-column
+					label="Район"
+					prop="address"
+					min-width="150"
+				></el-table-column>
 
-				<el-table-column label="Улица, дом" prop="address">
+				<el-table-column
+					label="Улица, дом"
+					prop="address"
+					min-width="150"
+				>
 					<!-- <template #default="{ row }">
 						{{ row['Улица'] + ', ' + row['Дом'] }}
 					</template> -->
