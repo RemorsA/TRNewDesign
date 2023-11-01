@@ -43,15 +43,18 @@
 				v-show="store.state.isAuth"
 				:default-active="router.currentRoute.value.path"
 				:default-openeds="[
-					store.state.defaultMenuOpened ? '1' : ''
+					store.state.settings.defaultMenuOpened ? '1' : ''
 				]"
 				:ellipsis="false"
-				:collapse="store.state.isMenuCollapse"
+				:collapse="store.state.settings.collapse"
 				@select="handleSelect"
 			>
-				<el-menu-item index="news">
+				<el-menu-item
+					index="news"
+					title="Новости"
+				>
 					<el-image class="menu__item-logo-picture"
-						v-if="!store.state.isMenuCollapse"
+						v-if="!store.state.settings.collapse"
 						src="/TRNewDesign/logo.png"
 						fit="scale-down"
 					></el-image>
@@ -59,7 +62,10 @@
 					<el-icon v-else><House></House></el-icon>
 				</el-menu-item>
 
-				<el-menu-item index="fastRequest" v-if="!store.state.isMenuCollapse">
+				<el-menu-item
+					index="fastRequest"
+					v-if="!store.state.settings.collapse"
+				>
 					<el-input class="el-input-menu__custom"
 						placeholder="Быстрый запрос"
 						v-model="requestInput"
@@ -73,7 +79,12 @@
 					></el-button>
 				</el-menu-item>
 
-				<el-menu-item index="fastRequest" v-else @click="dialogFastRequest = true">
+				<el-menu-item
+					index="fastRequest"
+					v-else
+					@click="dialogFastRequest = true"
+					title="Быстрый запрос"
+				>
 					<el-icon><Search></Search></el-icon>
 				</el-menu-item>
 
@@ -82,6 +93,7 @@
 					:key="index"
 					:index="record.path"
 					v-show="record.meta.isShowMenu"
+					:title="store.state.settings.collapse ? record.meta.title : ''"
 				>
 					<el-icon v-show="record.meta.icon">
 						<component :is="record.meta.icon"></component>
@@ -109,7 +121,7 @@
 			</el-menu>
 		</el-scrollbar>
 
-		<el-scrollbar max-height="100vh" native>
+		<el-scrollbar max-height="100vh">
 			<div class="page">
 				<el-page-header class="mobile-page__header"
 					title="Меню"
@@ -340,7 +352,7 @@
             .page-router {
                 padding: 20px;
 
-                @media screen and (max-width: 768px) {
+                @media screen and (max-width: 1024px) {
                     padding: 10px;
                 }
             }

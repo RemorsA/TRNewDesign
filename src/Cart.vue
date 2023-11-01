@@ -1,63 +1,61 @@
 <script setup>
     import store from './store'
-    import { computed } from 'vue'
-
-    const state = computed(() => store.state).value
+    import Pagination from './components/Pagination.vue';
 </script>
 
 <template>
     <el-table class="el-table-custom"
-        :data="state.tData.slice(45)"
+        :data="store.state.tData.slice(45)"
         stripe
+        border
     >
         <el-table-column
-            label="В заказ"
-            prop=""
-            width="80"
-            min-width="80"
-        >
-            <template #default="{ row, index }">
-                <el-checkbox
-                    :model-value="row.isActive"
-                ></el-checkbox>
-            </template>
-        </el-table-column>
+            min-width="60"
+            width="60"
+            align="center"
+            type="selection"
+        ></el-table-column>
 
         <el-table-column
             label="Наименование"
             prop="guid"
             min-width="130"
+            width=""
         ></el-table-column>
 
         <el-table-column
             label="Артикул"
             prop="name"
             min-width="100"
+            width=""
         ></el-table-column>
 
         <el-table-column
             label="Страна"
             prop="address"
             min-width="100"
+            width=""
         ></el-table-column>
 
         <el-table-column
             label="Склад"
             prop="company"
             min-width="100"
+            width=""
         ></el-table-column>
 
         <el-table-column
             label="Цена, руб."
             prop="balance"
             min-width="100"
+            width=""
         ></el-table-column>
 
         <el-table-column
-            label="Количество"
+            label="Кол-во"
             prop=""
-            width="175"
             min-width="175"
+            width="175"
         >
             <template #default>
                 <el-input-number
@@ -70,13 +68,15 @@
             label="Сумма, руб."
             prop="balance"
             min-width="120"
+            width=""
         ></el-table-column>
 
         <el-table-column
             label="Убрать"
             prop=""
-            width="80"
             min-width="80"
+            width="80"
+            align="center"
         >
             <template #default>
                 <el-button
@@ -89,49 +89,48 @@
         </el-table-column>
     </el-table>
 
-    <el-card style="margin-top: 20px; text-align: right;">
-        <h5>
-            Итого: 1000, руб.
-        </h5>
-    </el-card>
+    <Pagination></Pagination>
 
-    <el-row justify="center" style="margin-top: 20px;">
-        <el-pagination
-            :pager-count="11"
-            layout="sizes, prev, pager, next"
-            :total="state.tData.slice(45)?.length"
-            :page-sizes="[10, 20, 40, 60, 80, 100]"
-        ></el-pagination>
-    </el-row>
+    <el-row class="total-and-checkout__container"
+        align="middle"
+        justify="space-between"
+    >
+        <h5>Итого: 10022220, руб.</h5>
 
-    <el-row class="checkout__items" align="middle">
-        <span class="title">Ваша ссылка для заказа:</span>
+        <el-row class="checkout__items" align="middle">
+            <p class="title">Ваша ссылка для заказа:</p>
 
-        <el-input class="link__field"
-            placeholder="Ссылка"
-        ></el-input>
+            <el-input class="input__field"
+                placeholder="Ссылка"
+            ></el-input>
 
-        <el-button
-            icon="Right"
-            type="primary"
-        >
-            Оформить заказ
-        </el-button>
+            <el-button
+                icon="Right"
+                type="primary"
+            >
+                Оформить заказ
+            </el-button>
+        </el-row>
     </el-row>
 </template>
 
-<style lang="scss">
-    .checkout__items {
-        gap: 20px;
+<style lang="scss" scoped>
+    .total-and-checkout__container {
         margin-top: 20px;
+        gap: 10px;
         flex-wrap: wrap;
 
-        .title {
-            display: block;
-        }
+        .checkout__items {
+            flex-wrap: wrap;
+            gap: inherit;
 
-        .link__field {
-            max-width: 500px;
+            .title {
+                font-size: 14px;
+            }
+
+            .input__field {
+                width: 300px;
+            }
         }
     }
 </style>
