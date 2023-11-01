@@ -23,3 +23,5 @@ app.use(ElementPlus, {
     locale: locale
 })
 app.mount('#app')
+
+// store.commit('componentsSize')

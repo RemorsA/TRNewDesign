@@ -6,6 +6,7 @@ import News from './News.vue'
 import Account from './Account.vue'
 import Cart from './Cart.vue'
 import Orders from './Orders.vue'
+import Tires from './Tires.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,7 +71,7 @@ const router = createRouter({
 					path: '/messages',
 					name: 'messages',
 					meta: {
-						title: 'Сообщения',
+						title: 'Сообщения / Удалить',
 						icon: 'Message',
 						isShowMenu: true,
 					},
@@ -122,6 +123,7 @@ const router = createRouter({
 						title: 'Шины',
 						isShowMenu: true,
 					},
+					component: Tires,
 				},
 				{
 					path: '/forks',

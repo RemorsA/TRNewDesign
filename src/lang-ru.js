@@ -73,7 +73,7 @@ export default {
         },
         pagination: {
             goto: 'Перейти',
-            pagesize: ' страниц',
+            pagesize: ' стр.',
             total: 'Всего {total}',
             pageClassifier: '',
             page: 'Страница',

@@ -1,8 +1,7 @@
 <script setup>
 	import store from './store';
-	import { ref, computed } from 'vue'
-
-	const state = computed(() => store.state).value
+	import Pagination from './components/Pagination.vue';
+	import { ref } from 'vue'
 
 	let isRefreshLink = ref(false)
 	let visibleDesc = ref(window.matchMedia("(max-width: 1024px)"))
@@ -30,7 +29,7 @@
 
 		<el-descriptions-item label="Сменить оформление страницы на темную или светлую тему:">
 			<el-switch
-				v-model="store.state.isTheme"
+				v-model="store.state.settings.theme"
 				active-text="Темная"
 				inactive-text="Светлая"
 				@change="store.dispatch('setSettings')"
@@ -42,7 +41,7 @@
 			v-if="!visibleDesc.matches"
 		>
 			<el-switch
-				v-model="store.state.defaultMenuOpened"
+				v-model="store.state.settings.defaultMenuOpened"
 				active-text="Раскрыт"
 				inactive-text="Скрыт"
 				@change="store.dispatch('setSettings'), isRefreshLink = true"
@@ -52,7 +51,7 @@
 				v-show="isRefreshLink"
 				style="gap: 5px; margin-left: 10px;"
 				icon="Refresh"
-				href="/home/account"
+				href="/TRNewDesign/account"
 			>
 				Перезагрузить
 			</el-link>
@@ -63,7 +62,7 @@
 			v-if="!visibleDesc.matches"
 		>
 			<el-switch
-				v-model="store.state.isMenuCollapse"
+				v-model="store.state.settings.collapse"
 				active-text="Раскрыт"
 				inactive-text="Скрыт"
 				@change="store.dispatch('setSettings')"
@@ -74,57 +73,68 @@
 	<el-tabs>
 		<el-tab-pane label="Контактные лица">
 			<el-table class="el-table-custom"
-				:data="state.tData.slice(41)"
+				:data="store.state.tData.slice(40)"
 				stripe
+				border
 			>
 				<el-table-column
 					label="Контактное лицо"
 					prop="name"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Тел."
 					prop="phone"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Моб. телефон"
 					prop="phone"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Skype"
 					prop="email"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="E-mail"
 					prop="email"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Должность"
 					prop="gender"
 					min-width="150"
+					width=""
 				></el-table-column>
 			</el-table>
+
+			<Pagination :sticky="false"></Pagination>
 		</el-tab-pane>
 
 		<el-tab-pane label="График платежей">
 			<el-table
-				:data="state.tData.slice(44)"
+				:data="store.state.tData.slice(40)"
 				stripe
+				border
 			>
 				<el-table-column
-					label="Загрузить"
+					label=""
 					prop=""
 					min-width="100"
-					width="100"
+					width="60"
+					align="center"
 				>
 					<template #default="{ row }">
 						<el-button
@@ -140,79 +150,95 @@
 					label="Основание"
 					prop="greeting"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Счет"
 					prop="guid"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Сумма счета"
 					prop="balance"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Сумма задолжности"
 					prop="balance"
 					min-width="170"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Конечная дата оплаты"
 					prop="registered"
 					min-width="180"
+					width=""
 				></el-table-column>
 			</el-table>
+
+			<Pagination :sticky="false"></Pagination>
 		</el-tab-pane>
 
-		<el-tab-pane label="Адрес доставки">
+		<el-tab-pane label="Адрес доставки" style="position: relative;">
 			<el-table
-				:data="state.tData.slice(39)"
+				:data="store.state.tData.slice(40)"
 				stripe
+				border
 			>
 				<el-table-column
 					label="Индекс"
 					prop="longitude"
 					min-width="100"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Страна"
 					prop="favoriteFruit"
 					min-width="100"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Регион"
 					prop="address"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Населенный пункт"
 					prop="address"
 					min-width="160"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Район"
 					prop="address"
 					min-width="150"
+					width=""
 				></el-table-column>
 
 				<el-table-column
 					label="Улица, дом"
 					prop="address"
 					min-width="150"
+					width=""
 				>
 					<!-- <template #default="{ row }">
 						{{ row['Улица'] + ', ' + row['Дом'] }}
 					</template> -->
 				</el-table-column>
 			</el-table>
+
+			<Pagination :sticky="false"></Pagination>
 		</el-tab-pane>
 	</el-tabs>
 </template>
