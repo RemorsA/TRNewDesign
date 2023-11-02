@@ -1,8 +1,7 @@
 <script setup>
     import store from './store';
-    import Filter from './components/Filter.vue'
-    import Pagination from './components/Pagination.vue'
     import DeliveryForm from './components/DeliveryForm.vue'
+    import BottomNavigationPanel from './components/BottomNavigationPanel.vue';
     import { ref } from 'vue'
 
     let isDeliveryForm = ref(false)
@@ -30,134 +29,146 @@
 </script>
 
 <template>
-    <Filter :filters="[
-        {
-            key: 0,
-            type: 'input',
-            vModel: '',
-            placeholder: 'Номер отгрузки'
-        },
-        {
-            key: 1,
-            type: 'input',
-            vModel: '',
-            placeholder: 'Ссылка для отгрузки'
-        },
-        {
-            key: 2,
-            type: 'date',
-            vModel: '',
-            placeholder: 'Период от'
-        },
-        {
-            key: 3,
-            type: 'date',
-            vModel: '',
-            placeholder: 'Период до'
-        },
-    ]">
+    <el-timeline>
+        <el-timeline-item
+            v-for="(order, index) in store.state.tData.slice(40)"
+            :key="index"
+            :timestamp="`Заказ 101010 от 29.08.198${index} 11:18 Заказной / ${order.name}`"
+            placement="top"
+            :color="order.isActive ? 'var(--el-color-success)' : 'var(--el-color-info)'"
+            :icon="order.isActive ? 'Select' : 'Close'"
+            size="large"
+            type="danger"
+        >
+            <span :style="{
+                'color': order.isActive ? 'var(--el-color-success)' : 'var(--el-color-info)',
+                'margin-bottom': '10px',
+                'display': 'block'
+            }">
+                {{ order.isActive ? 'Активно' : 'Не активно' }}
+            </span>
+
+            <div class="timeline__table"
+                :class="{
+                    'is-disabled': !order.isActive
+                }"
+            >
+                <el-table
+                    :data="index === 3 ? store.state.tData.slice(47) : store.state.tData.slice(49)"
+                    stripe
+                    border
+                >
+                    <el-table-column
+                        label=""
+                        prop=""
+                        min-width="40"
+                        width="40"
+                        align="center"
+                    >
+                        <template #default="{ row }">
+                            <el-checkbox
+                                :disabled="!order.isActive"
+                            ></el-checkbox>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column
+                        label="Наименование"
+                        prop="name"
+                        min-width="130"
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Кат. номер"
+                        prop="guid"
+                        min-width="110"
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Страна"
+                        prop="address"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Склад"
+                        prop="company"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Вес"
+                        prop="latitude"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Кол-во"
+                        prop="age"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Ед. изм."
+                        prop="eyeColor"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Цена"
+                        prop="balance"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Сумма"
+                        prop="balance"
+                        min-width=""
+                        width=""
+                    ></el-table-column>
+
+                    <el-table-column
+                        label="Состояние"
+                        prop="isActive"
+                        min-width="100"
+                        width=""
+                    >
+                        <template #default="{ row }">
+                            <span :style="{
+                                'color': row.isActive ? 'var(--el-color-success)' : 'var(--el-color-warning)'
+                            }">
+                                {{ row.isActive }}
+                            </span>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-timeline-item>
+    </el-timeline>
+
+    <BottomNavigationPanel
+        :filters="[
+            { key: 0, type: 'input', vModel: '', placeholder: 'Номер отгрузки' },
+            { key: 1, type: 'input', vModel: '', placeholder: 'Ссылка для отгрузки' },
+            { key: 2, type: 'date', vModel: '', placeholder: 'Период от' },
+            { key: 3, type: 'date', vModel: '', placeholder: 'Период до' },
+        ]"
+        :indent-top="false"
+    >
         <el-radio-group :model-value="'Все'">
             <el-radio-button label="Все"></el-radio-button>
             <el-radio-button label="Активные"></el-radio-button>
             <el-radio-button label="Не активные"></el-radio-button>
         </el-radio-group>
-    </Filter>
 
-    <el-table
-        :data="index === 3 ? store.state.tData.slice(47) : store.state.tData.slice(49)"
-        stripe
-        border
-        v-for="(order, index) in store.state.tData.slice(45)"
-        :key="index"
-        style="margin-top: 20px;"
-    >
-        <el-table-column :label="order.name">
-            <el-table-column
-                type="selection"
-                min-width=""
-                width="50"
-                align="center"
-            ></el-table-column>
-
-            <el-table-column
-                label="Наименование"
-                prop="name"
-                min-width="130"
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Кат. номер"
-                prop="guid"
-                min-width="110"
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Страна"
-                prop="address"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Склад"
-                prop="company"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Вес"
-                prop="latitude"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Кол-во"
-                prop="age"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Ед. изм."
-                prop="eyeColor"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Цена"
-                prop="balance"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Сумма"
-                prop="balance"
-                min-width=""
-                width=""
-            ></el-table-column>
-
-            <el-table-column
-                label="Состояние"
-                prop="isActive"
-                min-width="100"
-                width=""
-            >
-                <template #default="{ row }">
-                    <span style="color: var(--el-color-warning)">
-                        {{ row.isActive }}
-                    </span>
-                </template>
-            </el-table-column>
-        </el-table-column>
-    </el-table>
-
-    <Pagination>
         <el-tooltip
             raw-content
             :content="popperContent"
@@ -172,11 +183,11 @@
                 Открыть форму / <el-tag type="danger" style="margin-left: 5px;">10</el-tag>
             </el-button>
         </el-tooltip>
-    </Pagination>
+    </BottomNavigationPanel>
 
     <DeliveryForm
         v-model="isDeliveryForm"
-    ></DeliveryForm>
+    ></DeliveryForm> 
 </template>
 
 <style lang="scss">
@@ -184,7 +195,37 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        justify-content: space-between;
+        line-height: 25px;
     }
 </style>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .timeline__table {
+        position: relative;
+        overflow: hidden;
+
+        &.is-disabled::after {
+            content: 'Заказ не активен!';
+            width: 100%;
+            height: 40px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all .5s;
+            transform: translateY(100px);
+            backdrop-filter: brightness(0.5) blur(2px);
+            color: var(--el-color-white);
+        }
+
+        &:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

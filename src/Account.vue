@@ -1,6 +1,6 @@
 <script setup>
 	import store from './store';
-	import Pagination from './components/Pagination.vue';
+	import BottomNavigationPanel from './components/BottomNavigationPanel.vue';
 	import { ref } from 'vue'
 
 	let isRefreshLink = ref(false)
@@ -110,7 +110,13 @@
 					prop="email"
 					min-width="150"
 					width=""
-				></el-table-column>
+				>
+					<template #default="{ row }">
+						<el-link type="primary">
+							{{ row.email }}
+						</el-link>
+					</template>
+				</el-table-column>
 
 				<el-table-column
 					label="Должность"
@@ -120,7 +126,10 @@
 				></el-table-column>
 			</el-table>
 
-			<Pagination :sticky="false"></Pagination>
+			<BottomNavigationPanel
+				:sticky="false"
+				:filterable="false"
+			></BottomNavigationPanel>
 		</el-tab-pane>
 
 		<el-tab-pane label="График платежей">
@@ -182,10 +191,13 @@
 				></el-table-column>
 			</el-table>
 
-			<Pagination :sticky="false"></Pagination>
+			<BottomNavigationPanel
+				:sticky="false"
+				:filterable="false"
+			></BottomNavigationPanel>
 		</el-tab-pane>
 
-		<el-tab-pane label="Адрес доставки" style="position: relative;">
+		<el-tab-pane label="Адрес доставки">
 			<el-table
 				:data="store.state.tData.slice(40)"
 				stripe
@@ -238,7 +250,10 @@
 				</el-table-column>
 			</el-table>
 
-			<Pagination :sticky="false"></Pagination>
+			<BottomNavigationPanel
+				:sticky="false"
+				:filterable="false"
+			></BottomNavigationPanel>
 		</el-tab-pane>
 	</el-tabs>
 </template>

@@ -7,7 +7,6 @@ const state = {
         theme: false,
         collapse: false,
         defaultMenuOpened: false,
-        stickyFilter: false,
     },
     // size: '',
     isAuth: false,
