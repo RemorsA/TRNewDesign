@@ -1,20 +1,27 @@
 <script setup>
     import store from './store'
-    import Pagination from './components/Pagination.vue';
+    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
 </script>
 
 <template>
-    <el-table class="el-table-custom"
+    <el-table
         :data="store.state.tData.slice(45)"
         stripe
         border
     >
         <el-table-column
-            min-width="60"
-            width="60"
+            label=""
+            prop=""
+            min-width="40"
+            width="40"
             align="center"
-            type="selection"
-        ></el-table-column>
+        >
+            <template #default="{ row }">
+                <el-checkbox
+                    :model-value="row.isActive"
+                ></el-checkbox>
+            </template>
+        </el-table-column>
 
         <el-table-column
             label="Наименование"
@@ -57,6 +64,23 @@
             min-width="175"
             width="175"
         >
+            <template #header>
+                <el-tooltip
+                    :content="`
+                        Для увеличения количества товара
+                        <br>
+                        необходимо произвести переоценку
+                    `"
+                    placement="top"
+                    raw-content
+                >
+                    <span>
+                        <el-icon><QuestionFilled></QuestionFilled></el-icon>
+                        Кол-во
+                    </span>
+                </el-tooltip>
+            </template>
+
             <template #default>
                 <el-input-number
                     :model-value="1"
@@ -89,7 +113,9 @@
         </el-table-column>
     </el-table>
 
-    <Pagination></Pagination>
+    <BottomNavigationPanel
+        :filterable="false"
+    ></BottomNavigationPanel>
 
     <el-row class="total-and-checkout__container"
         align="middle"

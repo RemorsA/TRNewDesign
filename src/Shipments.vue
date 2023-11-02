@@ -1,39 +1,10 @@
 <script setup>
     import store from './store';
-    import Filter from './components/Filter.vue'
-    import Pagination from './components/Pagination.vue'
+    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
 </script>
 
 <template>
-    <Filter :filters="[
-        {
-            key: 0,
-            type: 'input',
-            vModel: '',
-            placeholder: 'Номер отгрузки'
-        },
-        {
-            key: 1,
-            type: 'input',
-            vModel: '',
-            placeholder: 'Ссылка для отгрузки'
-        },
-        {
-            key: 2,
-            type: 'date',
-            vModel: '',
-            placeholder: 'Период от'
-        },
-        {
-            key: 3,
-            type: 'date',
-            vModel: '',
-            placeholder: 'Период до'
-        },
-    ]"></Filter>
-
     <el-table
-        style="margin-top: 20px;"
         :data="store.state.tData.slice(40)"
         stripe
         border
@@ -42,63 +13,61 @@
             type="expand"
         >
             <template #default="props">
-                <el-table
-                    :data="store.state.tData.slice(44)"
-                    :row-style="{
-                        'background-color': 'var(--el-fill-color)',
-                    }"
-                    style="margin-bottom: 20px;"
-                    size="small"
-                >
-                    <el-table-column
-                        label="Наименование"
-                        prop="name"
-                        min-width=""
-                        width=""
-                    ></el-table-column>
+                <el-card style="margin: 0 8px;">
+                    <el-table
+                        :data="store.state.tData.slice(47)"
+                        size="small"
+                    >
+                        <el-table-column
+                            label="Наименование"
+                            prop="name"
+                            min-width=""
+                            width=""
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Кат. номер"
-                        prop="guid"
-                        min-width=""
-                        width=""
-                    ></el-table-column>
+                        <el-table-column
+                            label="Кат. номер"
+                            prop="guid"
+                            min-width=""
+                            width=""
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Вес"
-                        prop="age"
-                        min-width=""
-                        width="100"
-                    ></el-table-column>
+                        <el-table-column
+                            label="Вес"
+                            prop="age"
+                            min-width=""
+                            width="100"
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Кол-во"
-                        prop="age"
-                        min-width=""
-                        width="100"
-                    ></el-table-column>
+                        <el-table-column
+                            label="Кол-во"
+                            prop="age"
+                            min-width=""
+                            width="100"
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Ед. изм."
-                        prop="favoriteFruit"
-                        min-width=""
-                        width="100"
-                    ></el-table-column>
+                        <el-table-column
+                            label="Ед. изм."
+                            prop="favoriteFruit"
+                            min-width=""
+                            width="100"
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Цена, руб."
-                        prop="balance"
-                        min-width=""
-                        width=""
-                    ></el-table-column>
+                        <el-table-column
+                            label="Цена, руб."
+                            prop="balance"
+                            min-width=""
+                            width=""
+                        ></el-table-column>
 
-                    <el-table-column
-                        label="Сумма, руб."
-                        prop="balance"
-                        min-width=""
-                        width=""
-                    ></el-table-column>
-                </el-table>
+                        <el-table-column
+                            label="Сумма, руб."
+                            prop="balance"
+                            min-width=""
+                            width=""
+                        ></el-table-column>
+                    </el-table>
+                </el-card>
             </template>
         </el-table-column>
 
@@ -109,10 +78,24 @@
             width="60"
             align="center"
         >
+            <template #header>
+                <el-tooltip
+                    :content="`
+                        <span style='color: var(--el-color-danger)'>Красный</span> - загрузка счета не доступна,
+                        <br>
+                        <span style='color: var(--el-color-success)'>Зеленый</span> - загрузка счета доступна
+                    `"
+                    placement="top"
+                    raw-content
+                >
+                    <el-icon><QuestionFilled></QuestionFilled></el-icon>
+                </el-tooltip>
+            </template>
+
             <template #default="{ row, index }">
                 <el-button
                     icon="Printer"
-                    type="success"
+                    :type="row.isActive ? 'success' : 'danger'"
                     link
                     style="font-size: 20px;"
                 ></el-button>
@@ -131,7 +114,24 @@
             prop="guid"
             min-width="150"
             width=""
-        ></el-table-column>
+        >
+            <template #header>
+                <el-tooltip
+                    :content="`
+                        По факту забора груза появится
+                        <br>
+                        трек-номер для отслеживания отправки
+                    `"
+                    placement="top"
+                    raw-content
+                >
+                    <span>
+                        <el-icon><QuestionFilled></QuestionFilled></el-icon>
+                        Трек номер
+                    </span>
+                </el-tooltip>
+            </template>
+        </el-table-column>
 
         <el-table-column
             label="Cтатус"
@@ -140,11 +140,12 @@
             width=""
         >
             <template #default="{ row }">
-                <el-tag type="success">
-                    Ваш заказ принят.
-                </el-tag>
-
-                Ожидайте счет на оплату.
+                <span :style="{
+                    'color': row.isActive ? 'var(--el-color-success)' : 'var(--el-color-danger)'
+                }">
+                    
+                    {{ row.isActive ? 'Ваш заказ принят. Ожидайте счет на оплату.' : 'Удален' }}
+                </span>
             </template>
         </el-table-column>
 
@@ -165,12 +166,62 @@
         <el-table-column
             label="Дата отгрузки"
             prop="registered"
-            min-width="130"
+            min-width="150"
             width=""
-        ></el-table-column>
+        >
+            <template #header>
+                <el-tooltip
+                    :content="`
+                        В случае создания заказа до 11:00 по Москве,
+                        <br>
+                        отгрузка будт произведена в текущий день.
+                        <br>
+                        Если после 11:00, то на следующий
+                    `"
+                    placement="top"
+                    raw-content
+                >
+                    <span>
+                        <el-icon><QuestionFilled></QuestionFilled></el-icon>
+                        Дата отгрузки
+                    </span>
+                </el-tooltip>
+            </template>
+
+            <template #default="{ row }">
+                {{ row.registered }}
+            </template>
+        </el-table-column>
     </el-table>
 
-    <Pagination></Pagination>
+    <BottomNavigationPanel
+        :filters="[
+            {
+                key: 0,
+                type: 'input',
+                vModel: '',
+                placeholder: 'Номер отгрузки'
+            },
+            {
+                key: 1,
+                type: 'input',
+                vModel: '',
+                placeholder: 'Ссылка для отгрузки'
+            },
+            {
+                key: 2,
+                type: 'date',
+                vModel: '',
+                placeholder: 'Период от'
+            },
+            {
+                key: 3,
+                type: 'date',
+                vModel: '',
+                placeholder: 'Период до'
+            },
+        ]"
+    ></BottomNavigationPanel>
 </template>
 
 <style lang="scss" scoped></style>
