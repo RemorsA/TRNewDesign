@@ -11,6 +11,9 @@
     >
         <el-table-column
             type="expand"
+            min-width="40"
+            width="40"
+            align="center"
         >
             <template #default="props">
                 <el-card style="margin: 0 8px;">
@@ -105,8 +108,9 @@
         <el-table-column
             label="Номер отгрузки"
             prop="latitude"
-            min-width="140"
-            width="140"
+            min-width="160"
+            width="160"
+            sortable
         ></el-table-column>
 
         <el-table-column
@@ -138,6 +142,7 @@
             prop="eyeColor"
             min-width="160"
             width=""
+            sortable
         >
             <template #default="{ row }">
                 <span :style="{
@@ -154,6 +159,7 @@
             prop="balance"
             min-width="100"
             width="100"
+            sortable
         ></el-table-column>
 
         <el-table-column
@@ -166,8 +172,9 @@
         <el-table-column
             label="Дата отгрузки"
             prop="registered"
-            min-width="150"
+            min-width="170"
             width=""
+            sortable
         >
             <template #header>
                 <el-tooltip

@@ -121,7 +121,7 @@
 			</el-menu>
 		</el-scrollbar>
 
-		<el-scrollbar max-height="100vh">
+		<el-scrollbar max-height="100vh" native>
 			<div class="page">
 				<el-page-header class="mobile-page__header"
 					title="Меню"
