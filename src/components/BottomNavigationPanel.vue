@@ -34,7 +34,7 @@
 <template>
     <div class="navigation__panel"
         :class="{
-            'is-sticky': sticky,
+            'is-sticky-default': sticky,
             'is-indent-top': indentTop
         }"
     >
@@ -140,7 +140,7 @@
             margin-top: 20px;
         }
 
-        &.is-sticky {
+        &.is-sticky-default {
             position: sticky;
             left: 0;
             bottom: 0;

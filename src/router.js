@@ -7,6 +7,8 @@ import Account from './Account.vue'
 import Cart from './Cart.vue'
 import Orders from './Orders.vue'
 import Tires from './Tires.vue'
+import Pitchforks from './Pitchforks.vue'
+import Engines from './Engines.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -126,12 +128,13 @@ const router = createRouter({
 					component: Tires,
 				},
 				{
-					path: '/forks',
-					name: 'forks',
+					path: '/pitchforks',
+					name: 'pitchforks',
 					meta: {
 						title: 'Вилы',
 						isShowMenu: true,
 					},
+					component: Pitchforks
 				},
 				{
 					path: '/engines',
@@ -140,6 +143,7 @@ const router = createRouter({
 						title: 'Двигатели',
 						isShowMenu: true,
 					},
+					component: Engines
 				},
 				{
 					path: '/attachments',

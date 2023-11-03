@@ -322,7 +322,7 @@
     <el-drawer
         direction="btt"
         v-model="isDetailDialog"
-        size="95%"
+        size="80%"
         :title="form.title"
     >
         <el-row :gutter="20">
