@@ -9,6 +9,8 @@ import Orders from './Orders.vue'
 import Tires from './Tires.vue'
 import Pitchforks from './Pitchforks.vue'
 import Engines from './Engines.vue'
+import Batteries from './Batteries.vue'
+import Attachments from './Attachments.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -152,6 +154,7 @@ const router = createRouter({
 						title: 'Навесное оборудование',
 						isShowMenu: true,
 					},
+					component: Attachments
 				},
 				{
 					path: '/batteries',
@@ -160,6 +163,7 @@ const router = createRouter({
 						title: 'Аккумуляторы',
 						isShowMenu: true,
 					},
+					component: Batteries
 				},
 			]
 		},

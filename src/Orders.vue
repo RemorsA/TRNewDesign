@@ -57,11 +57,11 @@
                     :data="index === 3 ? store.state.tData.slice(47) : store.state.tData.slice(49)"
                     stripe
                     border
+                    size="small"
                 >
                     <el-table-column
                         label=""
                         prop=""
-                        min-width="40"
                         width="40"
                         align="center"
                     >
@@ -75,71 +75,51 @@
                     <el-table-column
                         label="Наименование"
                         prop="name"
-                        min-width="130"
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Кат. номер"
                         prop="guid"
-                        min-width="110"
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Страна"
                         prop="address"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Склад"
                         prop="company"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Вес"
                         prop="latitude"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Кол-во"
                         prop="age"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Ед. изм."
                         prop="eyeColor"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Цена"
                         prop="balance"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Сумма"
                         prop="balance"
-                        min-width=""
-                        width=""
                     ></el-table-column>
 
                     <el-table-column
                         label="Состояние"
                         prop="isActive"
-                        min-width="100"
-                        width=""
                     >
                         <template #default="{ row }">
                             <span :style="{
@@ -177,7 +157,6 @@
             <el-button
                 link
                 type="primary"
-                :size="store.state.size"
                 @click="isDeliveryForm = true"
             >
                 Открыть форму / <el-tag type="danger" style="margin-left: 5px;">10</el-tag>
