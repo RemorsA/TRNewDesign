@@ -145,12 +145,16 @@
             left: 0;
             bottom: 0;
             z-index: 4;
+
+            @media screen and (width < 768px) {
+                position: unset;
+            }
         }
 
         .card__filters, .card__pagination {
             --el-card-padding: 8px 12px;
             --el-card-bg-color: var(--el-fill-color-dark) !important;
-            --el-card-border-color: var(--el-color-info-light-3);
+            // --el-card-border-color: var(--el-color-info-light-3);
         }
 
         .is-filter-enter-active, .is-filterleave-active {

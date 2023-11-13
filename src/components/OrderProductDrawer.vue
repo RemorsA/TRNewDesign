@@ -35,6 +35,7 @@
             :data="store.state.tData.slice(38)"
             border
             stripe
+            size="small"
         >
             <el-table-column
                 label="Город"
@@ -71,6 +72,7 @@
                         <el-input-number
                             :model-value="1"
                             :disabled="row?.loading"
+                            size="small"
                         ></el-input-number>
 
                         <el-button

@@ -94,11 +94,16 @@
                     <span>527 431</span>
                 </el-row>
 
-                <span>
-                    Ориентировочный срок доставки
-                    <el-icon><InfoFilled></InfoFilled></el-icon>
-                    : до "8 ноября"
-                </span>
+                <el-tooltip
+                    content="Срок доставки определяется выбранной транспортной компанией"
+                    placement="top"
+                >
+                    <span>
+                        Ориентировочный срок доставки
+                        <el-icon><InfoFilled></InfoFilled></el-icon>
+                        : до "8 ноября"
+                    </span>
+                </el-tooltip>
             </el-form-item>
 
             <el-form-item>

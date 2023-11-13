@@ -2,6 +2,8 @@
     import store from './store';
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
+    import TableTooltip from '@/components/TableTooltip.vue'
+    import Descriptions from '@/components/Descriptions.vue'
     import { ref } from 'vue'
 
     let isOrderDialog = ref(false)
@@ -22,6 +24,7 @@
         border
         stripe
         style="margin-top: 20px;"
+        size="small"
     >
         <el-table-column
             type="expand"
@@ -30,74 +33,50 @@
         >
             <template #default="props">
                 <div class="table__expand-content">
-                    <el-card class="picture__card">
-                        <el-image class="picture"
-                            :src="'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg'"
-                            fit="scale-down"
-                            hide-on-click-modal
-                            :preview-src-list="[ 'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg' ]"
-                            preview-teleported
-                        ></el-image>
-                    </el-card>
+                    <el-image class="picture"
+                        :src="'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg'"
+                        fit="scale-down"
+                        hide-on-click-modal
+                        :preview-src-list="[ 'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg' ]"
+                        preview-teleported
+                    ></el-image>
 
                     <div class="detail__descriptions">
-                        <el-card>
-                            <el-descriptions
-                                title="Количество на складе"
-                                size="small"
-                            >
-                                <template #title>
-                                    <el-icon><OfficeBuilding></OfficeBuilding></el-icon>
-                                    Количество на складе
-                                </template>
+                        <Descriptions
+                            :descriptions="[
+                                'Набережные Челны', 'Москва', 'Санкт-Петербург',
+                                'Екатеринбург', 'Новосибирск', 'Уфа',
+                                'Пермь', 'Нижний новгород', 'Самара',
+                                'Челябинск', 'Краснодар', 'Казань'
+                            ]"
+                            extra="Количество на складе"
+                            extra-icon="OfficeBuilding"
+                        >
+                            <template #label="{ row }">
+                                {{ row }}:
+                            </template>
 
-                                <el-descriptions-item
-                                    v-for="(r, i) in [
-                                        'Набережные Челны', 'Москва', 'Санкт-Петербург',
-                                        'Екатеринбург', 'Новосибирск', 'Уфа',
-                                        'Пермь', 'Нижний новгород', 'Самара',
-                                        'Челябинск', 'Краснодар', 'Казань'
-                                    ]"
-                                    :key="i"
-                                >
-                                    <template #label>
-                                        <span class="description-label">
-                                            {{ r + ':' }}
-                                        </span>
-                                    </template>
+                            <template #value>
+                                {{ props.row.age }}
+                            </template>
+                        </Descriptions>
 
-                                    {{ props.row.age }}
-                                </el-descriptions-item>
-                            </el-descriptions>
-                        </el-card>
+                        <Descriptions style="margin-top: 10px;"
+                            :descriptions="[
+                                'Производитель', 'Тип', 'Исполнение',
+                                'Размер', 'Вес (кг)', 'Сегмент',
+                                'Эксплуатация', 'Нагрузка (кг)', 'Гарантия (лет)',
+                            ]"
+                            extra="Описание"
+                        >
+                            <template #label="{ row }">
+                                {{ row }}:
+                            </template>
 
-                        <el-card style="margin-top: 10px;">
-                            <el-descriptions
-                                size="small"
-                            >
-                                <template #title>
-                                    <el-icon><Document></Document></el-icon>
-                                    Описание
-                                </template>
-
-                                <el-descriptions-item
-                                    v-for="(r, i) in [
-                                        'Производитель', 'Тип', 'Исполнение',
-                                        'Размер', 'Вес (кг)', 'Сегмент',
-                                        'Эксплуатация', 'Нагрузка (кг)', 'Гарантия (лет)',
-                                    ]"
-                                    :key="i"
-                                >
-                                    <template #label>
-                                        <span class="description-label">
-                                            {{ r + ':' }}
-                                        </span>
-                                    </template>
-
-                                    {{ props.row.greeting }}
-                                </el-descriptions-item>
-                            </el-descriptions>
-                        </el-card>
+                            <template #value>
+                                {{ props.row.greeting }}
+                            </template>
+                        </Descriptions>
                     </div>
                 </div>
             </template>
@@ -106,18 +85,11 @@
         <el-table-column
             label=""
             prop=""
-            min-width="40"
             width="40"
             align="center"
         >
             <template #header>
-                <el-tooltip
-                    :content="`Выбрать из списка для сравнения`"
-                    placement="top"
-                    raw-content
-                >
-                    <el-icon><QuestionFilled></QuestionFilled></el-icon>
-                </el-tooltip>
+                <TableTooltip :text="`Выбрать из списка для сравнения`"></TableTooltip>
             </template>
 
             <template #default="{ row, index }">
@@ -131,68 +103,48 @@
         <el-table-column
             label="Типоразмер"
             prop="latitude"
-            min-width="140"
-            width=""
             sortable
         ></el-table-column>
 
         <el-table-column
             label="Слойность / Исполнение"
             prop="company"
-            min-width="120"
-            width=""
             sortable
         ></el-table-column>
 
         <el-table-column
             label="Модель"
             prop="favoriteFruit"
-            min-width="110"
-            width=""
             sortable
         ></el-table-column>
 
         <el-table-column
             label="Производитель"
             prop="company"
-            min-width="160"
-            width=""
             sortable
         ></el-table-column>
 
         <el-table-column
             label="Цена, руб."
             prop="balance"
-            min-width="120"
-            width=""
             sortable
         ></el-table-column>
 
         <el-table-column
             label="РРЦ, руб."
             prop="balance"
-            min-width="140"
-            width=""
             sortable
         >
             <template #header>
-                <el-tooltip
-                    :content="`Рекомендовано розничная цена`"
-                    placement="top"
-                    raw-content
-                >
-                    <span>
-                        <el-icon><QuestionFilled></QuestionFilled></el-icon>
-                        РРЦ, руб.
-                    </span>
-                </el-tooltip>
+                <TableTooltip :text="`Рекомендовано розничная цена`">
+                    РРЦ, руб.
+                </TableTooltip>
             </template>
         </el-table-column>
 
         <el-table-column
             label=""
             prop=""
-            min-width="120"
             width="120"
         >
             <template #default>
@@ -246,27 +198,17 @@
         display: flex;
         align-items: flex-start;
         gap: 10px;
-        padding: 0 8px;
+        padding: 4px 8px;
 
-        .picture__card {
+        .picture {
             width: 300px;
             height: 100%;
-            --el-card-padding: 0;
-            --el-card-bg-color: white;
-
-            .picture {
-                width: 100%;
-                height: 100%;
-            }
+            background: white;
+            border-radius: 4px;
         }
 
         .detail__descriptions {
             width: 100%;
-
-            .description-label {
-                font-weight: bold;
-                white-space: nowrap;
-            }
         }
     }
 </style>
