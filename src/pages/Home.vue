@@ -1,12 +1,21 @@
 <script setup>
 	import { ref, computed } from 'vue'
-	import router from './router'
+	import router from '@/router'
     import { ElNotification } from 'element-plus'
-	import store from './store'
+	import store from '@/store'
 
 	const menuLinks = computed(() => {
-		const links = router.options.routes[0].children.slice(0, 6)
-		const linksParts = router.options.routes[0].children.slice(6)
+		let links = []
+		let linksParts = []
+
+		router.options.routes[0].children.filter(el => {
+			if (!el.meta.parts) {
+				links.push(el)
+			}
+			else {
+				linksParts.push(el)
+			}
+		})
 
 		return { links, linksParts }
 	})
@@ -280,6 +289,10 @@
         }
 
         .page {
+			// overflow: scroll;
+			// height: 100vh;
+			// overflow-x: hidden;
+
             .mobile-page__header {
                 display: none;
                 z-index: 5;

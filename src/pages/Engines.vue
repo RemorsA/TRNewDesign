@@ -1,9 +1,10 @@
 <script setup>
-    import store from './store'
+    import store from '@/store'
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
     import TableTooltip from '@/components/TableTooltip.vue'
-    import MeasurementsPanel from '@/components/MeasurementsPanel.vue'
+    import MeasurementPictures from '@/components/MeasurementPictures.vue'
+    import Descriptions from '@/components/Descriptions.vue'
     import { ref } from 'vue'
 
     let isOrderDrawer = ref(false)
@@ -22,9 +23,8 @@
             width="40"
         >
             <template #default="{ row }">
-                <MeasurementsPanel
-                    style="margin: 4px 8px;"
-                    :images="[
+                <div class="table__expand-content">
+                    <MeasurementPictures :pictures="[
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0002.JPG',
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0005.JPG',
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0009.JPG',
@@ -40,15 +40,26 @@
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6396.jpg',
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6398.jpg',
                         'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6393.jpg',
-                    ]"
-                    :params="[
-                        { label: 'Мощность (кВт)', value: '34' },
-                        { label: 'Крутящий момент (об/мин)', value: '2500' },
-                        { label: 'Тип топлива', value: 'Дизель' },
-                        { label: 'Вес (Кг)', value: '252' },
-                    ]"
-                    :title="row.name"
-                ></MeasurementsPanel>
+                    ]"></MeasurementPictures>
+
+                    <Descriptions
+                        :descriptions="[
+                            { label: 'Мощность (кВт)', value: '34' },
+                            { label: 'Крутящий момент (об/мин)', value: '2500' },
+                            { label: 'Тип топлива', value: 'Дизель' },
+                            { label: 'Вес (Кг)', value: '252' },
+                        ]"
+                        :extra="row.name"
+                    >
+                        <template #label="{ row }">
+                            {{ row.label }}:
+                        </template>
+
+                        <template #value="{ row }">
+                            {{ row.value }}
+                        </template>
+                    </Descriptions>
+                </div>
             </template>
         </el-table-column>
 
@@ -84,9 +95,10 @@
             prop="balance"
         >
             <template #header>
-                <TableTooltip :text="`Рекомендовано розничная цена`">
-                    РРЦ, руб.
-                </TableTooltip>
+                <TableTooltip
+                    content="Рекомендовано розничная цена"
+                    text="РРЦ, руб."
+                ></TableTooltip>
             </template>
         </el-table-column>
 
@@ -117,4 +129,11 @@
     ></OrderProductDrawer>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .table__expand-content {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        margin: 4px 8px;
+    }
+</style>

@@ -1,6 +1,6 @@
 <script setup>
-	import store from './store';
-	import BottomNavigationPanel from './components/BottomNavigationPanel.vue';
+	import store from '@/store';
+	import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
 	import { ref } from 'vue'
 
 	let isRefreshLink = ref(false)

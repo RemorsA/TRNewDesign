@@ -1,8 +1,8 @@
 <script setup>
     import TableTooltip from '@/components/TableTooltip.vue'
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import DeliveryForm from './components/DeliveryForm.vue'
-    import store from './store';
+    import DeliveryForm from '@/components/DeliveryForm.vue'
+    import store from '@/store';
     import { ref } from 'vue'
 
     let isDeliveryForm = ref(false)
@@ -98,7 +98,10 @@
             sortable
         >
             <template #header>
-                <TableTooltip :text="`Ваша цена`">Цена, руб.</TableTooltip>
+                <TableTooltip
+                    content="Ваша цена"
+                    text="Цена, руб."
+                ></TableTooltip>
             </template>
         </el-table-column>
 

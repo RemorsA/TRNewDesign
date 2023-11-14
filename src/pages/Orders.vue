@@ -1,7 +1,7 @@
 <script setup>
-    import store from './store';
-    import DeliveryForm from './components/DeliveryForm.vue'
-    import BottomNavigationPanel from './components/BottomNavigationPanel.vue';
+    import store from '@/store';
+    import DeliveryForm from '@/components/DeliveryForm.vue'
+    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import { ref } from 'vue'
 
     let isDeliveryForm = ref(false)
