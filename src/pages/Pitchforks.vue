@@ -1,5 +1,5 @@
 <script setup>
-    import BottomNavigationPanel from './components/BottomNavigationPanel.vue'
+    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue'
     import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
     import Descriptions from '@/components/Descriptions.vue'
     import store from '@/store'
@@ -75,7 +75,7 @@
         >
             <template #default>
                 <el-button
-                    icon="Right"
+                    icon="Top"
                     link
                     type="primary"
                     @click="isOrderDrawer = true"

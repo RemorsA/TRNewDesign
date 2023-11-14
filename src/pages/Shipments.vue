@@ -1,5 +1,5 @@
 <script setup>
-    import store from './store';
+    import store from '@/store';
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import TableTooltip from '@/components/TableTooltip.vue'
 </script>
@@ -68,7 +68,7 @@
             align="center"
         >
             <template #header>
-                <TableTooltip :text="`
+                <TableTooltip :content="`
                     <span style='color: var(--el-color-danger)'>Красный</span> - загрузка счета не доступна,
                     <br>
                     <span style='color: var(--el-color-success)'>Зеленый</span> - загрузка счета доступна
@@ -96,13 +96,10 @@
             prop="guid"
         >
             <template #header>
-                <TableTooltip :text="`
-                    По факту забора груза появится
-                    <br>
-                    трек-номер для отслеживания отправки
-                `">
-                    Трек номер
-                </TableTooltip>
+                <TableTooltip
+                    content="По факту забора груза появится <br> трек-номер для отслеживания отправки"
+                    text="Трек номер"
+                ></TableTooltip>
             </template>
         </el-table-column>
 
@@ -137,15 +134,16 @@
             sortable
         >
             <template #header>
-                <TableTooltip :text="`
-                    В случае создания заказа до 11:00 по Москве,
-                    <br>
-                    отгрузка будт произведена в текущий день.
-                    <br>
-                    Если после 11:00, то на следующий
-                `">
-                    Дата отгрузки
-                </TableTooltip>
+                <TableTooltip
+                    :content="`
+                        В случае создания заказа до 11:00 по Москве,
+                        <br>
+                        отгрузка будт произведена в текущий день.
+                        <br>
+                        Если после 11:00, то на следующий
+                    `"
+                    text="Дата отгрузки"
+                ></TableTooltip>
             </template>
 
             <template #default="{ row }">

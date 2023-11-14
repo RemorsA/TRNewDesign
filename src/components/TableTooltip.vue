@@ -1,7 +1,12 @@
 <script setup>
     const props = defineProps({
         text: {
-            required: true,
+            required: false,
+            type: String,
+            default: ''
+        },
+        content: {
+            required: false,
             type: String,
             default: ''
         }
@@ -10,13 +15,13 @@
 
 <template>
     <el-tooltip
-        :content="text"
+        :content="content"
         placement="top"
         raw-content
     >
         <span>
             <el-icon><QuestionFilled></QuestionFilled></el-icon>
-            <slot></slot>
+            <span v-html="text"></span>
         </span>
     </el-tooltip>
 </template>

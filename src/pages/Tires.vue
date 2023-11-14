@@ -1,5 +1,5 @@
 <script setup>
-    import store from './store';
+    import store from '@/store';
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
     import TableTooltip from '@/components/TableTooltip.vue'
@@ -41,43 +41,41 @@
                         preview-teleported
                     ></el-image>
 
-                    <div class="detail__descriptions">
-                        <Descriptions
-                            :descriptions="[
-                                'Набережные Челны', 'Москва', 'Санкт-Петербург',
-                                'Екатеринбург', 'Новосибирск', 'Уфа',
-                                'Пермь', 'Нижний новгород', 'Самара',
-                                'Челябинск', 'Краснодар', 'Казань'
-                            ]"
-                            extra="Количество на складе"
-                            extra-icon="OfficeBuilding"
-                        >
-                            <template #label="{ row }">
-                                {{ row }}:
-                            </template>
+                    <Descriptions class="count_on_store"
+                        :descriptions="[
+                            'Набережные Челны', 'Москва', 'Санкт-Петербург',
+                            'Екатеринбург', 'Новосибирск', 'Уфа',
+                            'Пермь', 'Нижний новгород', 'Самара',
+                            'Челябинск', 'Краснодар', 'Казань'
+                        ]"
+                        extra="Количество на складе"
+                        extra-icon="OfficeBuilding"
+                    >
+                        <template #label="{ row }">
+                            {{ row }}:
+                        </template>
 
-                            <template #value>
-                                {{ props.row.age }}
-                            </template>
-                        </Descriptions>
+                        <template #value>
+                            {{ props.row.age }}
+                        </template>
+                    </Descriptions>
 
-                        <Descriptions style="margin-top: 10px;"
-                            :descriptions="[
-                                'Производитель', 'Тип', 'Исполнение',
-                                'Размер', 'Вес (кг)', 'Сегмент',
-                                'Эксплуатация', 'Нагрузка (кг)', 'Гарантия (лет)',
-                            ]"
-                            extra="Описание"
-                        >
-                            <template #label="{ row }">
-                                {{ row }}:
-                            </template>
+                    <Descriptions class="detail__description"
+                        :descriptions="[
+                            'Производитель', 'Тип', 'Исполнение',
+                            'Размер', 'Вес (кг)', 'Сегмент',
+                            'Эксплуатация', 'Нагрузка (кг)', 'Гарантия (лет)',
+                        ]"
+                        extra="Описание"
+                    >
+                        <template #label="{ row }">
+                            {{ row }}:
+                        </template>
 
-                            <template #value>
-                                {{ props.row.greeting }}
-                            </template>
-                        </Descriptions>
-                    </div>
+                        <template #value>
+                            {{ props.row.greeting }}
+                        </template>
+                    </Descriptions>
                 </div>
             </template>
         </el-table-column>
@@ -89,7 +87,9 @@
             align="center"
         >
             <template #header>
-                <TableTooltip :text="`Выбрать из списка для сравнения`"></TableTooltip>
+                <TableTooltip
+                    content="Выбрать из списка для сравнения"
+                ></TableTooltip>
             </template>
 
             <template #default="{ row, index }">
@@ -136,9 +136,10 @@
             sortable
         >
             <template #header>
-                <TableTooltip :text="`Рекомендовано розничная цена`">
-                    РРЦ, руб.
-                </TableTooltip>
+                <TableTooltip
+                    content="Рекомендовано розничная цена"
+                    text="РРЦ, руб."
+                ></TableTooltip>
             </template>
         </el-table-column>
 
@@ -149,7 +150,7 @@
         >
             <template #default>
                 <el-button
-                    icon="Right"
+                    icon="Top"
                     link
                     type="primary"
                     @click="isOrderDialog = true"
@@ -196,19 +197,22 @@
 
     .table__expand-content {
         display: flex;
-        align-items: flex-start;
         gap: 10px;
-        padding: 4px 8px;
+        margin: 4px 8px;
+        flex-wrap: wrap;
 
         .picture {
-            width: 300px;
-            height: 100%;
+            flex: 1 2 250px;
             background: white;
             border-radius: 4px;
         }
 
-        .detail__descriptions {
-            width: 100%;
+        .count_on_store {
+            flex: 1 1 calc(100% - 10px - 250px);
+        }
+
+        .detail__description {
+            flex: 1 1 calc(100% - 10px - 250px)
         }
     }
 </style>

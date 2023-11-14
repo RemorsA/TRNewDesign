@@ -1,5 +1,5 @@
 <script setup>
-    import store from './store'
+    import store from '@/store'
     import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import TableTooltip from '@/components/TableTooltip.vue'
 </script>
@@ -54,13 +54,10 @@
             prop=""
         >
             <template #header>
-                <TableTooltip :text="`
-                    Для увеличения количества товара
-                    <br>
-                    необходимо произвести переоценку
-                `">
-                    Кол-во
-                </TableTooltip>
+                <TableTooltip
+                    :content="`Для увеличения количества товара <br> необходимо произвести переоценку`"
+                    text="Кол-во"
+                ></TableTooltip>
             </template>
 
             <template #default>

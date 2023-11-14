@@ -1,6 +1,6 @@
 <script setup>
     import { ref, computed } from 'vue'
-    import store from './store';
+    import store from '@/store';
 
     let isEditDialog = ref(false)
     let form = ref({

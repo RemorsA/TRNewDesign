@@ -1,6 +1,6 @@
 <script setup>
     import { ref, computed } from 'vue'
-    import store from './store';
+    import store from '@/store';
     import Inputmask from 'inputmask'
     import { ElNotification } from 'element-plus'
 
