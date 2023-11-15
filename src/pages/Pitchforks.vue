@@ -1,8 +1,6 @@
 <script setup>
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue'
-    import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
-    import Descriptions from '@/components/Descriptions.vue'
-    import store from '@/store'
+    import OrderProductTable from '@/components/OrderProductTable.vue'
+    import store from '@/store/store'
     import { ref } from 'vue'
 
     let isOrderDrawer = ref(false)
@@ -94,9 +92,9 @@
         ]"
     ></BottomNavigationPanel>
     
-    <OrderProductDrawer
+    <OrderProductTable
         v-model="isOrderDrawer"
-    ></OrderProductDrawer>
+    ></OrderProductTable>
 </template>
 
 <style lang="scss" scoped></style>

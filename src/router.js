@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from './pages/Home.vue'
+import Home from './pages/Home/Home.vue'
 
 import PageNotFound from './pages/404.vue'
 import Auth from './pages/Auth.vue'
@@ -28,6 +28,7 @@ const router = createRouter({
 			redirect: '/news',
 			component: Home,
 			children: [
+				// MAIN:
 				{
 					path: '/news',
 					name: 'news',
@@ -35,7 +36,6 @@ const router = createRouter({
 						title: 'Новости',
 						icon: 'House',
 						isShowMenu: false,
-						parts: false,
 					},
 					component: News,
 				},
@@ -46,7 +46,7 @@ const router = createRouter({
 						title: 'Учетная запись',
 						icon: 'User',
 						isShowMenu: true,
-						parts: false,
+						main: true,
 					},
 					component: Account,
 				},
@@ -57,7 +57,7 @@ const router = createRouter({
 						title: 'Заказы',
 						icon: 'List',
 						isShowMenu: true,
-						parts: false,
+						main: true,
 					},
 					component: Orders
 				},
@@ -68,7 +68,7 @@ const router = createRouter({
 						title: 'Отгрузки',
 						icon: 'Van',
 						isShowMenu: true,
-						parts: false,
+						main: true,
 					},
 					component: Shipments
 				},
@@ -79,58 +79,11 @@ const router = createRouter({
 						title: 'Корзина',
 						icon: 'ShoppingCart',
 						isShowMenu: true,
-						parts: false,
+						main: true,
 					},
 					component: Cart
 				},
-				{
-					path: '/request_by_article',
-					name: 'requestByArticle',
-					meta: {
-						title: 'Запрос по артикулу',
-						isShowMenu: true,
-						parts: true,
-					},
-				},
-				{
-					path: '/selection_request',
-					name: 'selectionRequest',
-					meta: {
-						title: 'Запрос на подбор',
-						isShowMenu: true,
-						parts: true,
-					},
-				},
-				{
-					path: '/product_catalog',
-					name: 'productCatalog',
-					meta: {
-						title: 'Каталог номенклатуры',
-						isShowMenu: true,
-						parts: true,
-					},
-					component: ProductCatalog
-				},
-				{
-					path: '/history_request',
-					name: 'historyRequest',
-					meta: {
-						title: 'История запросов',
-						isShowMenu: true,
-						parts: true,
-					},
-					component: HistoryRequest
-				},
-				{
-					path: '/catalogs',
-					name: 'catalogs',
-					meta: {
-						title: 'Каталоги',
-						isShowMenu: true,
-						parts: true,
-					},
-					component: Catalog
-				},
+				// PARTS:
 				{
 					path: '/tires',
 					name: 'tires',
@@ -181,6 +134,56 @@ const router = createRouter({
 					},
 					component: Batteries
 				},
+				// REQUESTS:
+				{
+					path: '/history_request',
+					name: 'historyRequest',
+					meta: {
+						title: 'История запросов',
+						isShowMenu: true,
+						request: true,
+					},
+					component: HistoryRequest
+				},
+				// CATALOGS:
+				{
+					path: '/product_catalog',
+					name: 'productCatalog',
+					meta: {
+						title: 'Каталог номенклатуры',
+						isShowMenu: true,
+						catalog: true,
+					},
+					component: ProductCatalog
+				},
+				{
+					path: '/catalogs',
+					name: 'catalogs',
+					meta: {
+						title: 'Каталоги',
+						isShowMenu: true,
+						catalog: true,
+					},
+					component: Catalog
+				},
+				// {
+				// 	path: '/request_by_article',
+				// 	name: 'requestByArticle',
+				// 	meta: {
+				// 		title: 'Запрос по артикулу',
+				// 		isShowMenu: true,
+				// 		parts: true,
+				// 	},
+				// },
+				// {
+				// 	path: '/selection_request',
+				// 	name: 'selectionRequest',
+				// 	meta: {
+				// 		title: 'Запрос на подбор',
+				// 		isShowMenu: true,
+				// 		parts: true,
+				// 	},
+				// },
 			]
 		},
 		{

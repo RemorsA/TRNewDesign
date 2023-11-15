@@ -12,7 +12,7 @@
     <el-card class="measurement__pictures">
         <el-scrollbar max-height="400px" native>
             <div class="pictures">
-                <el-image class="picture"
+                <el-image class="picture picture__cover-hover"
                     v-for="(img, index) in pictures"
                     :key="index"
                     :src="img"
@@ -41,31 +41,6 @@
             .picture {
                 width: 100%;
                 height: 100px;
-                transition: all .4s;
-                position: relative;
-
-                &::after {
-                    content: 'Посмотреть';
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    background: rgba(0, 0, 0, 0.607);
-                    transition: all .4s;
-                    pointer-events: none;
-                    opacity: 0;
-                    color: var(--el-color-primary);
-                    transform: translateY(100px);
-                }
-
-                &:hover::after {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
             }
         }
     }

@@ -1,8 +1,9 @@
 <script setup>
     import { ref, computed } from 'vue'
-    import store from '@/store';
+    import store from '@/store/store';
     import Inputmask from 'inputmask'
     import { ElNotification } from 'element-plus'
+    import routerGo from '@/store/helpers/RouterGo'
 
     const vMask = {
         updated: (el, binding) => {
@@ -43,8 +44,7 @@
                     pass: authForm.value.pass
                 })
 
-                store.commit('routerGo', '/') 
-
+                routerGo('/')
 				ref.resetFields()
 			}
 		})
@@ -61,8 +61,7 @@
 					customClass: 'el-notification-custom'
 				})
 
-                store.commit('routerGo', '/') 
-
+                routerGo('/')
 				ref.resetFields()
 			}
 		})

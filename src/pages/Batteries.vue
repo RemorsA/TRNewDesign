@@ -1,8 +1,6 @@
 <script setup>
-    import TableTooltip from '@/components/TableTooltip.vue'
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
     import DeliveryForm from '@/components/DeliveryForm.vue'
-    import store from '@/store';
+    import store from '@/store/store';
     import { ref } from 'vue'
 
     let isDeliveryForm = ref(false)
@@ -126,13 +124,14 @@
             :content="popperContent"
             popper-style="font-size: 14px;"
         >
-            <el-button
-                link
-                type="primary"
-                @click="isDeliveryForm = true"
-            >
-                Открыть форму / <el-tag type="danger" style="margin-left: 5px;">10</el-tag>
-            </el-button>
+            <el-badge value="10">
+                <el-button
+                    type="primary"
+                    @click="isDeliveryForm = true"
+                >
+                    Открыть форму
+                </el-button>
+            </el-badge>
         </el-tooltip>
     </BottomNavigationPanel>
 </template>

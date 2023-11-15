@@ -1,7 +1,5 @@
 <script setup>
-    import store from '@/store';
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import TableTooltip from '@/components/TableTooltip.vue'
+    import store from '@/store/store';
 </script>
 
 <template>
@@ -21,6 +19,7 @@
                     <el-table
                         :data="store.state.tData.slice(47)"
                         size="small"
+                        border
                     >
                         <el-table-column
                             label="Наименование"

@@ -39,7 +39,7 @@
         }"
     >
         <transition name="is-filter">
-            <el-card class="card__filters"
+            <div class="card card__filters"
                 v-show="isFilter"
             >
                 <div class="filters">
@@ -100,24 +100,21 @@
                         Очистить поиск
                     </el-button>
                 </div>
-            </el-card>
+            </div>
         </transition>
 
-        <el-card class="card__pagination">
-            <el-row class="pagination__row"
-                justify="center"
-                align="middle"
-            >
+        <div class="card card__pagination">
+            <div class="pagination__row">
                 <el-pagination class="pagination"
                     :pager-count="5"
                     layout="sizes, prev, pager, next"
                     :total="1000"
                     :page-sizes="[10, 20, 40, 60, 80, 100]"
                     small
+                    background
                 ></el-pagination>
 
                 <el-button
-                    link
                     type="primary"
                     :icon="!isFilter ? 'Filter' : 'Bottom'"
                     @click="isFilter = !isFilter"
@@ -127,15 +124,16 @@
                 </el-button>
 
                 <slot></slot>
-            </el-row>
-        </el-card>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .navigation__panel {
-        overflow: hidden;
+    // TODO: Объеденить пагинацию с фильтрами
+    // TODO: Доделать мобильную версию
 
+    .navigation__panel {
         &.is-indent-top {
             margin-top: 20px;
         }
@@ -151,63 +149,67 @@
             }
         }
 
-        .card__filters, .card__pagination {
-            --el-card-padding: 8px 12px;
-            --el-card-bg-color: var(--el-fill-color-dark) !important;
-            // --el-card-border-color: var(--el-color-info-light-3);
-        }
-
         .is-filter-enter-active, .is-filterleave-active {
-            transition: all .5s ease;
+            transition: .4s;
             transform: translateY(0);
         }
 
         .is-filter-enter-from, .is-filter-leave-to {
             opacity: 0;
+            transition: .4s;
             transform: translateY(100px);
         }
 
         .card {
-            &__filters .filters {
-                .title__navigations {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 5px;
+            padding: 8px 12px;
+            background: var(--el-fill-color-dark);
+            // border-radius: 4px;
 
-                    span {
-                        font-size: 16px;
-                        font-weight: bold;
+            &__filters {
+                border-radius: 4px 4px 0 0;
+
+                .filters {
+                    .title__navigations {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 5px;
+
+                        span {
+                            font-size: 16px;
+                            font-weight: bold;
+                        }
                     }
-                }
 
-                .fields {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 20px;
-                    margin-top: 10px;
+                    .fields {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        gap: 20px;
+                        margin-top: 10px;
 
-                    @media screen and (width <= 768px) {
-                        gap: 10px;
+                        @media screen and (width <= 768px) {
+                            gap: 10px;
+                        }
                     }
-                }
 
-                .clear__field-button {
-                    margin-top: 10px;
+                    .clear__field-button {
+                        margin-top: 10px;
+                    }
                 }
             }
 
             &__pagination {
-                margin-top: 10px;
-
                 .pagination__row {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     gap: 10px;
                     flex-wrap: wrap-reverse;
 
                     .pagination {
                         --el-pagination-bg-color: var(--el-color-fill);
                         --el-pagination-button-disabled-bg-color: transparent;
-                        --el-pagination-item-gap: 0px;
+                        --el-pagination-item-gap: 5px;
                     }
                 }
             }

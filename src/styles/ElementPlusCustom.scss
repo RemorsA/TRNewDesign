@@ -1,0 +1,16 @@
+// CUSTOM CLASS ELEMENT UI
+
+.el-notification-custom {
+    .el-notification__group .el-notification__content {
+        text-align: left !important;
+    }
+}
+
+.el-carousel-custom.el-carousel {
+    --el-carousel-arrow-background: var(--el-color-info);
+    --el-carousel-arrow-hover-background: var(--el-color-primary);
+
+    // .el-carousel__indicators .el-carousel__indicator .el-carousel__button {
+    // 	background-color: var(--el-color-primary) !important;
+    // }
+}

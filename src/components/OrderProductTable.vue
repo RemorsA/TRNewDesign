@@ -1,5 +1,5 @@
 <script setup>
-    import store from '@/store'
+    import store from '@/store/store'
 
     const props = defineProps({
         modelValue: {
@@ -49,6 +49,7 @@
                 prop="age"
                 min-width="130"
                 width=""
+                sortable
             ></el-table-column>
 
             <el-table-column
@@ -56,6 +57,7 @@
                 prop="balance"
                 min-width="130"
                 width=""
+                sortable
             ></el-table-column>
 
             <el-table-column

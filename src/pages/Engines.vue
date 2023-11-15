@@ -1,10 +1,6 @@
 <script setup>
-    import store from '@/store'
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
-    import TableTooltip from '@/components/TableTooltip.vue'
-    import MeasurementPictures from '@/components/MeasurementPictures.vue'
-    import Descriptions from '@/components/Descriptions.vue'
+    import store from '@/store/store'
+    import OrderProductTable from '@/components/OrderProductTable.vue'
     import { ref } from 'vue'
 
     let isOrderDrawer = ref(false)
@@ -22,25 +18,23 @@
             align="center"
             width="40"
         >
-            <template #default="{ row }">
+            <template #default="record">
                 <div class="table__expand-content">
-                    <MeasurementPictures :pictures="[
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0002.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0005.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0009.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0011.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6382.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6383.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6384.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6385.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6385_1.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6386.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6387.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6388.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6396.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6398.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6393.jpg',
-                    ]"></MeasurementPictures>
+                    <MeasurementPictures :pictures="store.state.measutementsPictures"></MeasurementPictures>
+
+                    <Descriptions
+                        :descriptions="['Набережные Челны']"
+                        extra="Количество на складе"
+                        extra-icon="OfficeBuilding"
+                    >
+                        <template #label="{ row }">
+                            {{ row }}:
+                        </template>
+
+                        <template #value>
+                            {{ record.row['age'] }}
+                        </template>
+                    </Descriptions>
 
                     <Descriptions
                         :descriptions="[
@@ -49,7 +43,7 @@
                             { label: 'Тип топлива', value: 'Дизель' },
                             { label: 'Вес (Кг)', value: '252' },
                         ]"
-                        :extra="row.name"
+                        :extra="record.row.name"
                     >
                         <template #label="{ row }">
                             {{ row.label }}:
@@ -74,12 +68,6 @@
         ></el-table-column>
 
         <el-table-column
-            label="На складах"
-            prop="age"
-            sortable
-        ></el-table-column>
-
-        <el-table-column
             label="Цена, руб."
             prop="balance"
             sortable
@@ -93,6 +81,7 @@
         <el-table-column
             label="РРЦ"
             prop="balance"
+            sortable
         >
             <template #header>
                 <TableTooltip
@@ -109,7 +98,7 @@
         >
             <template #default>
                 <el-button
-                    icon="Right"
+                    icon="Top"
                     link
                     type="primary"
                     @click="isOrderDrawer = true"
@@ -124,9 +113,9 @@
         :filterable="false"
     ></BottomNavigationPanel>
 
-    <OrderProductDrawer
+    <OrderProductTable
         v-model="isOrderDrawer"
-    ></OrderProductDrawer>
+    ></OrderProductTable>
 </template>
 
 <style lang="scss" scoped>
