@@ -1,9 +1,5 @@
 <script setup>
-    import TableTooltip from '@/components/TableTooltip.vue'
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import DeliveryForm from '@/components/DeliveryForm.vue'
-    import Descriptions from '@/components/Descriptions.vue'
-    import store from '@/store';
+    import store from '@/store/store';
     import { ref } from 'vue'
 
     let currentTab = ref('1')

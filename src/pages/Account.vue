@@ -1,74 +1,70 @@
 <script setup>
-	import store from '@/store';
-	import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-	import { ref } from 'vue'
-
-	let isRefreshLink = ref(false)
-	let visibleDesc = ref(window.matchMedia("(max-width: 1024px)"))
+	import store from '@/store/store';
+	import routerGo from '@/store/helpers/RouterGo'
 
 	function signOut() {
 		localStorage.removeItem('k')
-		store.commit('routerGo', '/news')
+		routerGo('/news')
 	}
 </script>
 
 <template>
-    <el-descriptions :column="1">
-		<el-descriptions-item label="ФИО:" max-width="500">
-			Усманов Олег Игоревич
-		</el-descriptions-item>
+	<div class="account__descriptions">
+		<section class="descriptions__row">
+			<span class="descriptions__row-label">
+				ФИО:
+			</span>
 
-		<el-descriptions-item label="Выход из учетной записи:">
-			<el-button
-				type="primary"
-				@click="signOut"
-			>
-				Выйти
-			</el-button>
-		</el-descriptions-item>
+			<span class="descriptions__row-content">
+				Усманов Олег Игоревич
+			</span>
+		</section>
 
-		<el-descriptions-item label="Сменить оформление страницы на темную или светлую тему:">
-			<el-switch
-				v-model="store.state.settings.theme"
-				active-text="Темная"
-				inactive-text="Светлая"
-				@change="store.dispatch('setSettings')"
-			></el-switch>
-		</el-descriptions-item>
+		<section class="descriptions__row">
+			<span class="descriptions__row-label">
+				Выход из учетной записи:
+			</span>
 
-		<el-descriptions-item
-			label='Всегда держать раскрытым список "Разделы" в меню слева:'
-			v-if="!visibleDesc.matches"
-		>
-			<el-switch
-				v-model="store.state.settings.defaultMenuOpened"
-				active-text="Раскрыт"
-				inactive-text="Скрыт"
-				@change="store.dispatch('setSettings'), isRefreshLink = true"
-			></el-switch>
+			<span class="descriptions__row-content">
+				<el-button
+					type="primary"
+					@click="signOut"
+				>
+					Выйти
+				</el-button>
+			</span>
+		</section>
 
-			<el-link
-				v-show="isRefreshLink"
-				style="gap: 5px; margin-left: 10px;"
-				icon="Refresh"
-				href="/TRNewDesign/account"
-			>
-				Перезагрузить
-			</el-link>
-		</el-descriptions-item>
+		<section class="descriptions__row">
+			<span class="descriptions__row-label">
+				Сменить оформление страницы на темную или светлую тему:
+			</span>
 
-		<el-descriptions-item
-			label='Скрыть или раскрыть меню:'
-			v-if="!visibleDesc.matches"
-		>
-			<el-switch
-				v-model="store.state.settings.collapse"
-				active-text="Раскрыт"
-				inactive-text="Скрыт"
-				@change="store.dispatch('setSettings')"
-			></el-switch>
-		</el-descriptions-item>
-	</el-descriptions>
+			<span class="descriptions__row-content">
+				<el-switch
+					v-model="store.state.settings.theme"
+					active-text="Темная"
+					inactive-text="Светлая"
+					@change="store.dispatch('setSettings')"
+				></el-switch>
+			</span>
+		</section>
+
+		<section class="descriptions__row">
+			<span class="descriptions__row-label">
+				Скрыть или раскрыть меню:
+			</span>
+
+			<span class="descriptions__row-content">
+				<el-switch
+					v-model="store.state.settings.collapse"
+					active-text="Скрыт"
+					inactive-text="Раскрыт"
+					@change="store.dispatch('setSettings')"
+				></el-switch>
+			</span>
+		</section>
+	</div>
 
 	<el-tabs>
 		<el-tab-pane label="Контактные лица">
@@ -226,4 +222,21 @@
 	</el-tabs>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+	.account__descriptions {
+		font-size: 14px;
+		.descriptions__row {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 10px;
+
+			&:nth-child(n+4) {
+				@media screen and (width < 1024px) {
+					display: none;
+				}
+			}
+		}
+	}
+</style>

@@ -6,7 +6,7 @@
             default: []
         },
         extra: String,
-        extraIcon: Object
+        extraIcon: String
     })
 </script>
 

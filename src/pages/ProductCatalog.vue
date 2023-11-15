@@ -1,10 +1,5 @@
 <script setup>
-    import store from '@/store';
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import MeasurementPictures from '@/components/MeasurementPictures.vue'
-    import TableTooltip from '@/components/TableTooltip.vue'
-    import Descriptions from '@/components/Descriptions.vue'
-    import TooltipText from '@/components/TooltipText.vue'
+    import store from '@/store/store';
     import { ref } from 'vue'
 
     let isEvaluate = ref(false)
@@ -24,23 +19,7 @@
         >
             <template #default="record">
                 <div class="table__expand-content">
-                    <MeasurementPictures :pictures="[
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0002.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0005.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0009.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_0011.JPG',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6382.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6383.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6384.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6385.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6385_1.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6386.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6387.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6388.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6396.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6398.jpg',
-                        'https://shop.liftnet.ru/tr-lift/dealer.work/pic/drives/00000021173/IMG_6393.jpg',
-                    ]"></MeasurementPictures>
+                    <MeasurementPictures :pictures="store.state.measutementsPictures"></MeasurementPictures>
 
                     <Descriptions
                         :descriptions="[

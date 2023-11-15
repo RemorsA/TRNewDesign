@@ -1,9 +1,6 @@
 <script setup>
-    import store from '@/store';
-    import BottomNavigationPanel from '@/components/BottomNavigationPanel.vue';
-    import OrderProductDrawer from '@/components/OrderProductDrawer.vue'
-    import TableTooltip from '@/components/TableTooltip.vue'
-    import Descriptions from '@/components/Descriptions.vue'
+    import store from '@/store/store';
+    import OrderProductTable from '@/components/OrderProductTable.vue'
     import { ref } from 'vue'
 
     let isOrderDialog = ref(false)
@@ -33,11 +30,11 @@
         >
             <template #default="props">
                 <div class="table__expand-content">
-                    <el-image class="picture"
-                        :src="'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg'"
+                    <el-image class="picture picture__cover-hover"
+                        src="https://media.istockphoto.com/id/860093394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5-%D1%88%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D1%8B-%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.webp?s=2048x2048&w=is&k=20&c=qahqvWOpUQqVFbWkZwD-eB23zJaG9n9xUjHRR-s71vU="
                         fit="scale-down"
                         hide-on-click-modal
-                        :preview-src-list="[ 'https://shop.liftnet.ru/tr-lift/dealer.work//pic/20000020264.jpg' ]"
+                        :preview-src-list="[ 'https://media.istockphoto.com/id/860093394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5-%D1%88%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D1%8B-%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.webp?s=2048x2048&w=is&k=20&c=qahqvWOpUQqVFbWkZwD-eB23zJaG9n9xUjHRR-s71vU=' ]"
                         preview-teleported
                     ></el-image>
 
@@ -169,24 +166,19 @@
             { key: 3, type: 'select', vModel: '', placeholder: 'Бренд' },
         ]"
     >
-        <el-button
-            type="primary"
-            icon="Histogram"
-            link
-        >
-            Сравнить /
-            <el-tag
-                style="margin-left: 5px;"
-                type="danger"
+        <el-badge value="5">
+            <el-button
+                type="primary"
+                icon="Histogram"
             >
-                5
-            </el-tag>
-        </el-button>
+                Сравнить
+            </el-button>
+        </el-badge>
     </BottomNavigationPanel>
 
-    <OrderProductDrawer
+    <OrderProductTable
         v-model="isOrderDialog"
-    ></OrderProductDrawer>
+    ></OrderProductTable>
 </template>
 
 <style lang="scss" scoped>
@@ -207,12 +199,8 @@
             border-radius: 4px;
         }
 
-        .count_on_store {
+        .count_on_store, .detail__description {
             flex: 1 1 calc(100% - 10px - 250px);
-        }
-
-        .detail__description {
-            flex: 1 1 calc(100% - 10px - 250px)
         }
     }
 </style>

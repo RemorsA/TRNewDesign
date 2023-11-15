@@ -1,6 +1,6 @@
 <script setup>
 	import { onMounted } from 'vue'
-	import store from './store';
+	import store from '@/store/store';
 	import router from './router'
 
 	onMounted(() => {
@@ -32,26 +32,13 @@
 
 <style lang="scss">
 	@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+	@import '@/styles/Templates.scss';
+	@import '@/styles/ElementPlusCustom.scss';
 
 	* {
 		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		font-family: 'Inter', sans-serif;
-	}
-// CUSTOM CLASS ELEMENT UI
-	.el-notification-custom {
-        .el-notification__group .el-notification__content {
-            text-align: left !important;
-        }
-    }
-
-	.el-carousel-custom.el-carousel {
-		--el-carousel-arrow-background: var(--el-color-info);
-		--el-carousel-arrow-hover-background: var(--el-color-primary);
-
-		// .el-carousel__indicators .el-carousel__indicator .el-carousel__button {
-		// 	background-color: var(--el-color-primary) !important;
-		// }
 	}
 </style>

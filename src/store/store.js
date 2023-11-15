@@ -1,14 +1,12 @@
 import { createStore } from 'vuex'
 
-// TODO: Переделать модули в нормально состояние
+import Home from '@/store/utils/Home'
 
 const state = {
     settings: {
         theme: false,
         collapse: false,
-        defaultMenuOpened: false,
     },
-    // size: '',
     isAuth: false,
     isEditNews: true,
     tData: [
@@ -2262,6 +2260,16 @@ const state = {
             "greeting": "Hello, Audrey Peters! You have 8 unread messages.",
             "favoriteFruit": "strawberry"
         }
+    ],
+    measutementsPictures: [
+        'https://media.istockphoto.com/id/1190833757/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0-%D1%84%D0%BB%D0%B0%D0%B5%D1%80-%D0%B1%D0%B0%D0%BD%D0%BD%D0%B5%D1%80-%D1%84%D0%BE%D0%BD.jpg?s=2048x2048&w=is&k=20&c=qo2fmc4fLo_1-pK4DaIWChQ8Fn-3Rdya79v4UKrX4b8=',
+        'https://media.istockphoto.com/id/876873662/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4-%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%B4%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9-%D1%81-%D0%B4%D0%B5%D0%B4%D1%80%D1%8F%D1%82%D0%B5%D0%BB%D1%8F%D0%BC%D0%B8-%D1%82%D0%B0%D0%BD%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%81%D0%BC%D0%B5%D1%88%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B6%D0%B8%D0%B4%D0%BA%D0%BE%D1%81%D1%82%D0%B5%D0%B9.jpg?s=2048x2048&w=is&k=20&c=jR6H6PnLOp4Hc2pY2r90aY1w1VwZKd3T30HfUew_2pI=',
+        'https://media.istockphoto.com/id/1407355385/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%B9-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9-%D0%BE%D1%82%D1%81%D0%B5%D0%BA-%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B0.jpg?s=2048x2048&w=is&k=20&c=V68w7EGp2HF58HOUdzE2h8EmNcSzqVlIBoLL7_FIoKE=',
+        'https://media.istockphoto.com/id/1132456352/ru/%D1%84%D0%BE%D1%82%D0%BE/3d-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%B4%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%B5%D0%BB%D1%8F-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5-%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8-%D0%BA%D0%B0%D0%BA-%D0%BA%D0%BE%D0%BB%D0%B5%D0%BD%D1%87%D0%B0%D1%82%D1%8B%D0%B9-%D0%B2%D0%B0%D0%BB-%D0%BF%D0%BE%D1%80%D1%88%D0%BD%D0%B8-%D1%81-%D0%B1%D1%80%D1%8B%D0%B7%D0%B3%D0%B0%D0%BC%D0%B8-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BC%D0%B0%D1%81%D0%BB%D0%B0.jpg?s=2048x2048&w=is&k=20&c=Gb3nXB8BgXR7xcE5L5pEgK5rvGVPbvc8KjN82IoBJMs=',
+        'https://media.istockphoto.com/id/1190833757/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%BD%D0%B0%D1%8F-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0-%D1%84%D0%BB%D0%B0%D0%B5%D1%80-%D0%B1%D0%B0%D0%BD%D0%BD%D0%B5%D1%80-%D1%84%D0%BE%D0%BD.jpg?s=2048x2048&w=is&k=20&c=qo2fmc4fLo_1-pK4DaIWChQ8Fn-3Rdya79v4UKrX4b8=',
+        'https://media.istockphoto.com/id/876873662/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%80%D1%8F%D0%B4-%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%B4%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%B5%D0%BB%D0%B5%D0%B9-%D1%81-%D0%B4%D0%B5%D0%B4%D1%80%D1%8F%D1%82%D0%B5%D0%BB%D1%8F%D0%BC%D0%B8-%D1%82%D0%B0%D0%BD%D0%BA%D0%B8-%D0%B4%D0%BB%D1%8F-%D1%81%D0%BC%D0%B5%D1%88%D0%B8%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B6%D0%B8%D0%B4%D0%BA%D0%BE%D1%81%D1%82%D0%B5%D0%B9.jpg?s=2048x2048&w=is&k=20&c=jR6H6PnLOp4Hc2pY2r90aY1w1VwZKd3T30HfUew_2pI=',
+        'https://media.istockphoto.com/id/1407355385/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BE%D1%82%D0%BA%D1%80%D1%8B%D1%82%D1%8B%D0%B9-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9-%D0%BE%D1%82%D1%81%D0%B5%D0%BA-%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE-%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B0.jpg?s=2048x2048&w=is&k=20&c=V68w7EGp2HF58HOUdzE2h8EmNcSzqVlIBoLL7_FIoKE=',
+        'https://media.istockphoto.com/id/1132456352/ru/%D1%84%D0%BE%D1%82%D0%BE/3d-%D0%B8%D0%BB%D0%BB%D1%8E%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F-%D0%B4%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%B5%D0%BB%D1%8F-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5-%D0%B4%D0%B5%D1%82%D0%B0%D0%BB%D0%B8-%D0%BA%D0%B0%D0%BA-%D0%BA%D0%BE%D0%BB%D0%B5%D0%BD%D1%87%D0%B0%D1%82%D1%8B%D0%B9-%D0%B2%D0%B0%D0%BB-%D0%BF%D0%BE%D1%80%D1%88%D0%BD%D0%B8-%D1%81-%D0%B1%D1%80%D1%8B%D0%B7%D0%B3%D0%B0%D0%BC%D0%B8-%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BC%D0%B0%D1%81%D0%BB%D0%B0.jpg?s=2048x2048&w=is&k=20&c=Gb3nXB8BgXR7xcE5L5pEgK5rvGVPbvc8KjN82IoBJMs=',
     ]
 }
 
@@ -2303,54 +2311,12 @@ const actions = {
     }
 }
 
-const mutations = {
-    routerGo(state, path) {
-        let tagA = document.createElement('a')
-// ДЛЯ GITHUB PAGES -> /TRNewDesign - ПОЗЖЕ УДАЛИТЬ
-        tagA.setAttribute('href', '/TRNewDesign' + path)
-        tagA.click()
-    },
-
-    // componentsSize(state) {
-    //     // let media = '<= 768px'
-
-    //     // switch(device) {
-    //     //     case 'sm':
-    //     //         media = '>= 768px'
-    //     //     break
-
-    //     //     case 'md':
-    //     //         media = '>= 992px'
-    //     //     break
-
-    //     //     case 'lg':
-    //     //         media = '>= 1200px'
-    //     //     break
-            
-    //     //     case 'xl':
-    //     //         media = '>= 1920px'
-    //     //     break
-    //     // }
-
-    //     // const pageWidth = window.matchMedia(`(width ${ media })`) // EXAMPLE: "(max-width: 1024px)"
-    //     const pageWidth = window.matchMedia('(width <= 768px)')
-
-    //     pageWidth.addEventListener('change', () => {
-    //         if (pageWidth.matches) {
-    //             state.size = 'small'
-    //         }
-    //         else {
-    //             state.size = ''
-    //         }
-    //         // view.value = pageWidth.matches
-    //     })
-    // }
-}
-
 export default createStore({
-    modules: {},
+    modules: {
+        Home
+    },
     actions,
-    mutations,
+    mutations: {},
     state,
     getters: {}
 })
