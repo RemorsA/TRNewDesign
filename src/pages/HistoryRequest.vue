@@ -15,7 +15,7 @@
             align="center"
         >
             <template #default="record">
-                <div class="table__expand-content">
+                <div class="table-expand__content">
                     <MeasurementPictures :pictures="store.state.measutementsPictures"></MeasurementPictures>
 
                     <Descriptions
@@ -43,98 +43,96 @@
                         </template>
                     </Descriptions>
 
-                    <el-card>
-                        <el-table
-                            :data="store.state.tData.slice(49)"
-                            border
-                            stripe
-                            size="small"
+                    <el-table
+                        :data="store.state.tData.slice(49)"
+                        border
+                        stripe
+                        size="small"
+                    >
+                        <el-table-column
+                            label="Комментарий"
+                            prop="about"
                         >
-                            <el-table-column
-                                label="Комментарий"
-                                prop="about"
-                            >
-                                <template #default="{ row }">
-                                    <TooltipText
-                                        :content="row.about"
-                                        :text="row.about"
-                                    ></TooltipText>
-                                </template>
-                            </el-table-column>
+                            <template #default="{ row }">
+                                <TooltipText
+                                    :content="row.about"
+                                    :text="row.about"
+                                ></TooltipText>
+                            </template>
+                        </el-table-column>
 
-                            <el-table-column
-                                label="Кол-во (запрошено)"
-                                prop="age"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Кол-во (запрошено)"
+                            prop="age"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Ед. изм."
-                                prop="eyeColor"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Ед. изм."
+                            prop="eyeColor"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Склад"
-                                prop="company"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Склад"
+                            prop="company"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Страна"
-                                prop="name"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Страна"
+                            prop="name"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Вес (кг.)"
-                                prop="age"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Вес (кг.)"
+                            prop="age"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Кол-во (шт.)"
-                                prop="age"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Кол-во (шт.)"
+                            prop="age"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Цена, руб."
-                                prop="balance"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Цена, руб."
+                            prop="balance"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="Сумма, руб."
-                                prop="balance"
-                            ></el-table-column>
+                        <el-table-column
+                            label="Сумма, руб."
+                            prop="balance"
+                        ></el-table-column>
 
-                            <el-table-column
-                                label="РРЦ"
-                                prop="balance"
-                            >
-                                <template #header>
-                                    <TableTooltip
-                                        content="Рекомендовано розничная цена"
-                                        text="РРЦ, руб."
-                                    ></TableTooltip>
-                                </template>
-                            </el-table-column>
+                        <el-table-column
+                            label="РРЦ"
+                            prop="balance"
+                        >
+                            <template #header>
+                                <TableTooltip
+                                    content="Рекомендовано розничная цена"
+                                    text="РРЦ, руб."
+                                ></TableTooltip>
+                            </template>
+                        </el-table-column>
 
-                            <el-table-column
-                                label=""
-                                prop=""
-                            >
-                                <template #header>
-                                    <TableTooltip
-                                        content="Заказать товар нельзя так как с момента проценки прошло 3 дня"
-                                    ></TableTooltip>
-                                </template>
+                        <el-table-column
+                            label=""
+                            prop=""
+                        >
+                            <template #header>
+                                <TableTooltip
+                                    content="Заказать товар нельзя так как с момента проценки прошло 3 дня"
+                                ></TableTooltip>
+                            </template>
 
-                                <template #default="{ row }">
-                                    <el-button
-                                        icon="Lock"
-                                        type="danger"
-                                        link
-                                        style="font-size: 20px;"
-                                    ></el-button>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </el-card>
+                            <template #default="{ row }">
+                                <el-button
+                                    icon="Lock"
+                                    type="danger"
+                                    link
+                                    style="font-size: 20px;"
+                                ></el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
                 </div>
             </template>
         </el-table-column>
@@ -212,7 +210,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .table__expand-content {
+    .table-expand__content {
         margin: 4px 8px;
         display: flex;
         flex-direction: column;

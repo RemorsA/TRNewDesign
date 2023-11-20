@@ -47,89 +47,77 @@
                 {{ order.isActive ? 'Активно' : 'Не активно' }}
             </span>
 
-            <div class="timeline__table"
-                :class="{
-                    'is-disabled': !order.isActive
-                }"
+            <el-table
+                :data="index === 3 ? store.state.tData.slice(47) : store.state.tData.slice(49)"
+                stripe
+                border
+                size="small"
             >
-                <el-table
-                    :data="index === 3 ? store.state.tData.slice(47) : store.state.tData.slice(49)"
-                    stripe
-                    border
-                    size="small"
+                <el-table-column
+                    width="40"
+                    align="center"
+                    type="selection"
+                    v-if="order.isActive"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Наименование"
+                    prop="name"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Кат. номер"
+                    prop="guid"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Страна"
+                    prop="address"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Склад"
+                    prop="company"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Вес"
+                    prop="latitude"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Кол-во"
+                    prop="age"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Ед. изм."
+                    prop="eyeColor"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Цена"
+                    prop="balance"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Сумма"
+                    prop="balance"
+                ></el-table-column>
+
+                <el-table-column
+                    label="Состояние"
+                    prop="isActive"
                 >
-                    <el-table-column
-                        label=""
-                        prop=""
-                        width="40"
-                        align="center"
-                    >
-                        <template #default="{ row }">
-                            <el-checkbox
-                                :disabled="!order.isActive"
-                            ></el-checkbox>
-                        </template>
-                    </el-table-column>
-
-                    <el-table-column
-                        label="Наименование"
-                        prop="name"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Кат. номер"
-                        prop="guid"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Страна"
-                        prop="address"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Склад"
-                        prop="company"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Вес"
-                        prop="latitude"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Кол-во"
-                        prop="age"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Ед. изм."
-                        prop="eyeColor"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Цена"
-                        prop="balance"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Сумма"
-                        prop="balance"
-                    ></el-table-column>
-
-                    <el-table-column
-                        label="Состояние"
-                        prop="isActive"
-                    >
-                        <template #default="{ row }">
-                            <span :style="{
-                                'color': row.isActive ? 'var(--el-color-success)' : 'var(--el-color-warning)'
-                            }">
-                                {{ row.isActive }}
-                            </span>
-                        </template>
-                    </el-table-column>
-                </el-table>
-            </div>
+                    <template #default="{ row }">
+                        <span :style="{
+                            'color': row.isActive ? 'var(--el-color-success)' : 'var(--el-color-warning)'
+                        }">
+                            {{ row.isActive }}
+                        </span>
+                    </template>
+                </el-table-column>
+            </el-table>
         </el-timeline-item>
     </el-timeline>
 
@@ -140,7 +128,6 @@
             { key: 2, type: 'date', vModel: '', placeholder: 'Период от' },
             { key: 3, type: 'date', vModel: '', placeholder: 'Период до' },
         ]"
-        :indent-top="false"
     >
         <el-radio-group :model-value="'Все'">
             <el-radio-button label="Все"></el-radio-button>
@@ -176,35 +163,5 @@
         gap: 10px;
         justify-content: space-between;
         line-height: 25px;
-    }
-</style>
-
-<style lang="scss" scoped>
-    .timeline__table {
-        position: relative;
-        overflow: hidden;
-
-        &.is-disabled::after {
-            content: 'Заказ не активен!';
-            width: 100%;
-            height: 40px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all .5s;
-            transform: translateY(100px);
-            backdrop-filter: brightness(0.5) blur(2px);
-            color: var(--el-color-white);
-        }
-
-        &:hover::after {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 </style>

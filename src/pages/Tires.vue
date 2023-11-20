@@ -29,7 +29,7 @@
             width="40"
         >
             <template #default="props">
-                <div class="table__expand-content">
+                <div class="table-expand__content">
                     <el-image class="picture picture__cover-hover"
                         src="https://media.istockphoto.com/id/860093394/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%BD%D0%BE%D0%B2%D1%8B%D0%B5-%D1%88%D0%B8%D0%BD%D1%8B-%D0%B8%D0%B7%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D1%8B-%D0%BD%D0%B0-%D0%B1%D0%B5%D0%BB%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.webp?s=2048x2048&w=is&k=20&c=qahqvWOpUQqVFbWkZwD-eB23zJaG9n9xUjHRR-s71vU="
                         fit="scale-down"
@@ -187,11 +187,12 @@
         gap: 20px;
     }
 
-    .table__expand-content {
+    .table-expand__content {
         display: flex;
         gap: 10px;
+        align-items: start;
+        flex-wrap: wrap-reverse;
         margin: 4px 8px;
-        flex-wrap: wrap;
 
         .picture {
             flex: 1 2 250px;

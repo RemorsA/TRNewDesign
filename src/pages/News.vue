@@ -125,9 +125,7 @@
         </div>
     </div>
 <!-- ОСТАЛЬНЫЕ -->
-    <div class="cards-other"
-        :class="[ newsItems > 5 ? 'more' : 'less' ]"
-    >
+    <div class="cards-other">
         <el-card class="card"
             v-for="(card, index) in newsItems"
             :key="card"
@@ -185,33 +183,16 @@
                 </el-button-group>
             </div>
         </el-card>
-
-        <el-card
-            @click="newsItems++"
-            v-show="state.isAuth && state.isEditNews"
-            body-style="
-                display: flex;
-                align-item: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-                min-width: 290px;
-                min-height: 490px;
-                cursor: pointer;
-                border: 1px dashed var(--el-color-primary);
-                overflow: unset
-            "
-            shadow="hover"
-        >
-            <el-button
-                icon="Plus"
-                link
-                type="primary"
-            >
-                Добавить новость
-            </el-button>
-        </el-card>
     </div>
+
+    <el-button class="add__news-button"
+        icon="Plus"
+        type="primary"
+        @click="newsItems++"
+        v-show="state.isAuth && state.isEditNews"
+    >
+        Добавить новость
+    </el-button>
 <!-- РЕДАКТОР -->
     <el-dialog
         v-model="isEditDialog"
@@ -365,219 +346,9 @@
 </template>
 
 <style lang="scss">
-    .detail-link {
-        color: var(--el-color-primary);
-        text-decoration: none;
-        border-bottom: 1px solid var(--el-color-primary);
-        transition: all .5s;
-
-        &:hover {
-            opacity: 0.5;
-        }
-    }
-
-    .detail-table {
-        border-collapse: collapse;
-        width: 100%;
-        border-color: var(--el-table-border-color);
-
-        thead {
-            border-bottom: 1px solid var(--el-border-color);
-            background: var(--el-table-header-bg-color);
-            user-select: none;
-            font-weight: 600;
-            color: var(--el-text-color-secondary);
-        }
-
-        tbody {
-            color: var(--el-text-color-regular);
-            transition: all .5s;
-            border-bottom: 1px solid var(--el-border-color);
-
-            &:hover {
-                background: var(--el-fill-color-light);
-            }
-        }
-
-        td {
-            padding: 8px 12px;
-            
-        }
-    }
+@import '@/styles/News/NewsEditClasses';
 </style>
 
 <style lang="scss" scoped>
-    .card-top {
-        border-radius: 4px;
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-        background: black;
-
-        &:hover {
-            .title {
-                transform: translateX(0);
-            }
-
-            .navigation {
-                transform: translateX(0);
-            }
-
-            .date::before {
-                width: 0%;
-            }
-        }
-
-        .carousel img {
-            width: 100%;
-            height: 100%;
-            filter: blur(2px) brightness(0.5);
-            object-fit: cover;
-        }
-
-        .title {
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 20px;
-            color: white;
-            line-height: 30px;
-            transition: all .5s;
-            transform: translateX(-500px);
-            max-width: 500px;
-            word-break: keep-all;
-
-            @media screen and (max-width: 425px) {
-                max-width: 300px;
-            }
-
-            h4 {
-                font-size: 25px;
-            }
-        }
-
-        .date {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            color: white;
-            padding: 20px;
-            width: 100%;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-
-            span {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                justify-content: center;
-                border: 1px solid white;
-                padding: 2px 5px;
-                border-radius: 10px;
-            }
-
-            &::after {
-                content: '';
-                height: 1px;
-                width: 100%;
-                background: white;
-            }
-
-            &::before {
-                content: '';
-                height: 1px;
-                width: 100%;
-                background: white;
-                transition: all .5s;
-            }
-        }
-
-        .navigation {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            padding: 0 20px 60px 0;
-            color: white;
-            gap: 10px;
-            transition: all 1.5s;
-            transform: translateX(500px);
-        }
-    }
-
-    .cards-other {
-        margin-top: 20px;
-        gap: 20px;
-
-        &.more {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-
-        &.less {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            --el-card-padding: 0px;
-
-            &__content {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-            }
-        }
-    }
-
-    .edit-pictures {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 10px;
-        padding-bottom: 20px;
-
-        &__item {
-            position: relative;
-            overflow: hidden;
-
-            &__pic {
-                width: 100%;
-                height: 100%;
-                min-width: 100px;
-                min-height: 100px;
-            }
-
-            .delete-picture {
-                position: absolute;
-                bottom: 0px;
-                right: 0px;
-                background: rgba(0, 0, 0, 0.526);
-                width: 100%;
-                text-align: right;
-                justify-content: end;
-                box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.526);
-            }
-        }
-    }
-
-    .drawer__carousel {
-        transition: all .5s;
-        padding: 2px 0;
-
-        &:hover {
-            background: var(--el-color-primary);
-        }
-    }
-
-    .drawer__detail {
-        h4, p {
-            line-height: 25px;
-        }
-
-        @media screen and (width < 992px) {
-            margin-top: 20px;
-        }
-    }
+@import '@/styles/News/News.scss';
 </style>

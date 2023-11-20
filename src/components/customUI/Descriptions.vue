@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <el-card class="descriptions__container">
+    <div class="descriptions__container">
         <p class="extra" v-show="extra">
             <el-icon><component :is="extraIcon || 'Document'"></component></el-icon>
             {{ extra }}
@@ -33,15 +33,11 @@
                 </span>
             </div>
         </section>
-    </el-card>
+    </div>
 </template>
 
 <style lang="scss" scoped>
     .descriptions__container {
-        &.el-card {
-            overflow: unset !important;
-        }
-
         .extra {
             display: flex;
             align-items: center;

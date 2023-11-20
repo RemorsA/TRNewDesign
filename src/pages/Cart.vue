@@ -1,5 +1,16 @@
 <script setup>
     import store from '@/store/store'
+    import { ref, onMounted } from 'vue'
+
+    onMounted(() => {
+        store.state.tData.slice(40).forEach(el => {
+            if (el.isActive) {
+                table.value.toggleRowSelection(el, undefined)
+            }
+        })
+    })
+
+    const table = ref()
 </script>
 
 <template>
@@ -8,17 +19,13 @@
         stripe
         border
         size="small"
+        ref="table"
     >
         <el-table-column
             width="40"
             align="center"
-        >
-            <template #default="{ row }">
-                <el-checkbox
-                    :model-value="row.isActive"
-                ></el-checkbox>
-            </template>
-        </el-table-column>
+            type="selection"
+        ></el-table-column>
 
         <el-table-column
             label="Наименование"

@@ -1,0 +1,39 @@
+.detail-link {
+    color: var(--el-color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--el-color-primary);
+    transition: all .5s;
+
+    &:hover {
+        opacity: 0.5;
+    }
+}
+
+.detail-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-color: var(--el-table-border-color);
+
+    thead {
+        border-bottom: 1px solid var(--el-border-color);
+        background: var(--el-table-header-bg-color);
+        user-select: none;
+        font-weight: 600;
+        color: var(--el-text-color-secondary);
+    }
+
+    tbody {
+        color: var(--el-text-color-regular);
+        transition: all .5s;
+        border-bottom: 1px solid var(--el-border-color);
+
+        &:hover {
+            background: var(--el-fill-color-light);
+        }
+    }
+
+    td {
+        padding: 8px 12px;
+        
+    }
+}

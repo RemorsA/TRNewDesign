@@ -9,7 +9,7 @@
 </script>
 
 <template>
-    <el-card class="measurement__pictures">
+    <div class="measurement__pictures">
         <el-scrollbar max-height="400px" native>
             <div class="pictures">
                 <el-image class="picture picture__cover-hover"
@@ -24,19 +24,17 @@
                 ></el-image>
             </div>
         </el-scrollbar>
-    </el-card>
+    </div>
 </template>
 
 <style lang="scss" scoped>
     .measurement__pictures {
-        --el-card-padding: 0;
         width: 100%;
 
         .pictures {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
-            padding: 20px;
 
             .picture {
                 width: 100%;

@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <el-table class="el-table-custom"
+    <el-table
         :data="store.state.tData.slice(40)"
         border
         stripe
@@ -18,20 +18,21 @@
             align="center"
         >
             <template #default="{ row }">
-                <Descriptions
-                    style="margin: 4px 8px;"
-                    :descriptions="['Набережные Челны']"
-                    extra="Количество на складах"
-                    extra-icon="OfficeBuilding"
-                >
-                    <template #label="{ row }">
-                        {{ row }}:
-                    </template>
+                <div class="table-expand__content">
+                    <Descriptions
+                        :descriptions="['Набережные Челны']"
+                        extra="Количество на складах"
+                        extra-icon="OfficeBuilding"
+                    >
+                        <template #label="{ row }">
+                            {{ row }}:
+                        </template>
 
-                    <template #value>
-                        {{ row.age }}
-                    </template>
-                </Descriptions>
+                        <template #value>
+                            {{ row.age }}
+                        </template>
+                    </Descriptions>
+                </div>
             </template>
         </el-table-column>
 
@@ -147,4 +148,8 @@
     </BottomNavigationPanel>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .table-expand__content {
+        margin: 4px 8px;
+    }
+</style>

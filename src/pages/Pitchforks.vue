@@ -19,20 +19,21 @@
             width="40"
         >
             <template #default="props">
-                <Descriptions
-                    style="margin: 4px 8px;"
-                    :descriptions="['Набережные Челны', 'Москва']"
-                    extra="Количество на складе"
-                    extra-icon="OfficeBuilding"
-                >
-                    <template #label="{ row }">
-                        {{ row }}:
-                    </template>
+                <div class="table-expand__content">
+                    <Descriptions
+                        :descriptions="['Набережные Челны', 'Москва']"
+                        extra="Количество на складе"
+                        extra-icon="OfficeBuilding"
+                    >
+                        <template #label="{ row }">
+                            {{ row }}:
+                        </template>
 
-                    <template #value>
-                        {{ props.row.age }}
-                    </template>
-                </Descriptions>
+                        <template #value>
+                            {{ props.row.age }}
+                        </template>
+                    </Descriptions>
+                </div>
             </template>
         </el-table-column>
 
@@ -97,4 +98,8 @@
     ></OrderProductTable>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .table-expand__content {
+        margin: 4px 8px;
+    }
+</style>

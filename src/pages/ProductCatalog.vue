@@ -18,7 +18,7 @@
             align="center"
         >
             <template #default="record">
-                <div class="table__expand-content">
+                <div class="table-expand__content">
                     <MeasurementPictures :pictures="store.state.measutementsPictures"></MeasurementPictures>
 
                     <Descriptions
@@ -200,10 +200,10 @@
 </template>
 
 <style lang="scss" scoped>
-    .table__expand-content {
-        margin: 4px 8px;
+    .table-expand__content {
         display: flex;
         flex-direction: column;
         gap: 10px;
+        margin: 4px 8px
     }
 </style>
