@@ -68,7 +68,7 @@
 
 	<el-tabs>
 		<el-tab-pane label="Контактные лица">
-			<el-table class="el-table-custom"
+			<el-table
 				:data="store.state.tData.slice(40)"
 				stripe
 				border

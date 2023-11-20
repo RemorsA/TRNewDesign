@@ -19,7 +19,7 @@
             width="40"
         >
             <template #default="record">
-                <div class="table__expand-content">
+                <div class="table-expand__content">
                     <MeasurementPictures :pictures="store.state.measutementsPictures"></MeasurementPictures>
 
                     <Descriptions
@@ -119,7 +119,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .table__expand-content {
+    .table-expand__content {
         display: flex;
         gap: 10px;
         flex-direction: column;

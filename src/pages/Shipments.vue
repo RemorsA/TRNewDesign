@@ -15,7 +15,7 @@
             align="center"
         >
             <template #default="props">
-                <el-card style="margin: 4px 8px;">
+                <div class="table-expand__content">
                     <el-table
                         :data="store.state.tData.slice(47)"
                         size="small"
@@ -56,7 +56,7 @@
                             prop="balance"
                         ></el-table-column>
                     </el-table>
-                </el-card>
+                </div>
             </template>
         </el-table-column>
 
@@ -181,4 +181,8 @@
     ></BottomNavigationPanel>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    .table-expand__content {
+        margin: 4px 8px;
+    }
+</style>
