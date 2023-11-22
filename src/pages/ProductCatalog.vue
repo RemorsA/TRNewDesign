@@ -78,26 +78,34 @@
         >
             <template #default="{ row }">
                 <el-input-number
-                    :model-value="1"
+                    :model-value="row.age"
                     size="small"
                 ></el-input-number>
             </template>
         </el-table-column>
 
         <el-table-column
-            label=""
-            prop=""
-            width="120"
+            width="210"
         >
             <template #default="{ row }">
-                <el-button
-                    link
-                    type="primary"
-                    icon="Top"
-                    @click="isEvaluate = true"
-                >
-                    Проценить
-                </el-button>
+                <el-row align="middle" style="gap: 10px">
+                    <el-button
+                        link
+                        type="primary"
+                        icon="Top"
+                        @click="isEvaluate = true, row.evaluate = true"
+                    >
+                        Проценить
+                    </el-button>
+
+                    <el-tag
+                        v-show="row?.evaluate"
+                        type="success"
+                        effect="plain"
+                    >
+                        Проценен
+                    </el-tag>
+                </el-row>
             </template>
         </el-table-column>
     </el-table>
@@ -189,7 +197,6 @@
             { key: 1, type: 'input', vModel: '', placeholder: 'Модель погрузчика' },
             { key: 2, type: 'select', vModel: '', placeholder: 'Товарная группа' },
             { key: 3, type: 'input', vModel: '', placeholder: 'Наименование запчасти' },
-            // { key: 4, type: 'input', vModel: '', placeholder: 'Запрос по артикулу' }
         ]"
     >
         <el-radio-group :model-value="false">

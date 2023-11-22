@@ -23,6 +23,7 @@
         :ellipsis="false"
         :collapse="settings.collapse"
         @select="handleSelect"
+        :default-openeds="['1', '2', '3']"
     >
         <el-menu-item
             index="news"

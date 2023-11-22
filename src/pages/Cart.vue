@@ -96,16 +96,18 @@
         <span style="font-size: 14px">Итого: 10022220, руб.</span>
 
         <el-input
-            style="width: 250px;"
+            style="width: clamp(300px, 100%, 500px)"
             placeholder="Ваша ссылка для заказа:"
-        ></el-input>
-
-        <el-button
-            icon="Right"
-            type="primary"
         >
-            Оформить заказ
-        </el-button>
+            <template #append>
+                <el-button
+                    icon="Right"
+                    type="primary"
+                >
+                    Оформить заказ
+                </el-button>
+            </template>
+        </el-input>
     </BottomNavigationPanel>
 </template>
 

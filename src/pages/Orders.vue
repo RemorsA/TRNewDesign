@@ -4,27 +4,6 @@
     import { ref } from 'vue'
 
     let isDeliveryForm = ref(false)
-    let popperContent = ref(`
-        <span class='popper__content'>
-            <h4>Сумма товаров:</h4>
-            519 450
-        </span>
-
-        <span class='popper__content'>
-            <h4>Общий вес (кг):</h4>
-            900
-        </span>
-
-        <span class='popper__content'>
-            <h4>Стоимость доставки:</h4>
-            7 981
-        </span>
-
-        <span class='popper__content'>
-            <h4>Итого:</h4>
-            527 431
-        </span>
-    `)
 </script>
 
 <template>
@@ -137,7 +116,17 @@
 
         <el-tooltip
             raw-content
-            :content="popperContent"
+            :content="`
+                <span class='popper__content'>
+                    <h4>Сумма товаров:</h4>
+                    519 450
+                </span>
+
+                <span class='popper__content'>
+                    <h4>Общий вес (кг):</h4>
+                    900
+                </span>
+            `"
             popper-style="font-size: 14px;"
         >
             <el-badge value="10">

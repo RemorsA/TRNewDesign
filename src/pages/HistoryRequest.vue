@@ -1,10 +1,47 @@
 <script setup>
-    import store from '@/store/store';
+    import store from '@/store/store'
+    import router from '@/router';
+    import { computed } from 'vue'
+
+    const currentRouteParam = computed(() =>
+        router.currentRoute.value.params.isMessages
+    )
+
+    const tableData = computed(() =>
+        store.state.tData.slice(40).filter(el => {
+            if (currentRouteParam.value === 'only_messages' && !el.isActive) {
+                return el
+            }
+
+            if (currentRouteParam.value === 'all') {
+                return el
+            }
+        })
+    )
+
+    const isOnlyMessage = computed(() => {
+        if (currentRouteParam.value === 'only_messages') {
+            return {
+                hidden: true,
+                text: 'Вся история',
+                href: '/TRNewDesign/history_request/all',
+                value: '0'
+            }
+        }
+        else {
+            return {
+                hidden: false,
+                text: 'Сообщения',
+                href: '/TRNewDesign/history_request/only_messages',
+                value: tableData.value.filter(el => el.isActive)?.length
+            }
+        }
+    })
 </script>
 
 <template>
     <el-table
-        :data="store.state.tData.slice(40)"
+        :data="tableData"
         border
         stripe
         size="small"
@@ -181,7 +218,13 @@
                         type="primary"
                     ></el-button>
 
-                    <el-tag type="danger">1</el-tag>
+                    <el-tag
+                        type="danger"
+                        effect="plain"
+                        round
+                    >
+                        1
+                    </el-tag>
                 </el-row>
             </template>
         </el-table-column>
@@ -198,13 +241,16 @@
             { key: 6, type: 'date', vModel: '', placeholder: 'Дата до' },
         ]"
     >
-        <el-badge value="5">
-            <el-button
+        <el-badge
+            :hidden="isOnlyMessage.hidden"
+            :value="isOnlyMessage.value"
+        >
+            <el-link
                 type="primary"
-                icon="Message"
+                :href="isOnlyMessage.href"
             >
-                Сообщения
-            </el-button>
+                {{ isOnlyMessage.text }}
+            </el-link>
         </el-badge>
     </BottomNavigationPanel>
 </template>
