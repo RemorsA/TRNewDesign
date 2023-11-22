@@ -20,7 +20,7 @@
         </template>
 
         <template #extra>
-            <a href="/TRNewDesign/news">
+            <a href="/TRNewDesign/news_page">
                 <el-image class="page__header-logo-picture"
                     src="/TRNewDesign/logo.png"
                 ></el-image>

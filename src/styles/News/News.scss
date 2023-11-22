@@ -1,65 +1,68 @@
-.news-container {
+.news__card-top {
+    border: 1px solid var(--el-border-color);
+    border-radius: 4px;
+    padding: 20px 10px;
     display: flex;
-    flex-direction: column;
+    align-items: start;
     gap: 20px;
+    justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
 
-    .rows {
-        .row__content {
-            display: flex;
-            align-items: start;
-            gap: 20px;
+    @media screen and (width <= 768px) {
+        flex-wrap: wrap-reverse;
+    }
 
-            .carousel {
-                width: 30%;
+    .date-action_button {
+        position: absolute;
+        bottom: -7px;
+        left: 50px;
+        background: var(--el-bg-color);
+        padding: 0 10px;
 
-                .picture {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
+        display: flex;
+        align-items: center;
+        gap: 20px;
 
-            .content {
-                width: 70%;
+        @media screen and (width <= 768px) {
+            left: 10px;
+        }
 
-                .date {
-                    font-size: 14px;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    white-space: nowrap;
+        span {
+            display: inherit;
+            align-items: inherit;
+            gap: 5px;
+            font-size: 14px;
+        }
 
-                    &::after {
-                        content: '';
-                        width: 100%;
-                        height: 1px;
-                        border-bottom: 1px solid currentColor;
-                    }
-                }
-
-                .title {
-                    margin-top: 20px;
-                }
-
-                .description {
-                    margin-top: 5px;
-                }
-
-                .detail {
-                    margin-top: 20px;
-                }
-            }
-
-            .actions-buttons {
-                margin-top: 20px;
-            }
+        a {
+            gap: 5px;
         }
     }
 
-    .add__news-button {
-        position: sticky;
-        bottom: 5px;
-        left: 0;
-        z-index: 1;
-        border: 1px dashed var(--el-color-primary)
+    .content__text {
+        flex: 1 1 calc(45% - 20px);
+
+        @media screen and (width <= 768px) {
+            flex: 1 1 100%;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+    }
+
+    .carousel__pictures {
+        flex: 1 1 500px;
+        border-radius: 4px;
+
+        @media screen and (width <= 768px) {
+            flex: 1 1 100%;
+        }
+
+        .carousel__item-picture {
+            width: 100%;
+            height: 100%;
+        }
     }
 }

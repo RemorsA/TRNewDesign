@@ -6,7 +6,9 @@ import PageNotFound from '@/pages/404.vue'
 import Auth from '@/pages/Auth.vue'
 
 import Shipments from '@/pages/Shipments.vue'
+import IndexNewsPage from '@/pages/News/IndexNewsPage.vue'
 import News from '@/pages/News/News.vue'
+import About from '@/pages/News/About.vue'
 import Account from '@/pages/Account.vue'
 import Cart from '@/pages/Cart.vue'
 import Orders from '@/pages/Orders.vue'
@@ -27,19 +29,35 @@ const router = createRouter({
 		{
 			path: '/',
 			name: 'index',
-			redirect: '/news',
+			redirect: '/news_page',
 			component: Home,
 			children: [
 				// MAIN:
 				{
-					path: '/news',
-					name: 'news',
+					path: '/news_page',
+					name: 'newsIndexPage',
+					redirect: '/news_page/news',
 					meta: {
 						title: 'Новости',
 						icon: 'House',
 						isShowMenu: false,
 					},
-					component: News,
+					component: IndexNewsPage,
+					children: [
+						{
+							path: '/news_page/news',
+							name: 'news',
+							component: News
+						},
+						{
+							path: '/news_page/about/:id',
+							name: 'about',
+							component: About,
+							meta: {
+								title: 'Детально',
+							},
+						},
+					]
 				},
 				{
 					path: '/account',
@@ -96,14 +114,14 @@ const router = createRouter({
 					},
 					component: Cart
 				},
-				// PARTS:
+				// OTHER
 				{
 					path: '/tires',
 					name: 'tires',
 					meta: {
 						title: 'Шины',
 						isShowMenu: true,
-						parts: true,
+						other: true,
 					},
 					component: Tires,
 				},
@@ -113,7 +131,7 @@ const router = createRouter({
 					meta: {
 						title: 'Вилы',
 						isShowMenu: true,
-						parts: true,
+						other: true,
 					},
 					component: Pitchforks
 				},
@@ -123,7 +141,7 @@ const router = createRouter({
 					meta: {
 						title: 'Двигатели',
 						isShowMenu: true,
-						parts: true,
+						other: true,
 					},
 					component: Engines
 				},
@@ -133,7 +151,7 @@ const router = createRouter({
 					meta: {
 						title: 'Навесное оборудование',
 						isShowMenu: true,
-						parts: true,
+						other: true,
 					},
 					component: Attachments
 				},
@@ -143,18 +161,17 @@ const router = createRouter({
 					meta: {
 						title: 'Аккумуляторы',
 						isShowMenu: true,
-						parts: true,
+						other: true,
 					},
 					component: Batteries
 				},
-				// REQUESTS:
 				{
 					path: '/history_request/:isMessages',
 					name: 'historyRequest',
 					meta: {
 						title: 'История запросов',
 						isShowMenu: true,
-						request: true,
+						other: true,
 					},
 					component: HistoryRequest
 				},
@@ -164,7 +181,7 @@ const router = createRouter({
 					meta: {
 						title: 'Запрос по артикулу',
 						isShowMenu: true,
-						request: true,
+						other: true,
 					},
 					component: RequestByArticle
 				},
@@ -174,18 +191,17 @@ const router = createRouter({
 					meta: {
 						title: 'Запрос на подбор',
 						isShowMenu: true,
-						request: true,
+						other: true,
 					},
 					component: SelectionRequest
 				},
-				// CATALOGS:
 				{
 					path: '/product_catalog',
 					name: 'productCatalog',
 					meta: {
 						title: 'Каталог номенклатуры',
 						isShowMenu: true,
-						catalog: true,
+						other: true,
 					},
 					component: ProductCatalog
 				},
@@ -195,7 +211,7 @@ const router = createRouter({
 					meta: {
 						title: 'Каталоги',
 						isShowMenu: true,
-						catalog: true,
+						other: true,
 					},
 					component: Catalog
 				},

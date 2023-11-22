@@ -9,7 +9,7 @@ const mutations = {
         if (value === 'fastRequest') return
 		if (value === '/history_request/:isMessages') value = '/history_request/all'
 
-        routerGo(value === 'news' ? '/news' : value)
+        routerGo(value === 'newsIndexPage' ? '/news_page' : value)
     },
 
     sendRequest(state) {
@@ -38,30 +38,20 @@ const state = {
 const getters = {
     menuLinks() {
         let main = []
-		let request = []
-		let parts = []
-		let catalog = []
+		let other = []
 
 		router.options.routes[0].children.filter(el => {
 			if (el.meta?.main) {
 				main.push(el)
 			}
-			if (el.meta?.request) {
-				request.push(el)
-			}
-			if (el.meta?.parts) {
-				parts.push(el)
-			}
-			if (el.meta?.catalog) {
-				catalog.push(el)
+			if (el.meta?.other) {
+				other.push(el)
 			}
 		})
 
 		return {
 			main,
-			request,
-			parts,
-			catalog, 
+			other,
 		}
     }
 }

@@ -14,7 +14,7 @@
 				next({ name: 'auth' })
 			}
 			else if (isAuth && to.name === 'auth') {
-				next({ name: 'news' })
+				next({ name: 'newsIndexPage' })
 			}
 			else {
 				next()

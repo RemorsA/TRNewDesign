@@ -99,7 +99,7 @@
 					prop="email"
 				>
 					<template #default="{ row }">
-						<el-link type="primary">
+						<el-link>
 							{{ row.email }}
 						</el-link>
 					</template>
