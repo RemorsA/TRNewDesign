@@ -1,23 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from './pages/Home/Home.vue'
+import Home from '@/pages/Home/Home.vue'
 
-import PageNotFound from './pages/404.vue'
-import Auth from './pages/Auth.vue'
+import PageNotFound from '@/pages/404.vue'
+import Auth from '@/pages/Auth.vue'
 
-import Shipments from './pages/Shipments.vue'
-import News from './pages/News.vue'
-import Account from './pages/Account.vue'
-import Cart from './pages/Cart.vue'
-import Orders from './pages/Orders.vue'
-import Tires from './pages/Tires.vue'
-import Pitchforks from './pages/Pitchforks.vue'
-import Engines from './pages/Engines.vue'
-import Batteries from './pages/Batteries.vue'
-import Attachments from './pages/Attachments.vue'
-import HistoryRequest from './pages/HistoryRequest.vue'
-import ProductCatalog from './pages/ProductCatalog.vue'
-import Catalog from './pages/Catalog.vue'
+import Shipments from '@/pages/Shipments.vue'
+import News from '@/pages/News/News.vue'
+import Account from '@/pages/Account.vue'
+import Cart from '@/pages/Cart.vue'
+import Orders from '@/pages/Orders.vue'
+import Tires from '@/pages/Tires.vue'
+import Pitchforks from '@/pages/Pitchforks.vue'
+import Engines from '@/pages/Engines.vue'
+import Batteries from '@/pages/Batteries.vue'
+import Attachments from '@/pages/Attachments.vue'
+import HistoryRequest from '@/pages/HistoryRequest.vue'
+import ProductCatalog from '@/pages/ProductCatalog.vue'
+import Catalog from '@/pages/Catalog.vue'
+import SelectionRequest from '@/pages/SelectionRequest/SelectionRequest.vue'
+import RequestByArticle from '@/pages/RequestByArticle/RequestByArticle.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +51,17 @@ const router = createRouter({
 						main: true,
 					},
 					component: Account,
+				},
+				{
+					path: '/messages',
+					name: 'messages',
+					redirect: '/history_request/only_messages',
+					meta: {
+						title: 'Сообщения',
+						icon: 'Message',
+						isShowMenu: true,
+						main: true,
+					},
 				},
 				{
 					path: '/orders',
@@ -136,7 +149,7 @@ const router = createRouter({
 				},
 				// REQUESTS:
 				{
-					path: '/history_request',
+					path: '/history_request/:isMessages',
 					name: 'historyRequest',
 					meta: {
 						title: 'История запросов',
@@ -144,6 +157,26 @@ const router = createRouter({
 						request: true,
 					},
 					component: HistoryRequest
+				},
+				{
+					path: '/request_by_article',
+					name: 'requestByArticle',
+					meta: {
+						title: 'Запрос по артикулу',
+						isShowMenu: true,
+						request: true,
+					},
+					component: RequestByArticle
+				},
+				{
+					path: '/selection_request',
+					name: 'selectionRequest',
+					meta: {
+						title: 'Запрос на подбор',
+						isShowMenu: true,
+						request: true,
+					},
+					component: SelectionRequest
 				},
 				// CATALOGS:
 				{
@@ -166,24 +199,6 @@ const router = createRouter({
 					},
 					component: Catalog
 				},
-				// {
-				// 	path: '/request_by_article',
-				// 	name: 'requestByArticle',
-				// 	meta: {
-				// 		title: 'Запрос по артикулу',
-				// 		isShowMenu: true,
-				// 		parts: true,
-				// 	},
-				// },
-				// {
-				// 	path: '/selection_request',
-				// 	name: 'selectionRequest',
-				// 	meta: {
-				// 		title: 'Запрос на подбор',
-				// 		isShowMenu: true,
-				// 		parts: true,
-				// 	},
-				// },
 			]
 		},
 		{

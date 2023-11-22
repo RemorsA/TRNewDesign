@@ -74,7 +74,13 @@
         >
             <template #default="{ row }">
                 {{ row.balance }}
-                <el-tag type="warning">10%</el-tag>
+                <el-tag
+                    type="warning"
+                    effect="plain"
+                    round
+                >
+                    10%
+                </el-tag>
             </template>
         </el-table-column>
 

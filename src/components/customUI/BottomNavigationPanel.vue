@@ -137,7 +137,7 @@
         &.is-sticky-default {
             position: sticky;
             left: 0;
-            bottom: 0;
+            bottom: 5px;
             z-index: 4;
 
             @media screen and (width < 768px) {

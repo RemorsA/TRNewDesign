@@ -10,13 +10,10 @@
 		const isAuth = store.state.isAuth
 
 		router.beforeEach((to, from, next) => {
-			if (!isAuth && to.name === 'auth') {
-				next()
-
-				return
+			if (!isAuth && to.name !== 'auth') {
+				next({ name: 'auth' })
 			}
-
-			if ((!isAuth && to.name !== 'news') || (isAuth && to.name === 'auth')) {
+			else if (isAuth && to.name === 'auth') {
 				next({ name: 'news' })
 			}
 			else {

@@ -7,6 +7,7 @@ const actions = {}
 const mutations = {
     handleSelect(state, value) {
         if (value === 'fastRequest') return
+		if (value === '/history_request/:isMessages') value = '/history_request/all'
 
         routerGo(value === 'news' ? '/news' : value)
     },
@@ -21,7 +22,7 @@ const mutations = {
 				title: 'Внимание',
 				message: 'Вы не ввели артикул',
 				duration: 5000,
-				showClose: true
+				showClose: true,
 			})
 		}
     }

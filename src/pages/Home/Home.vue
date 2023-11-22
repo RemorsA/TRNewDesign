@@ -3,7 +3,6 @@
 	import MobileMenu from './MobileMenu.vue'
 	import MobileHeader from './MobileHeader.vue'
 	import router from '@/router'
-	import AuthHeader from './AuthHeader.vue'
 </script>
 
 <template>
@@ -15,8 +14,6 @@
 		<el-scrollbar max-height="100vh" native>
 			<div class="page">
 				<MobileHeader></MobileHeader>
-
-				<AuthHeader></AuthHeader>
 
 				<h1 class="page-title">
 					{{ router.currentRoute.value.meta.title }}
