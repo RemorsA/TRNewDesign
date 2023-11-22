@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 
 import Home from '@/store/utils/Home'
+import News from '@/store/modules/News'
 
 const state = {
     settings: {
@@ -2313,7 +2314,8 @@ const actions = {
 
 export default createStore({
     modules: {
-        Home
+        Home,
+        News
     },
     actions,
     mutations: {},

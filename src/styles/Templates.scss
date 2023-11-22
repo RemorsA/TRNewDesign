@@ -20,6 +20,11 @@
         color: var(--el-color-primary);
     }
 
+    &.delete-text::after {
+        content: 'Удалить';
+        color: var(--el-color-danger);
+    }
+
     &:hover::after {
         opacity: 1;
     }

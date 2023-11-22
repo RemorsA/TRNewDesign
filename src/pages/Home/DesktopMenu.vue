@@ -26,7 +26,7 @@
         :default-openeds="['1', '2', '3']"
     >
         <el-menu-item
-            index="news"
+            index="newsIndexPage"
             title="Новости"
         >
             <el-image class="menu__item-logo-picture"
@@ -81,46 +81,12 @@
         <el-sub-menu index="1">
             <template #title>
                 <el-icon><Folder></Folder></el-icon>
-                <span>Запросы</span>
+                <span>Разделы</span>
             </template>
 
             <el-menu-item-group>
                 <el-menu-item
-                    v-for="(subItem, index) in links.request"
-                    :key="index"
-                    :index="subItem.path"
-                >
-                    {{ subItem.meta.title }}
-                </el-menu-item>
-            </el-menu-item-group>
-        </el-sub-menu>
-
-        <el-sub-menu index="2">
-            <template #title>
-                <el-icon><Setting></Setting></el-icon>
-                <span>Запчасти</span>
-            </template>
-
-            <el-menu-item-group>
-                <el-menu-item
-                    v-for="(subItem, index) in links.parts"
-                    :key="index"
-                    :index="subItem.path"
-                >
-                    {{ subItem.meta.title }}
-                </el-menu-item>
-            </el-menu-item-group>
-        </el-sub-menu>
-
-        <el-sub-menu index="3">
-            <template #title>
-                <el-icon><Collection></Collection></el-icon>
-                <span>Каталоги</span>
-            </template>
-
-            <el-menu-item-group>
-                <el-menu-item
-                    v-for="(subItem, index) in links.catalog"
+                    v-for="(subItem, index) in links.other"
                     :key="index"
                     :index="subItem.path"
                 >

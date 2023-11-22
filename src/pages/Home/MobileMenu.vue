@@ -22,7 +22,7 @@
 		"
     >
 		<template #header>
-			<a href="/TRNewDesign/news">
+			<a href="/TRNewDesign/news_page">
 				<el-image src="/TRNewDesign/logo-stroke.png"></el-image>
 			</a>
 		</template>
@@ -57,44 +57,21 @@
 				{{ record.meta.title }}
 			</a>
 
-            <el-divider content-position="left">Запросы</el-divider>
+			<el-divider>
+				<el-row align="middle" style="gap: 5px;">
+					<el-icon><Folder></Folder></el-icon>
+					Разделы
+				</el-row>
+			</el-divider>
 
 			<a class="drawer-content__link"
-				v-for="(record, index) in links.request"
+				v-for="(record, index) in links.other"
 				:key="index"
 				:href="'/TRNewDesign' + record.path"
 				v-show="record.meta.isShowMenu"
 				:style="{
 					color: record.path === router.currentRoute.value.path ? 'var(--el-color-primary)' : 'currentcolor'
 				}"
-			>
-				<el-icon v-show="record.meta.icon">
-					<component :is="record.meta.icon"></component>
-				</el-icon>
-
-				{{ record.meta.title }}
-			</a>
-
-			<el-divider content-position="left">Запчасти</el-divider>
-
-			<a class="drawer-content__link"
-				v-for="(record, index) in links.parts"
-				:key="index"
-				:href="'/TRNewDesign' + record.path"
-			>
-				<el-icon v-show="record.meta.icon">
-					<component :is="record.meta.icon"></component>
-				</el-icon>
-
-				{{ record.meta.title }}
-			</a>
-
-            <el-divider content-position="left">Каталоги</el-divider>
-
-            <a class="drawer-content__link"
-				v-for="(record, index) in links.catalog"
-				:key="index"
-				:href="'/TRNewDesign' + record.path"
 			>
 				<el-icon v-show="record.meta.icon">
 					<component :is="record.meta.icon"></component>
