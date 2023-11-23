@@ -50,7 +50,7 @@ const router = createRouter({
 							component: News
 						},
 						{
-							path: '/news_page/about/:id',
+							path: '/news_page/about/:id/:mode',
 							name: 'about',
 							component: About,
 							meta: {
