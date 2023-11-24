@@ -46,7 +46,7 @@
 
         <el-carousel class="carousel__pictures"
             arrow="never"
-            indicator-position="none"
+            trigger="click"
         >
             <el-carousel-item
                 v-for="(pic, index) in store.getters['News/filteredTopFeed'].top.images"
