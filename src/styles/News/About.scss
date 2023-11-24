@@ -26,11 +26,31 @@
     .content__right {
         flex: 1 1 calc(100% - 600px - 20px);
 
-        p {
-            margin-top: 10px;
+        .date__divider-inside-content {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            .date-icon {
+                display: inherit;
+                align-items: inherit;
+                gap: inherit;
+            }
         }
 
-        div {
+        .title-wrapper {
+            gap: 5px;
+            align-items: center;
+        }
+
+        .description-wrapper {
+            margin-top: 10px;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .body__content-wrapper {
             margin-top: 10px;
         }
     }
